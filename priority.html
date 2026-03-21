@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Priority — Case Study by Vinayak</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #fff; color: #111; font-size: 16px; line-height: 1.7; }
+    .container { max-width: 760px; margin: 0 auto; padding: 0 2rem; }
+    .nav { padding: 1.25rem 0; border-bottom: 1px solid #e5e5e5; position: sticky; top: 0; background: #fff; z-index: 100; }
+    .nav__inner { display: flex; align-items: center; justify-content: space-between; }
+    .nav__logo { font-weight: 700; font-size: 1rem; color: #111; text-decoration: none; }
+    .nav__back { font-size: 0.85rem; color: #4338CA; text-decoration: none; }
+    .nav__back:hover { text-decoration: underline; }
+    .cs-hero { padding: 5rem 0 3rem; border-bottom: 1px solid #e5e5e5; }
+    .cs-tag { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #4338CA; display: block; margin-bottom: 1rem; }
+    .cs-hero h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 0.75rem; }
+    .cs-hero .outcome { font-size: 1rem; color: #4338CA; font-weight: 500; margin-bottom: 0.75rem; }
+    .cs-hero p { font-size: 1.05rem; color: #555; max-width: 580px; }
+    .meta-grid { background: #f5f5f7; border-radius: 12px; padding: 1.75rem; margin: 2.5rem 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+    .meta-item h4 { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #888; margin-bottom: 0.35rem; }
+    .meta-item p { font-size: 0.9rem; color: #111; }
+    .meta-item a { font-size: 0.9rem; color: #4338CA; text-decoration: none; }
+    .meta-item a:hover { text-decoration: underline; }
+    .proto-cta { background: #4338CA; color: #fff; border-radius: 12px; padding: 1.75rem 2rem; margin-bottom: 3rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .proto-cta p { font-size: 0.95rem; font-weight: 500; }
+    .proto-cta a { background: #fff; color: #4338CA; padding: 0.6rem 1.25rem; border-radius: 6px; font-size: 0.88rem; font-weight: 600; text-decoration: none; white-space: nowrap; }
+    .proto-cta a:hover { background: #f0f0f0; }
+    .cs-section { padding: 3rem 0; border-bottom: 1px solid #e5e5e5; }
+    .cs-section:last-child { border-bottom: none; }
+    .slabel { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #4338CA; display: block; margin-bottom: 0.85rem; }
+    .cs-section h2 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 1rem; }
+    .cs-section h3 { font-size: 1rem; font-weight: 600; margin: 1.5rem 0 0.5rem; }
+    .cs-section p { color: #444; margin-bottom: 1rem; }
+    .cs-section ul { padding-left: 1.25rem; color: #444; margin-bottom: 1rem; }
+    .cs-section ul li { margin-bottom: 0.4rem; }
+    .insight { border-left: 3px solid #4338CA; padding: 1rem 1.5rem; background: #f5f5f7; border-radius: 0 8px 8px 0; margin: 1.5rem 0; }
+    .insight p { color: #111; font-weight: 500; margin: 0; }
+    .cs-img { width: 100%; border-radius: 12px; margin: 1.5rem 0; display: block; border: 1px solid #e5e5e5; }
+    .cs-img-caption { font-size: 0.8rem; color: #888; text-align: center; margin-top: -0.75rem; margin-bottom: 1.5rem; }
+    .step { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
+    .step-num { flex-shrink: 0; width: 28px; height: 28px; background: #4338CA; color: #fff; border-radius: 50%; font-size: 0.8rem; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+    .step-content h3 { margin-top: 0; font-size: 1rem; }
+    .step-content p { margin-bottom: 0; }
+    .feature-row { display: flex; gap: 1rem; margin: 1rem 0; flex-wrap: wrap; }
+    .feature-pill { background: #f5f5f7; border-radius: 8px; padding: 0.6rem 1rem; font-size: 0.88rem; font-weight: 500; color: #111; }
+    .learning-list { list-style: none; padding: 0; }
+    .learning-list li { padding: 0.75rem 1rem; border-left: 2px solid #e5e5e5; margin-bottom: 0.75rem; color: #444; font-size: 0.95rem; transition: border-color 0.2s; }
+    .learning-list li:hover { border-left-color: #4338CA; }
+    .cs-footer { padding: 3rem 0; text-align: center; }
+    .btn { display: inline-block; padding: 0.65rem 1.4rem; border: 1.5px solid #4338CA; color: #4338CA; background: #fff; border-radius: 6px; font-size: 0.9rem; font-weight: 500; text-decoration: none; transition: background 0.2s, color 0.2s; }
+    .btn:hover { background: #4338CA; color: #fff; }
+    @media (max-width: 640px) {
+      .meta-grid { grid-template-columns: 1fr 1fr; }
+      .proto-cta { flex-direction: column; }
+    }
+    @media (max-width: 400px) {
+      .meta-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav__inner container">
+      <a href="index.html" class="nav__logo">Vinayak</a>
+      <a href="index.html" class="nav__back">← Back to portfolio</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+
+      <!-- HERO -->
+      <div class="cs-hero">
+        <span class="cs-tag">Case Study · Mobile Task App</span>
+        <h1>Priority</h1>
+        <p class="outcome">Designed a mobile task app that solves visibility, not complexity, to help students stay on track.</p>
+        <p>A focused mobile task management concept where the most important task stays visible until it is completed, removing dependency on memory and repeated reminders.</p>
+      </div>
+
+      <!-- META -->
+      <div class="meta-grid">
+        <div class="meta-item"><h4>Role</h4><p>Product Designer</p></div>
+        <div class="meta-item"><h4>Tools</h4><p>Figma</p></div>
+        <div class="meta-item"><h4>Type</h4><p>Concept Project</p></div>
+        <div class="meta-item"><h4>Prototype</h4><a href="https://www.figma.com/make/GolIyXf9lhAb2E56jNJN0W/Priority-Productivity-Mobile-app?fullscreen=1" target="_blank" rel="noopener noreferrer">View in Figma →</a></div>
+      </div>
+
+      <!-- PROTO CTA -->
+      <div class="proto-cta">
+        <p>Explore the full interactive prototype</p>
+        <a href="https://www.figma.com/make/GolIyXf9lhAb2E56jNJN0W/Priority-Productivity-Mobile-app?fullscreen=1" target="_blank" rel="noopener noreferrer">View Prototype →</a>
+      </div>
+
+      <!-- PROBLEM -->
+      <div class="cs-section">
+        <span class="slabel">The Problem</span>
+        <h2>Tasks don't get forgotten. They become invisible.</h2>
+        <p>While managing my own assignments, I noticed something unexpected. I wasn't forgetting tasks because I didn't care about them. I was forgetting them because they weren't visible at the right time.</p>
+        <p>Most task management apps depend on users to actively open the app and check their tasks. This creates a dependency on memory. If the user doesn't remember to check, even important tasks stay hidden.</p>
+        <p>After speaking with students, the same pattern appeared. Most used Notion, Google Tasks, Calendar, or sticky notes — and still faced the same problems:</p>
+        <ul>
+          <li>Forgetting deadlines</li>
+          <li>Tasks getting buried among other items</li>
+          <li>No clear visibility of the most important task</li>
+          <li>Lack of clarity on progress</li>
+        </ul>
+        <p>Interestingly, some students preferred sticky notes over digital tools because sticky notes stayed physically visible and were harder to ignore.</p>
+        <div class="insight">
+          <p>The problem was not task creation. The problem was task visibility.</p>
+        </div>
+      </div>
+
+      <!-- INSIGHT -->
+      <div class="cs-section">
+        <span class="slabel">Key Insight</span>
+        <h2>Forgetting tasks is a visibility problem, not a motivation problem.</h2>
+        <p>Most digital task tools rely on reminders and notifications. But reminders are temporary — they appear briefly and disappear. Over time, users start ignoring them or dismiss them without action.</p>
+        <p>Physical reminders like sticky notes work because they remain visible in the user's environment. They don't depend on memory or active effort to check.</p>
+        <div class="insight">
+          <p>The goal is not better reminders. It is persistent visibility.</p>
+        </div>
+        <p>This insight became the foundation for the entire solution.</p>
+      </div>
+
+      <!-- SOLUTION -->
+      <div class="cs-section">
+        <span class="slabel">Solution</span>
+        <h2>One priority task. Always visible.</h2>
+        <p>Instead of managing multiple tasks equally, the system highlights one priority task at a time. Rather than presenting long task lists, the experience brings the most important task to the forefront and maintains passive visibility through home screen widgets.</p>
+        <div class="feature-row">
+          <span class="feature-pill">Single priority task focus</span>
+          <span class="feature-pill">Lock screen widget visibility</span>
+          <span class="feature-pill">Progress streak tracking</span>
+        </div>
+        <p style="margin-top:1rem;">This approach removes dependency on memory and repeated reminders. The system keeps the task visible in the user's daily environment, making action more likely. The goal was a calm, focused experience that helps users complete what truly matters.</p>
+      </div>
+
+      <!-- DESIGN PROCESS -->
+      <div class="cs-section">
+        <span class="slabel">Design Process</span>
+        <h2>How I built it</h2>
+
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h3>Defining the Core Flow</h3>
+            <p>Mapped the core user journey across three key moments: adding a task, staying aware of the task, and completing the task. This ensured visibility and clarity throughout, not just on the dashboard.</p>
+          </div>
+        </div>
+
+        <img src="Priority_User_Flow.png" alt="Priority user flow diagram" class="cs-img" />
+        <p class="cs-img-caption">Core visibility flow — illustrating the behavioral loop from task awareness to completion</p>
+
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h3>Low-Fidelity Wireframes</h3>
+            <p>Created wireframes to prioritize the most important task, reduce visual clutter, and create a calm focused layout. This allowed quick structural validation before visual design.</p>
+          </div>
+        </div>
+
+        <img src="Priority_Low-Fedility_Wireframe.png" alt="Priority low fidelity wireframes" class="cs-img" />
+        <p class="cs-img-caption">Early wireframes exploring layout, hierarchy, and priority visibility before visual styling</p>
+
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h3>Design System</h3>
+            <p>Defined a simple design system including colors, typography, and spacing. The goal was a visual language that supports clarity rather than distraction. 90% neutral, 10% accent — so the blue only draws attention when it matters.</p>
+          </div>
+        </div>
+
+        <img src="Priority_Design_System.png" alt="Priority design system" class="cs-img" />
+        <p class="cs-img-caption">High Fidelity design system — color styles, typography, and spacing tokens</p>
+
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h3>High-Fidelity Design</h3>
+            <p>Translated wireframes into final screens focused on strong visual hierarchy, clear priority indication, minimal interface, and consistent interaction patterns across dashboard, task creation, widget, and completion states.</p>
+          </div>
+        </div>
+
+        <img src="Priority_High_Fedility_Design.png" alt="Priority high fidelity screens" class="cs-img" />
+        <p class="cs-img-caption">Final high-fidelity screens — dashboard, task creation, home screen widget, and onboarding</p>
+      </div>
+
+      <!-- VALIDATION -->
+      <div class="cs-section">
+        <span class="slabel">Validation</span>
+        <h2>What students said</h2>
+        <p>After designing the prototype, I shared it with a few students and asked them to explore the flow.</p>
+        <ul>
+          <li>Most participants immediately understood the idea of focusing on one priority task instead of managing long lists</li>
+          <li>Constant visibility through widgets was seen as genuinely useful for reducing forgetting</li>
+          <li>One piece of feedback highlighted that users may occasionally feel overwhelmed by a single task — suggesting the need for a snooze or postpone option</li>
+        </ul>
+        <div class="insight">
+          <p>The core idea resonated. The next iteration would add flexibility without losing focus.</p>
+        </div>
+      </div>
+
+      <!-- OUTCOME -->
+      <div class="cs-section">
+        <span class="slabel">Outcome</span>
+        <h2>What I delivered</h2>
+        <ul>
+          <li>A complete mobile task app concept solving visibility rather than adding complexity</li>
+          <li>User flow mapping the full behavioral loop from awareness to completion</li>
+          <li>Low and high fidelity designs across dashboard, widget, task creation, and onboarding</li>
+          <li>A defined design system with color tokens, typography, and spacing</li>
+          <li>A clickable Figma prototype simulating the core product experience</li>
+        </ul>
+      </div>
+
+      <!-- LEARNINGS -->
+      <div class="cs-section">
+        <span class="slabel">Learnings</span>
+        <h2>What I learned</h2>
+        <ul class="learning-list">
+          <li>Identifying the root cause before designing solutions leads to better outcomes</li>
+          <li>Small shifts in visibility can significantly impact user behavior</li>
+          <li>Using hierarchy to guide attention is more powerful than adding more features</li>
+          <li>Designing systems that support behavior, not just actions, creates lasting value</li>
+          <li>A simple design system enforces consistency and builds trust in the product</li>
+        </ul>
+      </div>
+
+    </div>
+  </main>
+
+  <div class="cs-footer container">
+    <a href="index.html" class="btn">← Back to portfolio</a>
+  </div>
+
+</body>
+</html>
