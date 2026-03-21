@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clarity — Case Study by Vinayak</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #fff; color: #111; font-size: 16px; line-height: 1.7; }
+    .container { max-width: 760px; margin: 0 auto; padding: 0 2rem; }
+
+    /* NAV */
+    .nav { padding: 1.25rem 0; border-bottom: 1px solid #e5e5e5; position: sticky; top: 0; background: #fff; z-index: 100; }
+    .nav__inner { display: flex; align-items: center; justify-content: space-between; }
+    .nav__logo { font-weight: 700; font-size: 1rem; color: #111; text-decoration: none; }
+    .nav__back { font-size: 0.85rem; color: #4338CA; text-decoration: none; }
+    .nav__back:hover { text-decoration: underline; }
+
+    /* HERO */
+    .cs-hero { padding: 5rem 0 3rem; border-bottom: 1px solid #e5e5e5; }
+    .cs-tag { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #4338CA; display: block; margin-bottom: 1rem; }
+    .cs-hero h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 0.75rem; }
+    .cs-hero .outcome { font-size: 1rem; color: #4338CA; font-weight: 500; margin-bottom: 0.75rem; }
+    .cs-hero p { font-size: 1.05rem; color: #555; max-width: 580px; }
+
+    /* META */
+    .meta-grid { background: #f5f5f7; border-radius: 12px; padding: 1.75rem; margin: 2.5rem 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+    .meta-item h4 { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #888; margin-bottom: 0.35rem; }
+    .meta-item p { font-size: 0.9rem; color: #111; }
+    .meta-item a { font-size: 0.9rem; color: #4338CA; text-decoration: none; }
+    .meta-item a:hover { text-decoration: underline; }
+
+    /* PROTO CTA */
+    .proto-cta { background: #4338CA; color: #fff; border-radius: 12px; padding: 1.75rem 2rem; margin-bottom: 3rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .proto-cta p { font-size: 0.95rem; font-weight: 500; }
+    .proto-cta a { background: #fff; color: #4338CA; padding: 0.6rem 1.25rem; border-radius: 6px; font-size: 0.88rem; font-weight: 600; text-decoration: none; white-space: nowrap; }
+    .proto-cta a:hover { background: #f0f0f0; }
+
+    /* SECTIONS */
+    .cs-section { padding: 3rem 0; border-bottom: 1px solid #e5e5e5; }
+    .cs-section:last-child { border-bottom: none; }
+    .slabel { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #4338CA; display: block; margin-bottom: 0.85rem; }
+    .cs-section h2 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 1rem; }
+    .cs-section h3 { font-size: 1rem; font-weight: 600; margin: 1.5rem 0 0.5rem; }
+    .cs-section p { color: #444; margin-bottom: 1rem; }
+    .cs-section ul { padding-left: 1.25rem; color: #444; margin-bottom: 1rem; }
+    .cs-section ul li { margin-bottom: 0.4rem; }
+
+    /* INSIGHT */
+    .insight { border-left: 3px solid #4338CA; padding: 1rem 1.5rem; background: #f5f5f7; border-radius: 0 8px 8px 0; margin: 1.5rem 0; }
+    .insight p { color: #111; font-weight: 500; margin: 0; }
+
+    /* IMAGES */
+    .cs-img { width: 100%; border-radius: 12px; margin: 1.5rem 0; display: block; border: 1px solid #e5e5e5; }
+    .cs-img-caption { font-size: 0.8rem; color: #888; text-align: center; margin-top: -0.75rem; margin-bottom: 1.5rem; }
+    .cs-img-full { width: 100%; border-radius: 12px; margin: 1.5rem 0; display: block; }
+
+    /* FEATURE GRID */
+    .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem; }
+    .feature-card { border: 1px solid #e5e5e5; border-radius: 10px; overflow: hidden; }
+    .feature-card img { width: 100%; display: block; }
+    .feature-card-text { padding: 1rem; }
+    .feature-card-text h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.3rem; }
+    .feature-card-text p { font-size: 0.85rem; color: #555; margin: 0; }
+
+    /* STEPS */
+    .step { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
+    .step-num { flex-shrink: 0; width: 28px; height: 28px; background: #4338CA; color: #fff; border-radius: 50%; font-size: 0.8rem; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+    .step-content h3 { margin-top: 0; font-size: 1rem; }
+    .step-content p { margin-bottom: 0; }
+
+    /* LEARNINGS */
+    .learning-list { list-style: none; padding: 0; }
+    .learning-list li { padding: 0.75rem 1rem; border-left: 2px solid #e5e5e5; margin-bottom: 0.75rem; color: #444; font-size: 0.95rem; transition: border-color 0.2s; }
+    .learning-list li:hover { border-left-color: #4338CA; }
+
+    /* FOOTER */
+    .cs-footer { padding: 3rem 0; text-align: center; }
+    .btn { display: inline-block; padding: 0.65rem 1.4rem; border: 1.5px solid #4338CA; color: #4338CA; background: #fff; border-radius: 6px; font-size: 0.9rem; font-weight: 500; text-decoration: none; transition: background 0.2s, color 0.2s; }
+    .btn:hover { background: #4338CA; color: #fff; }
+
+    @media (max-width: 640px) {
+      .meta-grid { grid-template-columns: 1fr 1fr; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .proto-cta { flex-direction: column; }
+    }
+    @media (max-width: 400px) {
+      .meta-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav__inner container">
+      <a href="index.html" class="nav__logo">Vinayak</a>
+      <a href="index.html" class="nav__back">← Back to portfolio</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+
+      <!-- HERO -->
+      <div class="cs-hero">
+        <span class="cs-tag">Case Study · Student Productivity</span>
+        <h1>Clarity</h1>
+        <p class="outcome">Designed a 5-screen SaaS dashboard that reduces academic fragmentation for students.</p>
+        <p>A web-based academic productivity platform that centralizes assignments, attendance, and progress tracking into a single structured system.</p>
+      </div>
+
+      <!-- META -->
+      <div class="meta-grid">
+        <div class="meta-item"><h4>Role</h4><p>Product Designer</p></div>
+        <div class="meta-item"><h4>Tools</h4><p>Figma</p></div>
+        <div class="meta-item"><h4>Type</h4><p>Concept Project</p></div>
+        <div class="meta-item"><h4>Prototype</h4><a href="https://www.figma.com/make/3bfcDJip2qTjDtlXyZksyv/Clarity---Academic-Productivity-SaaS-for-Students?fullscreen=1" target="_blank" rel="noopener noreferrer">View in Figma →</a></div>
+      </div>
+
+      <!-- PROTO CTA -->
+      <div class="proto-cta">
+        <p>Explore the full interactive prototype</p>
+        <a href="https://www.figma.com/make/3bfcDJip2qTjDtlXyZksyv/Clarity---Academic-Productivity-SaaS-for-Students?fullscreen=1" target="_blank" rel="noopener noreferrer">View Prototype →</a>
+      </div>
+
+      <!-- PROBLEM -->
+      <div class="cs-section">
+        <span class="slabel">The Problem</span>
+        <h2>Academic information is scattered everywhere</h2>
+        <p>Students don't struggle because they are careless. Assignments come through LMS portals. Deadlines are mentioned in class. Reminders come through WhatsApp groups. Attendance is tracked separately. Progress is rarely visualized.</p>
+        <p>This fragmentation creates missed deadlines, lack of prioritization, mental overload, and no clear sense of progress. Tools like Notion and Google Calendar help partially but require constant manual setup and switching between apps.</p>
+        <div class="insight">
+          <p>The real problem is not productivity. It is visibility and structured clarity.</p>
+        </div>
+      </div>
+
+      <!-- RESEARCH -->
+      <div class="cs-section">
+        <span class="slabel">Research</span>
+        <h2>What students actually said</h2>
+        <p>Before jumping into design, I spoke with several students to understand how they currently track assignments, deadlines, and academic progress.</p>
+        <ul>
+          <li>Most use a mix of Google Calendar, task managers, Notion, or WhatsApp self-notes</li>
+          <li>There is no single source of truth</li>
+          <li>Students miss deadlines not because they ignore them, but because information loses visibility over time</li>
+          <li>Progress is rarely visualized clearly</li>
+          <li>Attendance tracking is completely separate from assignment tracking</li>
+        </ul>
+        <div class="insight">
+          <p>Students don't need more tools. They need better visibility, prioritization, and a centralized overview.</p>
+        </div>
+      </div>
+
+      <!-- DESIGN PROCESS -->
+      <div class="cs-section">
+        <span class="slabel">Design Process</span>
+        <h2>How I built it</h2>
+
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h3>Problem Definition</h3>
+            <p>Defined the core problem: fragmented academic information and lack of clear visibility for students.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h3>User Flow Mapping</h3>
+            <p>Outlined the main flows — viewing assignments, creating a new assignment, tracking progress, and monitoring attendance. This ensured a connected system rather than isolated screens.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h3>Low-Fidelity Wireframes</h3>
+            <p>Created wireframes to explore layout, hierarchy, and information structure before focusing on visual design. The goal was clarity and usability first.</p>
+          </div>
+        </div>
+
+        <img src="Low-Fedility_Wireframe.png" alt="Low fidelity wireframes for Clarity" class="cs-img" />
+        <p class="cs-img-caption">Phase 01 — Low-fidelity wireframes exploring structure across 5 screens</p>
+
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h3>High-Fidelity Design</h3>
+            <p>Translated wireframes into a clean interface with clear visual hierarchy, consistent spacing, meaningful color usage, and simple navigation.</p>
+          </div>
+        </div>
+
+        <img src="High-Fedility_Wireframe.png" alt="High fidelity wireframes for Clarity" class="cs-img" />
+        <p class="cs-img-caption">Phase 02 — High-fidelity design across 8 screens with full design system</p>
+
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <h3>Prototyping</h3>
+            <p>Connected the main screens into a clickable prototype to simulate the product flow and test key interactions. <a href="https://www.figma.com/make/3bfcDJip2qTjDtlXyZksyv/Clarity---Academic-Productivity-SaaS-for-Students?fullscreen=1" target="_blank" rel="noopener noreferrer" style="color:#4338CA;">Explore it here →</a></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- KEY FEATURES -->
+      <div class="cs-section">
+        <span class="slabel">Key Features</span>
+        <h2>The final product</h2>
+        <p>Five key sections designed to reduce mental friction and improve visibility rather than add new features.</p>
+
+        <h3>Dashboard</h3>
+        <p>A centralized overview showing upcoming assignments, overall completion progress, and current academic status at a glance.</p>
+        <img src="Clarity_Dashboard.png" alt="Clarity Dashboard" class="cs-img" />
+
+        <h3>Assignment Management</h3>
+        <p>A dedicated space to create, manage, and track assignments across different subjects — with deadlines, statuses, and filtering in one place.</p>
+        <img src="Clarity_Assignment_Management.png" alt="Clarity Assignment Management" class="cs-img" />
+
+        <h3>Progress Tracking</h3>
+        <p>A visual progress section showing completion status and learning streaks. Helps students stay motivated and understand how consistently they are progressing.</p>
+        <img src="Clarity_Progress_Tracking.png" alt="Clarity Progress Tracking" class="cs-img" />
+
+        <h3>Attendance Monitoring</h3>
+        <p>A calendar-based attendance tracker that helps students monitor their presence across subjects and identify gaps early.</p>
+        <img src="Clarity_Attendance_Monitoring.png" alt="Clarity Attendance Monitoring" class="cs-img" />
+
+        <h3>Settings and Personalization</h3>
+        <p>A simple settings section where users can customize preferences and manage their academic tracking setup.</p>
+        <img src="Clarity_Settings___Personalization.png" alt="Clarity Settings" class="cs-img" />
+      </div>
+
+      <!-- OUTCOME -->
+      <div class="cs-section">
+        <span class="slabel">Outcome</span>
+        <h2>What I delivered</h2>
+        <ul>
+          <li>A complete end-to-end academic productivity SaaS concept</li>
+          <li>Clear user flows from assignment tracking to progress monitoring</li>
+          <li>A structured design system ensuring consistent UI components</li>
+          <li>A clickable prototype simulating the core product experience</li>
+        </ul>
+        <p>After sharing the concept with students, the centralized dashboard was seen as useful because it reduces the need to switch between LMS portals, messaging groups, and personal notes.</p>
+      </div>
+
+      <!-- LEARNINGS -->
+      <div class="cs-section">
+        <span class="slabel">Learnings</span>
+        <h2>What I learned</h2>
+        <ul class="learning-list">
+          <li>Visibility reduces stress more effectively than reminders alone</li>
+          <li>A strong information hierarchy solves more problems than complex UI</li>
+          <li>Designing systems is very different from designing individual screens</li>
+          <li>Consistency across pages builds trust in a product</li>
+          <li>Problem-first thinking leads to better design decisions than jumping into visuals</li>
+        </ul>
+      </div>
+
+    </div>
+  </main>
+
+  <div class="cs-footer container">
+    <a href="index.html" class="btn">← Back to portfolio</a>
+  </div>
+
+</body>
+</html>
