@@ -107,7 +107,7 @@ img {
    =========================== */
 .hero {
   padding-top: 7rem;
-  padding-bottom: 7rem;
+  padding-bottom: 4rem;
 }
 
 .hero__headline {
@@ -162,7 +162,7 @@ img {
    Case Studies
    =========================== */
 .work {
-  padding-top: 5rem;
+  padding-top: 3rem;
   padding-bottom: 5rem;
   border-top: 1px solid #ebebeb;
 }
@@ -233,6 +233,10 @@ img {
   border-radius: 12px;
   border: 1px solid #e4e4e7;
   overflow: hidden;
+}
+
+.case-study--reverse .case-study__image {
+  order: -1;
 }
 
 .case-study__image img {
