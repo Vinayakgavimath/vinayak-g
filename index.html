@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vinayak — UX Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="nav">
+    <div class="nav__inner container">
+      <a href="#" class="nav__logo">Vinayak</a>
+      <button class="nav__burger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav__links" id="nav-links">
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero container">
+      <h1 class="hero__headline">Hi, I'm Vinayak.</h1>
+      <p class="hero__sub">UX Designer focused on SaaS products. Based in Bangalore.</p>
+    </section>
+
+    <!-- CASE STUDIES -->
+    <section class="work container" id="work">
+      <h2 class="section-label">Case Studies</h2>
+
+      <article class="case-study">
+        <div class="case-study__info">
+          <span class="case-study__tag">Student Productivity</span>
+          <h3 class="case-study__title">Clarity</h3>
+          <p class="case-study__desc">A dashboard that helps students plan, track, and reflect on their academic work.</p>
+          <a href="#" class="btn">View case study</a>
+        </div>
+        <div class="case-study__image" aria-label="Clarity mockup placeholder"></div>
+      </article>
+
+      <article class="case-study">
+        <div class="case-study__info">
+          <span class="case-study__tag">Mobile Task App</span>
+          <h3 class="case-study__title">Priority</h3>
+          <p class="case-study__desc">A focused mobile app that surfaces what matters most and quietly hides everything else.</p>
+          <a href="#" class="btn">View case study</a>
+        </div>
+        <div class="case-study__image" aria-label="Priority mockup placeholder"></div>
+      </article>
+
+      <article class="case-study">
+        <div class="case-study__info">
+          <span class="case-study__tag">Uptime Monitoring</span>
+          <h3 class="case-study__title">Pulsetic</h3>
+          <p class="case-study__desc">A redesign of Pulsetic's monitoring interface to reduce alert fatigue and improve clarity.</p>
+          <a href="#" class="btn">View case study</a>
+        </div>
+        <div class="case-study__image" aria-label="Pulsetic mockup placeholder"></div>
+      </article>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about container" id="about">
+      <h2 class="section-label">About</h2>
+      <div class="about__grid">
+        <div class="about__text">
+          <p>I'm a UX designer specialising in SaaS products. I care about reducing friction, making complex systems feel simple, and building interfaces that respect the user's time and attention.</p>
+          <p>With a background spanning research, interaction design, and prototyping, I work closely with product and engineering teams to ship experiences that actually hold up in the real world.</p>
+          <p>When I'm not designing, you'll find me reading about behavioural economics, running, or exploring Bangalore's café scene.</p>
+        </div>
+        <div class="about__image" aria-label="Photo placeholder"></div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact container" id="contact">
+      <h2 class="contact__heading">Let's work together.</h2>
+      <p class="contact__sub">Reach out — I'm always open to new projects and conversations.</p>
+      <div class="contact__links">
+        <a href="mailto:vinayak@example.com" class="contact__link">vinayak@example.com</a>
+        <a href="https://linkedin.com/in/vinayak" target="_blank" rel="noopener noreferrer" class="contact__link">LinkedIn</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer container">
+    <p>© 2024 Vinayak. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
