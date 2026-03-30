@@ -59,9 +59,10 @@ img {
 }
 
 .nav__logo {
-  font-size: 1.1rem;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.15rem;
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
   color: #111;
 }
 
@@ -125,8 +126,9 @@ img {
   font-size: clamp(2.75rem, 5vw, 4rem);
   font-weight: 700;
   letter-spacing: -0.03em;
-  line-height: 1.15;
+  line-height: 1.1;
   color: #111;
+  margin-bottom: 1.75rem;
 }
 
 .hero__headline em {
@@ -211,11 +213,11 @@ img {
    Section label
    =========================== */
 .section-label {
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #4338CA;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #111;
   margin-bottom: 3.5rem;
 }
 
@@ -223,8 +225,8 @@ img {
    Case Studies
    =========================== */
 .work {
-  padding-top: 3rem;
-  padding-bottom: 5rem;
+  padding-top: 5rem;
+  padding-bottom: 6rem;
   border-top: 1px solid #ebebeb;
 }
 
@@ -255,18 +257,21 @@ img {
 }
 
 .case-study__title {
-  font-size: 2rem;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
   font-weight: 700;
   letter-spacing: -0.025em;
   color: #111;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
+  line-height: 1.15;
 }
 
 .case-study__desc {
   font-size: 1rem;
   color: #555;
-  margin-bottom: 1.75rem;
-  max-width: 400px;
+  line-height: 1.75;
+  margin-bottom: 2rem;
+  max-width: 420px;
 }
 
 /* "View case study" button */
@@ -289,9 +294,9 @@ img {
 /* Row layout for case studies */
 .case-study-row {
   display: flex;
-  gap: 4rem;
+  gap: 5rem;
   align-items: center;
-  margin-bottom: 6rem;
+  margin-bottom: 7rem;
 }
 
 .case-study-row.reverse {
@@ -333,8 +338,8 @@ img {
    How I Think
    =========================== */
 .how-i-think {
-  padding-top: 4rem;
-  padding-bottom: 4rem;
+  padding-top: 6rem;
+  padding-bottom: 6rem;
   border-top: 1px solid #ebebeb;
 }
 
@@ -366,19 +371,19 @@ img {
    About
    =========================== */
 .about {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+  padding-top: 6rem;
+  padding-bottom: 6rem;
   border-top: 1px solid #ebebeb;
 }
 
 .about__text {
-  max-width: 600px;
+  max-width: 640px;
 }
 
 .about__text p {
-  font-size: 1rem;
+  font-size: 1.05rem;
   color: #444;
-  line-height: 1.75;
+  line-height: 1.8;
   margin-bottom: 1.75rem;
 }
 
@@ -406,27 +411,30 @@ img {
    Contact
    =========================== */
 .contact {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+  padding-top: 7rem;
+  padding-bottom: 7rem;
   border-top: 1px solid #ebebeb;
   text-align: center;
 }
 
 .contact__heading {
-  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2.25rem, 4.5vw, 3.5rem);
   font-weight: 700;
-  letter-spacing: -0.025em;
-  margin-bottom: 0.75rem;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: 1.25rem;
 }
 
 .contact__sub {
-  font-size: 1rem;
+  font-size: 1.05rem;
   color: #555;
+  line-height: 1.75;
   margin-bottom: 0.75rem;
 }
 
 .contact__links {
-  margin-top: 1.5rem;
+  margin-top: 2rem;
   display: flex;
   justify-content: center;
   gap: 2.5rem;
@@ -521,8 +529,8 @@ img {
   .case-study-row,
   .case-study-row.reverse {
     flex-direction: column;
-    gap: 1.75rem;
-    margin-bottom: 3rem;
+    gap: 2rem;
+    margin-bottom: 4rem;
   }
 
   .case-study-image {
@@ -540,12 +548,28 @@ img {
     order: -1;
   }
 
+  /* How I Think */
+  .how-i-think {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
   /* About */
+  .about {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
   .about__text {
     max-width: 100%;
   }
 
   /* Contact */
+  .contact {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
   .contact__links {
     flex-direction: column;
     align-items: center;
@@ -564,6 +588,6 @@ img {
   }
 
   .case-study__title {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
   }
 }
