@@ -44,7 +44,7 @@
     .cs-section { padding: 3rem 0; border-bottom: 1px solid #e5e5e5; }
     .cs-section:last-child { border-bottom: none; }
     .slabel { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #4338CA; display: block; margin-bottom: 0.85rem; }
-    .cs-section h2 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 1rem; }
+    .cs-section h2 { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 1.1rem; }
     .cs-section h3 { font-size: 1rem; font-weight: 600; margin: 1.5rem 0 0.5rem; }
     .cs-section p { color: #444; margin-bottom: 1rem; }
     .cs-section ul { padding-left: 1.25rem; color: #444; margin-bottom: 1rem; }
@@ -73,10 +73,43 @@
     .step-content h3 { margin-top: 0; font-size: 1rem; }
     .step-content p { margin-bottom: 0; }
 
+    /* HERO HOOK */
+    .cs-hook { font-style: italic; color: #4338CA; font-size: 1.05rem; font-weight: 500; border-left: 3px solid #4338CA; padding-left: 1rem; margin: 1.25rem 0 0; line-height: 1.6; }
+
+    /* KEY INSIGHT HIGHLIGHT */
+    .cs-section--highlight { background: #f0edff; border-radius: 12px; padding: 2rem; margin: 0 -2rem; border-bottom: none; }
+    .cs-section--highlight .slabel { color: #4338CA; }
+    .cs-section--highlight .insight { background: #fff; border-left-color: #4338CA; }
+
+    /* BEFORE VS AFTER */
+    .bva-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem; }
+    .bva-col { border-radius: 10px; padding: 1.25rem 1.5rem; }
+    .bva-before { background: #fef2f2; border: 1px solid #fecaca; }
+    .bva-after { background: #f0fdf4; border: 1px solid #bbf7d0; }
+    .bva-head { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.85rem; }
+    .bva-before .bva-head { color: #dc2626; }
+    .bva-after .bva-head { color: #16a34a; }
+    .bva-col ul { padding-left: 1.1rem; color: #444; margin: 0; }
+    .bva-col ul li { margin-bottom: 0.5rem; font-size: 0.9rem; line-height: 1.5; }
+
+    /* SCREEN EXPLANATION LABELS */
+    .cs-section p.screen-what, .cs-section p.screen-how { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.3rem; }
+    .cs-section p.screen-what { color: #888; }
+    .cs-section p.screen-how { color: #4338CA; margin-top: 0.75rem; }
+
     /* LEARNINGS */
     .learning-list { list-style: none; padding: 0; }
     .learning-list li { padding: 0.75rem 1rem; border-left: 2px solid #e5e5e5; margin-bottom: 0.75rem; color: #444; font-size: 0.95rem; transition: border-color 0.2s; }
     .learning-list li:hover { border-left-color: #4338CA; }
+
+    /* QUICK OVERVIEW */
+    .qo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 2rem 0 0; }
+    .qo-item { border: 1px solid #e5e5e5; border-radius: 10px; padding: 1.25rem 1.25rem 1.1rem; }
+    .qo-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #4338CA; margin-bottom: 0.45rem; }
+    .qo-text { font-size: 0.88rem; color: #444; margin: 0; line-height: 1.6; }
+
+    /* HERO IMAGE */
+    .cs-hero-img { width: 100%; border-radius: 14px; margin: 2rem 0 0; display: block; border: 1px solid #e5e5e5; box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
 
     /* FOOTER */
     .cs-footer { padding: 3rem 0; text-align: center; }
@@ -87,6 +120,9 @@
       .meta-grid { grid-template-columns: 1fr 1fr; }
       .feature-grid { grid-template-columns: 1fr; }
       .proto-cta { flex-direction: column; }
+      .bva-grid { grid-template-columns: 1fr; }
+      .qo-grid { grid-template-columns: 1fr; }
+      .cs-section--highlight { margin: 0 -1rem; padding: 2rem 1rem; }
     }
     @media (max-width: 400px) {
       .meta-grid { grid-template-columns: 1fr; }
@@ -110,19 +146,37 @@
         <span class="cs-tag">Case Study · Student Productivity</span>
         <h1>Clarity</h1>
         <p class="outcome">Designed a 5-screen SaaS dashboard that reduces academic fragmentation for students.</p>
+        <p class="cs-hook">"Students don't struggle because they lack tools — they struggle because their tasks are scattered across too many places."</p>
         <p>A web-based academic productivity platform that centralizes assignments, attendance, and progress tracking into a single structured system.</p>
+        <img src="Clarity Dashboard.png" alt="Clarity — Academic Productivity Dashboard" class="cs-hero-img" />
       </div>
 
       <!-- META -->
       <div class="meta-grid">
-        <div class="meta-item"><h4>Role</h4><p>Product Designer</p></div>
+        <div class="meta-item"><h4>Role</h4><p>UX Designer</p></div>
         <div class="meta-item"><h4>Tools</h4><p>Figma</p></div>
         <div class="meta-item"><h4>Type</h4><p>Concept Project</p></div>
         <div class="meta-item"><h4>Prototype</h4><a href="https://www.figma.com/make/3bfcDJip2qTjDtlXyZksyv/Clarity---Academic-Productivity-SaaS-for-Students?fullscreen=1" target="_blank" rel="noopener noreferrer">View in Figma →</a></div>
       </div>
 
+      <!-- QUICK OVERVIEW -->
+      <div class="qo-grid">
+        <div class="qo-item">
+          <div class="qo-label">Problem</div>
+          <p class="qo-text">Students juggle assignments across WhatsApp, Google Docs, and portals — with no central view, missed deadlines, and constant mental overload.</p>
+        </div>
+        <div class="qo-item">
+          <div class="qo-label">Solution</div>
+          <p class="qo-text">A unified dashboard that centralizes tasks, attendance, and progress — eliminating the need to switch between tools.</p>
+        </div>
+        <div class="qo-item">
+          <div class="qo-label">Outcome</div>
+          <p class="qo-text">Reduced cognitive load, improved deadline visibility, and a single source of truth for every academic responsibility.</p>
+        </div>
+      </div>
+
       <!-- PROTO CTA -->
-      <div class="proto-cta">
+      <div class="proto-cta" style="margin-top:2rem;">
         <p>Explore the full interactive prototype</p>
         <a href="https://www.figma.com/make/3bfcDJip2qTjDtlXyZksyv/Clarity---Academic-Productivity-SaaS-for-Students?fullscreen=1" target="_blank" rel="noopener noreferrer">View Prototype →</a>
       </div>
@@ -130,29 +184,120 @@
       <!-- PROBLEM -->
       <div class="cs-section">
         <span class="slabel">The Problem</span>
-        <h2>Academic information is scattered everywhere</h2>
-        <p>Students don't struggle because they are careless. Assignments come through LMS portals. Deadlines are mentioned in class. Reminders come through WhatsApp groups. Attendance is tracked separately. Progress is rarely visualized.</p>
-        <p>This fragmentation creates missed deadlines, lack of prioritization, mental overload, and no clear sense of progress. Tools like Notion and Google Calendar help partially but require constant manual setup and switching between apps.</p>
+        <h2>Students are drowning in tools — and still falling behind</h2>
         <div class="insight">
-          <p>The real problem is not productivity. It is visibility and structured clarity.</p>
+          <p>Students struggle to manage academic work across multiple tools, leading to confusion, missed deadlines, and lack of clarity.</p>
+        </div>
+        <p>Talk to any college student and you'll hear a familiar story. Assignments are shared in WhatsApp groups. Lecture notes live in Google Docs. Personal to-do lists are scribbled in notebooks. Deadlines get announced verbally in class and then promptly forgotten. Attendance is logged somewhere in the university portal — a place most students visit only when it's too late.</p>
+        <p>The result isn't laziness. It's a system that was never designed to work together. Students spend more energy tracking where their information is than actually acting on it. The stress isn't about having too much work — it's about never knowing exactly what the work is, where it stands, or what comes next.</p>
+        <div class="insight">
+          <p>The real problem is not productivity. It is visibility — and the mental cost of living without it.</p>
         </div>
       </div>
 
-      <!-- RESEARCH -->
+      <!-- WHY THIS MATTERS -->
       <div class="cs-section">
-        <span class="slabel">Research</span>
-        <h2>What students actually said</h2>
-        <p>Before jumping into design, I spoke with several students to understand how they currently track assignments, deadlines, and academic progress.</p>
+        <span class="slabel">Why This Matters</span>
+        <h2>The real cost of fragmentation</h2>
+        <p>When academic information is scattered, it doesn't just cause inconvenience — it has measurable consequences on students' performance and well-being:</p>
         <ul>
-          <li>Most use a mix of Google Calendar, task managers, Notion, or WhatsApp self-notes</li>
-          <li>There is no single source of truth</li>
-          <li>Students miss deadlines not because they ignore them, but because information loses visibility over time</li>
-          <li>Progress is rarely visualized clearly</li>
-          <li>Attendance tracking is completely separate from assignment tracking</li>
+          <li><strong>Missed deadlines</strong> — Assignments and due dates spread across portals, group chats, and emails slip through the cracks, directly affecting grades.</li>
+          <li><strong>Increased stress</strong> — Managing multiple disconnected tools demands constant mental overhead, raising anxiety around academic responsibilities.</li>
+          <li><strong>Lack of visibility on progress</strong> — Without a unified view, students cannot accurately assess where they stand, making it hard to prioritize and stay motivated.</li>
         </ul>
+      </div>
+
+      <!-- MY ROLE -->
+      <div class="cs-section">
+        <span class="slabel">My Role</span>
+        <h2>What I worked on</h2>
+        <p>I worked on this project independently as a <strong>UX Designer</strong>, taking full ownership from understanding the problem to delivering a clickable prototype. My responsibilities spanned the entire design process:</p>
+        <ul>
+          <li><strong>Research</strong> — Spoke with 3–5 students to surface real pain points around fragmentation, missed deadlines, and tool overload.</li>
+          <li><strong>Wireframing</strong> — Designed low-fidelity wireframes to establish layout, structure, and information hierarchy before visual decisions.</li>
+          <li><strong>UI Design</strong> — Built a polished high-fidelity interface with a consistent design system, deliberate visual hierarchy, and purposeful color.</li>
+        </ul>
+      </div>
+
+      <!-- RESEARCH & INSIGHTS -->
+      <div class="cs-section">
+        <span class="slabel">Research &amp; Insights</span>
+        <h2>What students actually said</h2>
+        <p>Before touching Figma, I spoke with 3–5 students to understand how they actually manage their academic work day-to-day. I didn't ask hypothetical questions — I asked them to walk me through their last week. The patterns were immediate and consistent.</p>
+        <ul>
+          <li>Most juggle WhatsApp groups, Google Docs, handwritten notebooks, and a university portal simultaneously</li>
+          <li>There is no single source of truth — every source only shows part of the picture</li>
+          <li>Students miss deadlines not because they ignore them, but because information loses visibility over time</li>
+          <li>Progress is never visualized — students have no real sense of how far they are through a semester</li>
+          <li>Attendance and assignments live in completely separate systems, making it impossible to see the full academic picture</li>
+        </ul>
+
+        <h3>Key Insights</h3>
+
         <div class="insight">
-          <p>Students don't need more tools. They need better visibility, prioritization, and a centralized overview.</p>
+          <p><strong>Insight 1 —</strong> Students switch between 3–5 different tools daily just to stay on top of academics. Every context switch adds cognitive load and increases the chance of something slipping through.</p>
         </div>
+
+        <div class="insight">
+          <p><strong>Insight 2 —</strong> Deadlines aren't forgotten — they lose visibility. A WhatsApp message gets buried. A notebook page gets skipped. A Google Doc isn't opened again. The problem is information architecture, not student effort.</p>
+        </div>
+
+        <div class="insight">
+          <p><strong>Insight 3 —</strong> When students can't see their progress, they either overestimate how on track they are, or feel overwhelmed without knowing why. A clear progress view reduces both false confidence and unnecessary anxiety.</p>
+        </div>
+
+        <div class="insight">
+          <p>Students don't need more tools. They need one place that shows them everything — clearly, instantly, without effort.</p>
+        </div>
+      </div>
+
+      <!-- KEY INSIGHT -->
+      <div class="cs-section cs-section--highlight">
+        <span class="slabel">Key Insight</span>
+        <h2>Core finding: students have enough tools — what's broken is the workflow</h2>
+        <p>Students already have calendars, messaging apps, note-taking tools, and university portals. Adding one more app was never going to help. The real issue is that none of these tools talk to each other, and students are left to be the connective tissue between them — mentally juggling context across every platform, every day.</p>
+        <div class="insight">
+          <p>The real problem wasn't lack of tools — it was fragmented workflows. Students were switching between multiple platforms, increasing mental load and reducing clarity.</p>
+        </div>
+        <div class="insight">
+          <p>Fragmented workflows — not missing features — are what cause missed deadlines and academic stress. When the same assignment appears in a WhatsApp message, a verbal reminder, and a university portal but never in one consolidated place, it will inevitably slip. Fixing the workflow is the only design move that addresses the root cause.</p>
+        </div>
+        <p>This reframed everything. The design goal wasn't to build a smarter to-do list. It was to eliminate workflow fragmentation itself — to create one coherent space where the information students already have becomes immediately visible, prioritized, and actionable without any extra effort on their part.</p>
+      </div>
+
+      <!-- SOLUTION APPROACH -->
+      <div class="cs-section">
+        <span class="slabel">Solution Approach</span>
+        <h2>Why this solution works</h2>
+        <p>The core insight was this: students don't need another tool to learn. They need the information they already have to be in one place, surfaced clearly, without requiring effort to maintain.</p>
+        <p>Clarity consolidates the most critical academic signals — assignments, attendance, and progress — into a single dashboard. But the design choices go beyond grouping features. They address specific behavioral patterns observed in research:</p>
+        <ul>
+          <li><strong>It reduces switching cost.</strong> Every time a student moves between WhatsApp, a Google Doc, and a university portal, they lose context and add friction. Clarity eliminates that switching entirely — less friction means less dropped information.</li>
+          <li><strong>It makes deadlines impossible to ignore.</strong> By surfacing upcoming assignments directly on the dashboard, urgency stays visible at all times. No searching, no digging — the most important information is front and center.</li>
+          <li><strong>It turns invisible progress into a motivator.</strong> Seeing completion percentages and streaks gives students a tangible sense of movement. Research shows that visible progress is one of the strongest drivers of continued engagement.</li>
+          <li><strong>It respects existing behavior.</strong> Clarity wasn't designed to force new habits. It was designed to fit around the way students already think about their day — reducing the learning curve and increasing the chance of adoption.</li>
+        </ul>
+      </div>
+
+      <!-- DESIGN DECISIONS -->
+      <div class="cs-section">
+        <span class="slabel">Design Decisions</span>
+        <h2>Why I made specific choices</h2>
+
+        <h3>Why a dashboard approach?</h3>
+        <p>A dashboard was the right entry point because it directly answers the question every student has the moment they open the app: "What do I need to do right now?" Rather than requiring navigation to gather information, the dashboard surfaces the most critical signals upfront — reducing cognitive load on every visit. The less mental effort it takes to get an overview, the more likely students are to actually use it consistently.</p>
+
+        <h3>Why a simplified layout?</h3>
+        <p>Students already feel overwhelmed. An interface that looks cluttered or requires interpretation becomes another source of stress rather than a solution to it. I chose a simplified layout — limited color, generous whitespace, and focused content areas — specifically to improve scannability. A student should be able to open Clarity and understand their academic situation within seconds, not minutes. Every element that doesn't earn its place on screen was removed.</p>
+
+        <h3>Why clear visual hierarchy?</h3>
+        <p>In a tool like this, visual hierarchy isn't decoration — it's function. When everything is styled equally, nothing communicates urgency. I used size, weight, and color deliberately so that high-priority items (an assignment due tomorrow, low attendance) are immediately distinguishable from background information. This minimizes the user effort required to identify what needs attention and reduces the risk of something important being overlooked.</p>
+
+        <h3>Why prioritize today's tasks?</h3>
+        <div class="insight">
+          <p>Instead of treating all tasks equally, I prioritized "today's tasks" so users can focus on what matters immediately and avoid feeling overwhelmed.</p>
+        </div>
+        <p>Showing everything at once creates overwhelm. Showing only what matters today creates focus. The dashboard surfaces assignments due within 24 hours at the very top — a deliberate decision to reduce cognitive load at the exact moment students need clarity most. Instead of scanning a full semester's worth of tasks and manually filtering by urgency, students immediately see what demands attention right now. This single design choice directly addresses the mental overload of staring at a long, undifferentiated task list and not knowing where to begin.</p>
       </div>
 
       <!-- DESIGN PROCESS -->
@@ -164,7 +309,7 @@
           <div class="step-num">1</div>
           <div class="step-content">
             <h3>Problem Definition</h3>
-            <p>Defined the core problem: fragmented academic information and lack of clear visibility for students.</p>
+            <p>Defined the core problem through student conversations: fragmented academic information and zero visibility into what matters today.</p>
           </div>
         </div>
 
@@ -172,7 +317,7 @@
           <div class="step-num">2</div>
           <div class="step-content">
             <h3>User Flow Mapping</h3>
-            <p>Outlined the main flows — viewing assignments, creating a new assignment, tracking progress, and monitoring attendance. This ensured a connected system rather than isolated screens.</p>
+            <p>Mapped the main user flows — viewing assignments, creating tasks, tracking progress, and monitoring attendance — to ensure a connected system, not isolated screens.</p>
           </div>
         </div>
 
@@ -180,7 +325,7 @@
           <div class="step-num">3</div>
           <div class="step-content">
             <h3>Low-Fidelity Wireframes</h3>
-            <p>Created wireframes to explore layout, hierarchy, and information structure before focusing on visual design. The goal was clarity and usability first.</p>
+            <p>Built low-fidelity wireframes focused on layout, information hierarchy, and usability — establishing structure before any visual decisions.</p>
           </div>
         </div>
 
@@ -191,7 +336,7 @@
           <div class="step-num">4</div>
           <div class="step-content">
             <h3>High-Fidelity Design</h3>
-            <p>Translated wireframes into a clean interface with clear visual hierarchy, consistent spacing, meaningful color usage, and simple navigation.</p>
+            <p>Designed a clean, high-fidelity interface with deliberate visual hierarchy, consistent spacing, purposeful color, and simple navigation.</p>
           </div>
         </div>
 
@@ -202,7 +347,7 @@
           <div class="step-num">5</div>
           <div class="step-content">
             <h3>Prototyping</h3>
-            <p>Connected the main screens into a clickable prototype to simulate the product flow and test key interactions. <a href="https://www.figma.com/make/3bfcDJip2qTjDtlXyZksyv/Clarity---Academic-Productivity-SaaS-for-Students?fullscreen=1" target="_blank" rel="noopener noreferrer" style="color:#4338CA;">Explore it here →</a></p>
+            <p>Connected all screens into a clickable prototype to validate key flows and interactions. <a href="https://www.figma.com/make/3bfcDJip2qTjDtlXyZksyv/Clarity---Academic-Productivity-SaaS-for-Students?fullscreen=1" target="_blank" rel="noopener noreferrer" style="color:#4338CA;">Explore it here →</a></p>
           </div>
         </div>
       </div>
@@ -211,53 +356,105 @@
       <div class="cs-section">
         <span class="slabel">Key Features</span>
         <h2>The final product</h2>
-        <p>Five key sections designed to reduce mental friction and improve visibility rather than add new features.</p>
+        <p>Five key sections designed to reduce mental friction and improve visibility rather than add new features. Each screen serves a deliberate purpose tied directly to a student pain point identified in research.</p>
 
         <h3>Dashboard</h3>
-        <p>A centralized overview showing upcoming assignments, overall completion progress, and current academic status at a glance.</p>
+        <p class="screen-what">What it does</p>
+        <p>Centralizes assignments due within 24 hours, completion progress, and current academic standing on a single opening screen — with today's urgent tasks always at the top.</p>
+        <p class="screen-how">How it helps</p>
+        <p>Students know exactly what demands attention right now without opening a single other app. The mental overhead of piecing together a daily plan from WhatsApp, Google Docs, and a university portal disappears.</p>
         <img src="Clarity Dashboard.png" alt="Clarity Dashboard" class="cs-img" />
 
         <h3>Assignment Management</h3>
-        <p>A dedicated space to create, manage, and track assignments across different subjects — with deadlines, statuses, and filtering in one place.</p>
+        <p class="screen-what">What it does</p>
+        <p>Brings assignment creation, status tracking, and deadline filtering into one dedicated view — no external apps required.</p>
+        <p class="screen-how">How it helps</p>
+        <p>Students stop cross-referencing WhatsApp, Google Docs, and portals to find out what's due and when. All deadlines are in one place, always current, always visible.</p>
         <img src="Clarity Assignment Management.png" alt="Clarity Assignment Management" class="cs-img" />
 
         <h3>Progress Tracking</h3>
-        <p>A visual progress section showing completion status and learning streaks. Helps students stay motivated and understand how consistently they are progressing.</p>
+        <p class="screen-what">What it does</p>
+        <p>Tracks completion percentages and learning streaks across all subjects, updating automatically as assignments are marked done.</p>
+        <p class="screen-how">How it helps</p>
+        <p>Students gain a concrete sense of forward movement — something entirely absent when using disconnected tools. Visible progress is one of the strongest drivers of continued engagement, and this screen puts it front and center.</p>
         <img src="Clarity Progress Tracking.png" alt="Clarity Progress Tracking" class="cs-img" />
 
         <h3>Attendance Monitoring</h3>
-        <p>A calendar-based attendance tracker that helps students monitor their presence across subjects and identify gaps early.</p>
+        <p class="screen-what">What it does</p>
+        <p>Displays attendance percentages per subject alongside assignments in the same interface, pulled out of the separate university portal.</p>
+        <p class="screen-how">How it helps</p>
+        <p>Students spot attendance gaps early enough to act — instead of discovering a problem only at the end of semester when it's too late to recover.</p>
         <img src="Clarity Attendance Monitoring.png" alt="Clarity Attendance Monitoring" class="cs-img" />
 
         <h3>Settings and Personalization</h3>
-        <p>A simple settings section where users can customize preferences and manage their academic tracking setup.</p>
+        <p class="screen-what">What it does</p>
+        <p>Lets students configure notification preferences, subject lists, and how progress is measured — tailoring the tool to their academic context.</p>
+        <p class="screen-how">How it helps</p>
+        <p>A tool that reflects each student's specific situation gets used consistently. Personalization reduces the friction of adoption and increases the chance the tool becomes a daily habit rather than something opened once and forgotten.</p>
         <img src="Clarity Settings &amp; Personalization.png" alt="Clarity Settings" class="cs-img" />
       </div>
 
-      <!-- OUTCOME -->
+      <!-- BEFORE VS AFTER -->
       <div class="cs-section">
-        <span class="slabel">Outcome</span>
-        <h2>What I delivered</h2>
+        <span class="slabel">Before vs After</span>
+        <h2>What changed for students</h2>
+        <p>The shift Clarity creates isn't just visual — it's a fundamental change in how students experience their academic day. Comparing the two states makes the design rationale concrete.</p>
+        <div class="bva-grid">
+          <div class="bva-col bva-before">
+            <div class="bva-head">Before Clarity</div>
+            <ul>
+              <li>Check WhatsApp groups for assignments buried in conversation threads</li>
+              <li>Open Google Docs, notebooks, and portals separately to piece together a picture</li>
+              <li>Manually track deadlines — frequently missed when information loses visibility</li>
+              <li>Attendance checked in a separate university portal, usually too late</li>
+              <li>No sense of overall progress — semester feels like a blur</li>
+              <li>High cognitive load: energy spent managing tools, not doing work</li>
+            </ul>
+          </div>
+          <div class="bva-col bva-after">
+            <div class="bva-head">After Clarity</div>
+            <ul>
+              <li>One dashboard — all assignments, deadlines, and priorities visible immediately</li>
+              <li>Today's urgent tasks surfaced upfront; no scanning or searching needed</li>
+              <li>Deadlines always visible with status indicators — nothing slips through</li>
+              <li>Attendance and assignments in the same view — full academic picture at a glance</li>
+              <li>Progress tracked automatically — streaks and completions visible at all times</li>
+              <li>Low cognitive load: less time managing information, more time on actual work</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- IMPACT -->
+      <div class="cs-section">
+        <span class="slabel">Impact</span>
+        <h2>How this helps students</h2>
+        <p>Clarity is a conceptual project, but it was designed with real outcomes in mind. Based on the problems identified in research and the design decisions made, the expected impact is:</p>
         <ul>
-          <li>A complete end-to-end academic productivity SaaS concept</li>
-          <li>Clear user flows from assignment tracking to progress monitoring</li>
-          <li>A structured design system ensuring consistent UI components</li>
-          <li>A clickable prototype simulating the core product experience</li>
+          <li><strong>Fewer missed deadlines</strong> — A centralized, always-visible assignment list with status indicators removes the "out of sight, out of mind" failure mode that causes students to miss work.</li>
+          <li><strong>Reduced daily cognitive load</strong> — By eliminating the need to context-switch across 3–5 tools, students spend less mental energy on information management and more on the actual work.</li>
+          <li><strong>Better self-awareness</strong> — Progress tracking and attendance monitoring give students an accurate picture of where they stand, enabling more informed decisions about how to prioritize their time.</li>
+          <li><strong>Lower stress around academic responsibilities</strong> — Visibility reduces uncertainty. When students can see their situation clearly, they feel more in control, which research links directly to reduced academic anxiety.</li>
         </ul>
-        <p>After sharing the concept with students, the centralized dashboard was seen as useful because it reduces the need to switch between LMS portals, messaging groups, and personal notes.</p>
+        <p>After sharing the concept with students, the centralized dashboard was seen as the most valuable feature — not because it adds new capabilities, but because it eliminates the need to switch between LMS portals, messaging groups, and personal notes just to get a basic overview.</p>
+        <div class="insight">
+          <p>The goal was never to build a feature-rich platform. It was to make students feel less overwhelmed and more in control of their academic lives.</p>
+        </div>
       </div>
 
       <!-- LEARNINGS -->
       <div class="cs-section">
-        <span class="slabel">Learnings</span>
+        <span class="slabel">What I Learned</span>
         <h2>What I learned</h2>
         <ul class="learning-list">
-          <li>Visibility reduces stress more effectively than reminders alone</li>
-          <li>A strong information hierarchy solves more problems than complex UI</li>
-          <li>Designing systems is very different from designing individual screens</li>
-          <li>Consistency across pages builds trust in a product</li>
-          <li>Problem-first thinking leads to better design decisions than jumping into visuals</li>
+          <li><strong>Start with behavior, not features.</strong> The most useful design decisions came from understanding how students actually behave — not from brainstorming features. Mapping the real tools students use (WhatsApp, Google Docs, notebooks) before designing anything made every subsequent choice more grounded and defensible.</li>
+          <li><strong>Reducing friction is a design feature.</strong> The biggest UX wins in this project weren't about adding things — they were about removing them. Every time I cut a layer of navigation, simplified a layout, or consolidated two separate actions into one, the product became more usable. Less is genuinely more when cognitive load is the enemy.</li>
+          <li><strong>Visual hierarchy is product strategy.</strong> Deciding what to show first, what to make prominent, and what to de-emphasize isn't a visual design choice — it's a product decision. Getting the hierarchy right meant students could act on urgent information instantly, which is the entire point of the product.</li>
+          <li><strong>Simplifying complexity is the hardest design skill.</strong> It's easy to add — a new feature, a new screen, a new option. It's much harder to resist. Every simplification in Clarity required actively choosing what to leave out. The most impactful moment wasn't designing a new feature; it was removing a redundant one. Designing for clarity over completeness is the discipline I'll carry into every future project.</li>
         </ul>
+        <div class="insight">
+          <p>Good design is not about adding more features, but about reducing complexity and helping users focus on what truly matters.</p>
+        </div>
       </div>
 
     </div>
