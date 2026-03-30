@@ -106,36 +106,44 @@ img {
    Hero
    =========================== */
 .hero {
-  padding-top: 7rem;
-  padding-bottom: 4rem;
+  padding-top: 5rem;
+  padding-bottom: 3.5rem;
 }
 
 .hero__headline {
-  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1.1;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
   color: #111;
-  max-width: 700px;
+  max-width: 680px;
 }
 
 .hero__sub {
-  margin-top: 1.25rem;
-  font-size: 1.125rem;
-  color: #555;
-  max-width: 480px;
+  margin-top: 1rem;
+  font-size: 1.05rem;
+  color: #444;
+  max-width: 560px;
+  line-height: 1.65;
+}
+
+.hero__supporting {
+  margin-top: 0.6rem;
+  font-size: 0.875rem;
+  color: #888;
+  max-width: 560px;
 }
 
 /* "View my work" hero button */
 .btn--hero {
-  margin-top: 2rem;
+  margin-top: 1.75rem;
   background: #ffffff;
   color: #4338CA;
   border: 1px solid #4338CA;
   font-size: 0.95rem;
   font-weight: 600;
-  padding: 0.65rem 1.5rem;
-  border-radius: 8px;
+  padding: 0.625rem 1rem;
+  border-radius: 7px;
   display: inline-block;
   transition: background 0.15s, border-color 0.15s, color 0.15s;
 }
@@ -398,8 +406,8 @@ img {
 
   /* Hero */
   .hero {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
   }
 
   /* Case study row */
