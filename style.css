@@ -276,6 +276,33 @@ img {
 }
 
 /* ===========================
+   How I Think
+   =========================== */
+.how-i-think {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  border-top: 1px solid #ebebeb;
+}
+
+.how-i-think__text {
+  max-width: 600px;
+}
+
+.how-i-think__text p {
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.75;
+  margin-bottom: 1rem;
+}
+
+.how-i-think__text p:first-child {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 0.75rem;
+}
+
+/* ===========================
    About
    =========================== */
 .about {
@@ -335,10 +362,11 @@ img {
 .contact__sub {
   font-size: 1rem;
   color: #555;
-  margin-bottom: 2rem;
+  margin-bottom: 0.75rem;
 }
 
 .contact__links {
+  margin-top: 1.5rem;
   display: flex;
   justify-content: center;
   gap: 2.5rem;
