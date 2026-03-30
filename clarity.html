@@ -73,6 +73,25 @@
     .step-content h3 { margin-top: 0; font-size: 1rem; }
     .step-content p { margin-bottom: 0; }
 
+    /* HERO HOOK */
+    .cs-hook { font-style: italic; color: #4338CA; font-size: 1.05rem; font-weight: 500; border-left: 3px solid #4338CA; padding-left: 1rem; margin: 1.25rem 0 0; line-height: 1.6; }
+
+    /* KEY INSIGHT HIGHLIGHT */
+    .cs-section--highlight { background: #f0edff; border-radius: 12px; padding: 2rem 2rem; margin: 0 -2rem; border-bottom: none; }
+    .cs-section--highlight .slabel { color: #4338CA; }
+    .cs-section--highlight .insight { background: #fff; border-left-color: #4338CA; }
+
+    /* BEFORE VS AFTER */
+    .bva-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem; }
+    .bva-col { border-radius: 10px; padding: 1.25rem 1.5rem; }
+    .bva-before { background: #fef2f2; border: 1px solid #fecaca; }
+    .bva-after { background: #f0fdf4; border: 1px solid #bbf7d0; }
+    .bva-head { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.85rem; }
+    .bva-before .bva-head { color: #dc2626; }
+    .bva-after .bva-head { color: #16a34a; }
+    .bva-col ul { padding-left: 1.1rem; color: #444; margin: 0; }
+    .bva-col ul li { margin-bottom: 0.5rem; font-size: 0.9rem; line-height: 1.5; }
+
     /* LEARNINGS */
     .learning-list { list-style: none; padding: 0; }
     .learning-list li { padding: 0.75rem 1rem; border-left: 2px solid #e5e5e5; margin-bottom: 0.75rem; color: #444; font-size: 0.95rem; transition: border-color 0.2s; }
@@ -87,6 +106,8 @@
       .meta-grid { grid-template-columns: 1fr 1fr; }
       .feature-grid { grid-template-columns: 1fr; }
       .proto-cta { flex-direction: column; }
+      .bva-grid { grid-template-columns: 1fr; }
+      .cs-section--highlight { margin: 0 -1rem; padding: 2rem 1rem; }
     }
     @media (max-width: 400px) {
       .meta-grid { grid-template-columns: 1fr; }
@@ -110,6 +131,7 @@
         <span class="cs-tag">Case Study · Student Productivity</span>
         <h1>Clarity</h1>
         <p class="outcome">Designed a 5-screen SaaS dashboard that reduces academic fragmentation for students.</p>
+        <p class="cs-hook">"Students don't struggle because they lack tools — they struggle because their tasks are scattered across too many places."</p>
         <p>A web-based academic productivity platform that centralizes assignments, attendance, and progress tracking into a single structured system.</p>
       </div>
 
@@ -198,7 +220,7 @@
       </div>
 
       <!-- KEY INSIGHT -->
-      <div class="cs-section">
+      <div class="cs-section cs-section--highlight">
         <span class="slabel">Key Insight</span>
         <h2>Core finding: students have enough tools — what's broken is the workflow</h2>
         <p>Students already have calendars, messaging apps, note-taking tools, and university portals. Adding one more app was never going to help. The real issue is that none of these tools talk to each other, and students are left to be the connective tissue between them — mentally juggling context across every platform, every day.</p>
@@ -235,11 +257,12 @@
 
         <h3>Why clear visual hierarchy?</h3>
         <p>In a tool like this, visual hierarchy isn't decoration — it's function. When everything is styled equally, nothing communicates urgency. I used size, weight, and color deliberately so that high-priority items (an assignment due tomorrow, low attendance) are immediately distinguishable from background information. This minimizes the user effort required to identify what needs attention and reduces the risk of something important being overlooked.</p>
+        <h3>Why prioritize today's tasks?</h3>
+        <p>Showing everything at once creates overwhelm. Showing only what matters today creates focus. The dashboard surfaces assignments due within 24 hours at the very top — a deliberate decision to reduce cognitive load at the exact moment students need clarity most. Instead of scanning a full semester's worth of tasks and manually filtering by urgency, students immediately see what demands attention right now. This single design choice directly addresses the mental overload of staring at a long, undifferentiated task list and not knowing where to begin.</p>
       </div>
 
       <!-- DESIGN PROCESS -->
       <div class="cs-section">
-        <span class="slabel">Design Process</span>
         <h2>How I built it</h2>
 
         <div class="step">
@@ -296,7 +319,7 @@
         <p>Five key sections designed to reduce mental friction and improve visibility rather than add new features. Each screen serves a deliberate purpose tied directly to a student pain point identified in research.</p>
 
         <h3>Dashboard</h3>
-        <p>The central hub of the experience. Rather than making students navigate to find status updates, the dashboard surfaces everything critical upfront: upcoming assignments, completion progress, and current academic standing. It answers "Where am I right now?" at a glance.</p>
+        <p>The central hub of the experience. Rather than making students navigate to find status updates, the dashboard surfaces everything critical upfront — with today's urgent tasks prioritized at the top for immediate focus. Upcoming assignments due within 24 hours appear first, so the most important information is always front and center. Completion progress and current academic standing sit alongside, answering "Where am I right now?" at a glance without a single click.</p>
         <img src="Clarity Dashboard.png" alt="Clarity Dashboard" class="cs-img" />
 
         <h3>Assignment Management</h3>
@@ -314,6 +337,37 @@
         <h3>Settings and Personalization</h3>
         <p>Allows students to tailor the experience to their specific academic context — whether that's adjusting notification preferences, managing subject lists, or configuring how progress is measured. Personalization increases long-term adoption by making the tool feel like their own.</p>
         <img src="Clarity Settings &amp; Personalization.png" alt="Clarity Settings" class="cs-img" />
+      </div>
+
+      <!-- BEFORE VS AFTER -->
+      <div class="cs-section">
+        <span class="slabel">Before vs After</span>
+        <h2>What changed for students</h2>
+        <p>The shift Clarity creates isn't just visual — it's a fundamental change in how students experience their academic day. Comparing the two states makes the design rationale concrete.</p>
+        <div class="bva-grid">
+          <div class="bva-col bva-before">
+            <div class="bva-head">Before Clarity</div>
+            <ul>
+              <li>Check WhatsApp groups for assignments buried in conversation threads</li>
+              <li>Open Google Docs, notebooks, and portals separately to piece together a picture</li>
+              <li>Manually track deadlines — frequently missed when information loses visibility</li>
+              <li>Attendance checked in a separate university portal, usually too late</li>
+              <li>No sense of overall progress — semester feels like a blur</li>
+              <li>High cognitive load: energy spent managing tools, not doing work</li>
+            </ul>
+          </div>
+          <div class="bva-col bva-after">
+            <div class="bva-head">After Clarity</div>
+            <ul>
+              <li>One dashboard — all assignments, deadlines, and priorities visible immediately</li>
+              <li>Today's urgent tasks surfaced upfront; no scanning or searching needed</li>
+              <li>Deadlines always visible with status indicators — nothing slips through</li>
+              <li>Attendance and assignments in the same view — full academic picture at a glance</li>
+              <li>Progress tracked automatically — streaks and completions visible at all times</li>
+              <li>Low cognitive load: less time managing information, more time on actual work</li>
+            </ul>
+          </div>
+        </div>
       </div>
 
       <!-- IMPACT -->
@@ -341,6 +395,7 @@
           <li><strong>Start with behavior, not features.</strong> The most useful design decisions came from understanding how students actually behave — not from brainstorming features. Mapping the real tools students use (WhatsApp, Google Docs, notebooks) before designing anything made every subsequent choice more grounded and defensible.</li>
           <li><strong>Reducing friction is a design feature.</strong> The biggest UX wins in this project weren't about adding things — they were about removing them. Every time I cut a layer of navigation, simplified a layout, or consolidated two separate actions into one, the product became more usable. Less is genuinely more when cognitive load is the enemy.</li>
           <li><strong>Visual hierarchy is product strategy.</strong> Deciding what to show first, what to make prominent, and what to de-emphasize isn't a visual design choice — it's a product decision. Getting the hierarchy right meant students could act on urgent information instantly, which is the entire point of the product.</li>
+          <li><strong>Simplifying complexity is the hardest design skill.</strong> It's easy to add — a new feature, a new screen, a new option. It's much harder to resist. Every simplification in Clarity required actively choosing what to leave out. The most impactful moment wasn't designing a new feature; it was removing a redundant one. Designing for clarity over completeness is the discipline I'll carry into every future project.</li>
         </ul>
       </div>
 
