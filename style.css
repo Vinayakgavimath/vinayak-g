@@ -67,18 +67,21 @@ img {
 
 .nav__links {
   display: flex;
-  gap: 2rem;
+  gap: 2.5rem;
 }
 
 .nav__links a {
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   font-weight: 500;
-  color: #444;
-  transition: color 0.15s;
+  color: #666;
+  padding-bottom: 2px;
+  border-bottom: 1.5px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
 }
 
 .nav__links a:hover {
-  color: #4338CA;
+  color: #111;
+  border-bottom-color: #111;
 }
 
 /* Hamburger — hidden on desktop */
@@ -106,14 +109,21 @@ img {
    Hero
    =========================== */
 .hero {
-  padding-top: 5rem;
-  padding-bottom: 4rem;
-  max-width: 620px;
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  padding-top: 7.5rem;
+  padding-bottom: 6rem;
+}
+
+.hero__content {
+  flex: 1;
+  max-width: 580px;
 }
 
 .hero__headline {
-  font-size: clamp(2.5rem, 5vw, 3.5rem);
-  font-weight: 800;
+  font-size: clamp(2.75rem, 5vw, 4rem);
+  font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1.15;
   color: #111;
@@ -121,36 +131,62 @@ img {
 
 .hero__sub {
   margin-top: 1.5rem;
-  font-size: 1.15rem;
-  font-weight: 500;
-  color: #333;
-  line-height: 1.65;
+  font-size: clamp(1.05rem, 2vw, 1.2rem);
+  font-weight: 400;
+  color: #666;
+  line-height: 1.7;
 }
 
 .hero__supporting {
-  margin-top: 0.85rem;
-  font-size: 0.9rem;
-  color: #888;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  color: #666;
+  line-height: 1.75;
+  max-width: 520px;
 }
 
-/* "View my work" hero button */
+/* Hero right-side visual */
+.hero__visual {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.hero__visual-inner {
+  width: 100%;
+  max-width: 460px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #f7f7f8;
+  border: 1px solid #e4e4e7;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.07);
+  opacity: 0.9;
+}
+
+.hero__visual-inner img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* "View case studies" hero button */
 .btn--hero {
-  margin-top: 1.75rem;
-  background: #ffffff;
-  color: #4338CA;
-  border: 1px solid #4338CA;
-  font-size: 0.95rem;
+  margin-top: 2rem;
+  background: transparent;
+  color: #111;
+  border: 1.5px solid #111;
+  font-size: 0.9rem;
   font-weight: 600;
-  padding: 0.625rem 1rem;
-  border-radius: 7px;
+  padding: 0.625rem 1.25rem;
+  border-radius: 6px;
   display: inline-block;
-  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  transition: background 0.15s, color 0.15s;
 }
 
 .btn--hero:hover {
-  background: #eef2ff;
-  border-color: #3730a3;
-  color: #3730a3;
+  background: #111;
+  color: #fff;
 }
 
 /* ===========================
@@ -433,8 +469,23 @@ img {
 
   /* Hero */
   .hero {
-    padding-top: 3rem;
+    flex-direction: column;
+    gap: 2.5rem;
+    padding-top: 3.5rem;
     padding-bottom: 3rem;
+  }
+
+  .hero__content {
+    max-width: 100%;
+  }
+
+  .hero__visual {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .hero__visual-inner {
+    max-width: 100%;
   }
 
   /* Case study row */
@@ -479,8 +530,8 @@ img {
   }
 
   .hero {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
   }
 
   .case-study__title {
