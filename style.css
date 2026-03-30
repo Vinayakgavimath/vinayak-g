@@ -107,6 +107,31 @@ img {
 }
 
 /* ===========================
+   Animations
+   =========================== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.fade-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===========================
    Hero
    =========================== */
 .hero {
@@ -120,6 +145,7 @@ img {
 .hero__content {
   flex: 1;
   min-width: 0;
+  animation: fadeInUp 0.55s ease both;
 }
 
 .hero__headline {
@@ -167,6 +193,7 @@ img {
   align-items: flex-start;
   justify-content: flex-end;
   padding-top: 0.5rem;
+  animation: fadeInUp 0.6s ease 0.15s both;
 }
 
 .hero__visual-inner {
@@ -201,12 +228,13 @@ img {
   padding: 0.625rem 1.25rem;
   border-radius: 6px;
   display: inline-block;
-  transition: background 0.15s, color 0.15s;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .btn--hero:hover {
   background: #111;
   color: #fff;
+  box-shadow: 0 4px 16px rgba(17, 17, 17, 0.15);
 }
 
 /* ===========================
@@ -283,12 +311,13 @@ img {
   border: 1.5px solid #4338CA;
   padding: 0.6rem 1.25rem;
   border-radius: 6px;
-  transition: background 0.15s, color 0.15s;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .btn:hover {
   background: #4338CA;
   color: #fff;
+  box-shadow: 0 4px 16px rgba(67, 56, 202, 0.18);
 }
 
 /* Row layout for case studies */
@@ -297,6 +326,14 @@ img {
   gap: 5rem;
   align-items: center;
   margin-bottom: 7rem;
+  border-radius: 16px;
+  padding: 2rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.case-study-row:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
 }
 
 .case-study-row.reverse {
