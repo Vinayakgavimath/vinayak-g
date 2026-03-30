@@ -107,7 +107,8 @@ img {
    =========================== */
 .hero {
   padding-top: 5rem;
-  padding-bottom: 3.5rem;
+  padding-bottom: 4rem;
+  max-width: 620px;
 }
 
 .hero__headline {
@@ -116,22 +117,20 @@ img {
   letter-spacing: -0.03em;
   line-height: 1.15;
   color: #111;
-  max-width: 560px;
 }
 
 .hero__sub {
   margin-top: 1.5rem;
-  font-size: 1.1rem;
-  color: #444;
-  max-width: 560px;
-  line-height: 1.75;
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: #333;
+  line-height: 1.65;
 }
 
 .hero__supporting {
-  margin-top: 1rem;
+  margin-top: 0.85rem;
   font-size: 0.9rem;
   color: #888;
-  max-width: 560px;
 }
 
 /* "View my work" hero button */
