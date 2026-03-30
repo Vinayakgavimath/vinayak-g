@@ -102,6 +102,15 @@
     .learning-list li { padding: 0.75rem 1rem; border-left: 2px solid #e5e5e5; margin-bottom: 0.75rem; color: #444; font-size: 0.95rem; transition: border-color 0.2s; }
     .learning-list li:hover { border-left-color: #4338CA; }
 
+    /* QUICK OVERVIEW */
+    .qo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 2rem 0 0; }
+    .qo-item { border: 1px solid #e5e5e5; border-radius: 10px; padding: 1.25rem 1.25rem 1.1rem; }
+    .qo-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #4338CA; margin-bottom: 0.45rem; }
+    .qo-text { font-size: 0.88rem; color: #444; margin: 0; line-height: 1.6; }
+
+    /* HERO IMAGE */
+    .cs-hero-img { width: 100%; border-radius: 14px; margin: 2rem 0 0; display: block; border: 1px solid #e5e5e5; box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
+
     /* FOOTER */
     .cs-footer { padding: 3rem 0; text-align: center; }
     .btn { display: inline-block; padding: 0.65rem 1.4rem; border: 1.5px solid #4338CA; color: #4338CA; background: #fff; border-radius: 6px; font-size: 0.9rem; font-weight: 500; text-decoration: none; transition: background 0.2s, color 0.2s; }
@@ -112,6 +121,7 @@
       .feature-grid { grid-template-columns: 1fr; }
       .proto-cta { flex-direction: column; }
       .bva-grid { grid-template-columns: 1fr; }
+      .qo-grid { grid-template-columns: 1fr; }
       .cs-section--highlight { margin: 0 -1rem; padding: 2rem 1rem; }
     }
     @media (max-width: 400px) {
@@ -138,6 +148,7 @@
         <p class="outcome">Designed a 5-screen SaaS dashboard that reduces academic fragmentation for students.</p>
         <p class="cs-hook">"Students don't struggle because they lack tools — they struggle because their tasks are scattered across too many places."</p>
         <p>A web-based academic productivity platform that centralizes assignments, attendance, and progress tracking into a single structured system.</p>
+        <img src="Clarity Dashboard.png" alt="Clarity — Academic Productivity Dashboard" class="cs-hero-img" />
       </div>
 
       <!-- META -->
@@ -148,8 +159,24 @@
         <div class="meta-item"><h4>Prototype</h4><a href="https://www.figma.com/make/3bfcDJip2qTjDtlXyZksyv/Clarity---Academic-Productivity-SaaS-for-Students?fullscreen=1" target="_blank" rel="noopener noreferrer">View in Figma →</a></div>
       </div>
 
+      <!-- QUICK OVERVIEW -->
+      <div class="qo-grid">
+        <div class="qo-item">
+          <div class="qo-label">Problem</div>
+          <p class="qo-text">Students juggle assignments across WhatsApp, Google Docs, and portals — with no central view, missed deadlines, and constant mental overload.</p>
+        </div>
+        <div class="qo-item">
+          <div class="qo-label">Solution</div>
+          <p class="qo-text">A unified dashboard that centralizes tasks, attendance, and progress — eliminating the need to switch between tools.</p>
+        </div>
+        <div class="qo-item">
+          <div class="qo-label">Outcome</div>
+          <p class="qo-text">Reduced cognitive load, improved deadline visibility, and a single source of truth for every academic responsibility.</p>
+        </div>
+      </div>
+
       <!-- PROTO CTA -->
-      <div class="proto-cta">
+      <div class="proto-cta" style="margin-top:2rem;">
         <p>Explore the full interactive prototype</p>
         <a href="https://www.figma.com/make/3bfcDJip2qTjDtlXyZksyv/Clarity---Academic-Productivity-SaaS-for-Students?fullscreen=1" target="_blank" rel="noopener noreferrer">View Prototype →</a>
       </div>
@@ -186,9 +213,9 @@
         <h2>What I worked on</h2>
         <p>I worked on this project independently as a <strong>UX Designer</strong>, taking full ownership from understanding the problem to delivering a clickable prototype. My responsibilities spanned the entire design process:</p>
         <ul>
-          <li><strong>Research</strong> — Spoke with students to identify pain points and validated core problem areas around fragmentation and visibility.</li>
-          <li><strong>Wireframing</strong> — Created low-fidelity wireframes to explore layout, structure, and information hierarchy before committing to visuals.</li>
-          <li><strong>UI Design</strong> — Translated wireframes into a polished high-fidelity interface with a consistent design system, clear visual hierarchy, and purposeful color usage.</li>
+          <li><strong>Research</strong> — Spoke with 3–5 students to surface real pain points around fragmentation, missed deadlines, and tool overload.</li>
+          <li><strong>Wireframing</strong> — Designed low-fidelity wireframes to establish layout, structure, and information hierarchy before visual decisions.</li>
+          <li><strong>UI Design</strong> — Built a polished high-fidelity interface with a consistent design system, deliberate visual hierarchy, and purposeful color.</li>
         </ul>
       </div>
 
@@ -282,7 +309,7 @@
           <div class="step-num">1</div>
           <div class="step-content">
             <h3>Problem Definition</h3>
-            <p>Defined the core problem: fragmented academic information and lack of clear visibility for students.</p>
+            <p>Defined the core problem through student conversations: fragmented academic information and zero visibility into what matters today.</p>
           </div>
         </div>
 
@@ -290,7 +317,7 @@
           <div class="step-num">2</div>
           <div class="step-content">
             <h3>User Flow Mapping</h3>
-            <p>Outlined the main flows — viewing assignments, creating a new assignment, tracking progress, and monitoring attendance. This ensured a connected system rather than isolated screens.</p>
+            <p>Mapped the main user flows — viewing assignments, creating tasks, tracking progress, and monitoring attendance — to ensure a connected system, not isolated screens.</p>
           </div>
         </div>
 
@@ -298,7 +325,7 @@
           <div class="step-num">3</div>
           <div class="step-content">
             <h3>Low-Fidelity Wireframes</h3>
-            <p>Created wireframes to explore layout, hierarchy, and information structure before focusing on visual design. The goal was clarity and usability first.</p>
+            <p>Built low-fidelity wireframes focused on layout, information hierarchy, and usability — establishing structure before any visual decisions.</p>
           </div>
         </div>
 
@@ -309,7 +336,7 @@
           <div class="step-num">4</div>
           <div class="step-content">
             <h3>High-Fidelity Design</h3>
-            <p>Translated wireframes into a clean interface with clear visual hierarchy, consistent spacing, meaningful color usage, and simple navigation.</p>
+            <p>Designed a clean, high-fidelity interface with deliberate visual hierarchy, consistent spacing, purposeful color, and simple navigation.</p>
           </div>
         </div>
 
@@ -320,7 +347,7 @@
           <div class="step-num">5</div>
           <div class="step-content">
             <h3>Prototyping</h3>
-            <p>Connected the main screens into a clickable prototype to simulate the product flow and test key interactions. <a href="https://www.figma.com/make/3bfcDJip2qTjDtlXyZksyv/Clarity---Academic-Productivity-SaaS-for-Students?fullscreen=1" target="_blank" rel="noopener noreferrer" style="color:#4338CA;">Explore it here →</a></p>
+            <p>Connected all screens into a clickable prototype to validate key flows and interactions. <a href="https://www.figma.com/make/3bfcDJip2qTjDtlXyZksyv/Clarity---Academic-Productivity-SaaS-for-Students?fullscreen=1" target="_blank" rel="noopener noreferrer" style="color:#4338CA;">Explore it here →</a></p>
           </div>
         </div>
       </div>
