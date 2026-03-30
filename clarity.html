@@ -92,6 +92,11 @@
     .bva-col ul { padding-left: 1.1rem; color: #444; margin: 0; }
     .bva-col ul li { margin-bottom: 0.5rem; font-size: 0.9rem; line-height: 1.5; }
 
+    /* SCREEN EXPLANATION LABELS */
+    .cs-section p.screen-what, .cs-section p.screen-how { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.3rem; }
+    .cs-section p.screen-what { color: #888; }
+    .cs-section p.screen-how { color: #4338CA; margin-top: 0.75rem; }
+
     /* LEARNINGS */
     .learning-list { list-style: none; padding: 0; }
     .learning-list li { padding: 0.75rem 1rem; border-left: 2px solid #e5e5e5; margin-bottom: 0.75rem; color: #444; font-size: 0.95rem; transition: border-color 0.2s; }
@@ -257,12 +262,14 @@
 
         <h3>Why clear visual hierarchy?</h3>
         <p>In a tool like this, visual hierarchy isn't decoration — it's function. When everything is styled equally, nothing communicates urgency. I used size, weight, and color deliberately so that high-priority items (an assignment due tomorrow, low attendance) are immediately distinguishable from background information. This minimizes the user effort required to identify what needs attention and reduces the risk of something important being overlooked.</p>
+
         <h3>Why prioritize today's tasks?</h3>
         <p>Showing everything at once creates overwhelm. Showing only what matters today creates focus. The dashboard surfaces assignments due within 24 hours at the very top — a deliberate decision to reduce cognitive load at the exact moment students need clarity most. Instead of scanning a full semester's worth of tasks and manually filtering by urgency, students immediately see what demands attention right now. This single design choice directly addresses the mental overload of staring at a long, undifferentiated task list and not knowing where to begin.</p>
       </div>
 
       <!-- DESIGN PROCESS -->
       <div class="cs-section">
+        <span class="slabel">Design Process</span>
         <h2>How I built it</h2>
 
         <div class="step">
@@ -319,23 +326,38 @@
         <p>Five key sections designed to reduce mental friction and improve visibility rather than add new features. Each screen serves a deliberate purpose tied directly to a student pain point identified in research.</p>
 
         <h3>Dashboard</h3>
-        <p>The central hub of the experience. Rather than making students navigate to find status updates, the dashboard surfaces everything critical upfront — with today's urgent tasks prioritized at the top for immediate focus. Upcoming assignments due within 24 hours appear first, so the most important information is always front and center. Completion progress and current academic standing sit alongside, answering "Where am I right now?" at a glance without a single click.</p>
+        <p class="screen-what">What it does</p>
+        <p>Centralizes assignments due within 24 hours, completion progress, and current academic standing on a single opening screen — with today's urgent tasks always at the top.</p>
+        <p class="screen-how">How it helps</p>
+        <p>Students know exactly what demands attention right now without opening a single other app. The mental overhead of piecing together a daily plan from WhatsApp, Google Docs, and a university portal disappears.</p>
         <img src="Clarity Dashboard.png" alt="Clarity Dashboard" class="cs-img" />
 
         <h3>Assignment Management</h3>
-        <p>Directly addresses the core pain point of scattered deadline information. By bringing assignment creation, status tracking, and filtering into one dedicated view, students no longer need to cross-reference multiple apps to know what's due and when.</p>
+        <p class="screen-what">What it does</p>
+        <p>Brings assignment creation, status tracking, and deadline filtering into one dedicated view — no external apps required.</p>
+        <p class="screen-how">How it helps</p>
+        <p>Students stop cross-referencing WhatsApp, Google Docs, and portals to find out what's due and when. All deadlines are in one place, always current, always visible.</p>
         <img src="Clarity Assignment Management.png" alt="Clarity Assignment Management" class="cs-img" />
 
         <h3>Progress Tracking</h3>
-        <p>Transforms invisible effort into visible progress. Completion percentages and learning streaks give students the sense of forward movement that sustains motivation — something entirely absent when using disconnected tools.</p>
+        <p class="screen-what">What it does</p>
+        <p>Tracks completion percentages and learning streaks across all subjects, updating automatically as assignments are marked done.</p>
+        <p class="screen-how">How it helps</p>
+        <p>Students gain a concrete sense of forward movement — something entirely absent when using disconnected tools. Visible progress is one of the strongest drivers of continued engagement, and this screen puts it front and center.</p>
         <img src="Clarity Progress Tracking.png" alt="Clarity Progress Tracking" class="cs-img" />
 
         <h3>Attendance Monitoring</h3>
-        <p>Brings attendance — typically managed through a completely separate university system — into the same space as assignments. Students can identify attendance gaps early and connect them to their academic strategy, instead of discovering issues only when it's too late.</p>
+        <p class="screen-what">What it does</p>
+        <p>Displays attendance percentages per subject alongside assignments in the same interface, pulled out of the separate university portal.</p>
+        <p class="screen-how">How it helps</p>
+        <p>Students spot attendance gaps early enough to act — instead of discovering a problem only at the end of semester when it's too late to recover.</p>
         <img src="Clarity Attendance Monitoring.png" alt="Clarity Attendance Monitoring" class="cs-img" />
 
         <h3>Settings and Personalization</h3>
-        <p>Allows students to tailor the experience to their specific academic context — whether that's adjusting notification preferences, managing subject lists, or configuring how progress is measured. Personalization increases long-term adoption by making the tool feel like their own.</p>
+        <p class="screen-what">What it does</p>
+        <p>Lets students configure notification preferences, subject lists, and how progress is measured — tailoring the tool to their academic context.</p>
+        <p class="screen-how">How it helps</p>
+        <p>A tool that reflects each student's specific situation gets used consistently. Personalization reduces the friction of adoption and increases the chance the tool becomes a daily habit rather than something opened once and forgotten.</p>
         <img src="Clarity Settings &amp; Personalization.png" alt="Clarity Settings" class="cs-img" />
       </div>
 
