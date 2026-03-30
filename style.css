@@ -59,9 +59,9 @@ img {
 }
 
 .nav__logo {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 1.15rem;
-  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 600;
   letter-spacing: -0.01em;
   color: #111;
 }
@@ -152,11 +152,20 @@ img {
   font-size: clamp(3.5rem, 5vw, 4rem);
   font-weight: 700;
   letter-spacing: -0.03em;
-  line-height: 1.1;
+  line-height: 1.2;
   color: #111;
+  max-width: 600px;
   margin-bottom: 1.75rem;
   animation: fadeInUp 0.5s ease-out both;
   animation-delay: 0ms;
+}
+
+.hero__headline-light {
+  color: #444;
+}
+
+.hero__headline-highlight {
+  color: #111;
 }
 
 .hero__sub {
@@ -248,12 +257,13 @@ img {
   background: transparent;
   color: #111;
   border: 1.5px solid #111;
+  font-family: 'Inter', sans-serif;
   font-size: 0.9rem;
   font-weight: 600;
   padding: 0.625rem 1.25rem;
   border-radius: 7px;
   display: inline-block;
-  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  transition: all 0.25s ease;
   animation: fadeInUp 0.5s ease-out both;
   animation-delay: 450ms;
 }
@@ -262,13 +272,14 @@ img {
   background: #111;
   color: #fff;
   box-shadow: 0 4px 16px rgba(17, 17, 17, 0.15);
+  transform: scale(1.02);
 }
 
 /* ===========================
    Section label
    =========================== */
 .section-label {
-  font-family: 'Playfair Display', Georgia, serif;
+  font-family: 'Inter', sans-serif;
   font-size: clamp(1.5rem, 3vw, 2rem);
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -312,7 +323,7 @@ img {
 }
 
 .case-study__title {
-  font-family: 'Playfair Display', Georgia, serif;
+  font-family: 'Inter', sans-serif;
   font-size: clamp(2rem, 3.5vw, 2.75rem);
   font-weight: 700;
   letter-spacing: -0.025em;
@@ -332,19 +343,21 @@ img {
 /* "View case study" button */
 .btn {
   display: inline-block;
+  font-family: 'Inter', sans-serif;
   font-size: 0.875rem;
   font-weight: 600;
   color: #4338CA;
   border: 1.5px solid #4338CA;
   padding: 0.6rem 1.25rem;
   border-radius: 6px;
-  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.25s ease;
 }
 
 .btn:hover {
   background: #4338CA;
   color: #fff;
   box-shadow: 0 4px 16px rgba(67, 56, 202, 0.18);
+  transform: scale(1.02);
 }
 
 /* Row layout for case studies */
@@ -487,7 +500,7 @@ img {
 }
 
 .contact__heading {
-  font-family: 'Playfair Display', Georgia, serif;
+  font-family: 'Inter', sans-serif;
   font-size: clamp(2.25rem, 4.5vw, 3.5rem);
   font-weight: 700;
   letter-spacing: -0.03em;
