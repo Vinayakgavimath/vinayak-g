@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nudge — Case Study by Vinayak</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #fff; color: #111; font-size: 16px; line-height: 1.7; }
+    .container { max-width: 760px; margin: 0 auto; padding: 0 2rem; }
+
+    /* NAV */
+    .nav { padding: 1.25rem 0; border-bottom: 1px solid #e5e5e5; position: sticky; top: 0; background: #fff; z-index: 100; }
+    .nav__inner { display: flex; align-items: center; justify-content: space-between; }
+    .nav__logo { font-weight: 700; font-size: 1rem; color: #111; text-decoration: none; }
+    .nav__back { font-size: 0.85rem; color: #4338CA; text-decoration: none; }
+    .nav__back:hover { text-decoration: underline; }
+
+    /* HERO */
+    .cs-hero { padding: 5rem 0 3rem; border-bottom: 1px solid #e5e5e5; }
+    .cs-tag { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #4338CA; display: block; margin-bottom: 1rem; }
+    .cs-hero h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 0.75rem; }
+    .cs-hero .outcome { font-size: 1rem; color: #4338CA; font-weight: 500; margin-bottom: 0.75rem; }
+    .cs-hero p { font-size: 1.05rem; color: #555; max-width: 580px; }
+
+    /* META */
+    .meta-grid { background: #f5f5f7; border-radius: 12px; padding: 1.75rem; margin: 2.5rem 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+    .meta-item h4 { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #888; margin-bottom: 0.35rem; }
+    .meta-item p { font-size: 0.9rem; color: #111; }
+    .meta-item a { font-size: 0.9rem; color: #4338CA; text-decoration: none; }
+    .meta-item a:hover { text-decoration: underline; }
+
+    /* PROTO CTA */
+    .proto-cta { background: #4338CA; color: #fff; border-radius: 12px; padding: 1.75rem 2rem; margin-bottom: 3rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .proto-cta p { font-size: 0.95rem; font-weight: 500; }
+    .proto-cta a { background: #fff; color: #4338CA; padding: 0.6rem 1.25rem; border-radius: 6px; font-size: 0.88rem; font-weight: 600; text-decoration: none; white-space: nowrap; }
+    .proto-cta a:hover { background: #f0f0f0; }
+
+    /* SECTIONS */
+    .cs-section { padding: 3rem 0; border-bottom: 1px solid #e5e5e5; }
+    .cs-section:last-child { border-bottom: none; }
+    .slabel { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #4338CA; display: block; margin-bottom: 0.85rem; }
+    .cs-section h2 { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 1.1rem; }
+    .cs-section h3 { font-size: 1rem; font-weight: 600; margin: 1.5rem 0 0.5rem; }
+    .cs-section p { color: #444; margin-bottom: 1rem; }
+    .cs-section ul { padding-left: 1.25rem; color: #444; margin-bottom: 1rem; }
+    .cs-section ul li { margin-bottom: 0.4rem; }
+
+    /* INSIGHT */
+    .insight { border-left: 3px solid #4338CA; padding: 1rem 1.5rem; background: #f5f5f7; border-radius: 0 8px 8px 0; margin: 1.5rem 0; }
+    .insight p { color: #111; font-weight: 500; margin: 0; }
+
+    /* IMAGES */
+    .cs-img { width: 100%; border-radius: 12px; margin: 1.5rem 0; display: block; border: 1px solid #e5e5e5; }
+    .cs-img-caption { font-size: 0.8rem; color: #888; text-align: center; margin-top: -0.75rem; margin-bottom: 1.5rem; }
+    .cs-img-full { width: 100%; border-radius: 12px; margin: 1.5rem 0; display: block; }
+
+    /* FEATURE GRID */
+    .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem; }
+    .feature-card { border: 1px solid #e5e5e5; border-radius: 10px; overflow: hidden; }
+    .feature-card img { width: 100%; display: block; }
+    .feature-card-text { padding: 1rem; }
+    .feature-card-text h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.3rem; }
+    .feature-card-text p { font-size: 0.85rem; color: #555; margin: 0; }
+
+    /* STEPS */
+    .step { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
+    .step-num { flex-shrink: 0; width: 28px; height: 28px; background: #4338CA; color: #fff; border-radius: 50%; font-size: 0.8rem; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+    .step-content h3 { margin-top: 0; font-size: 1rem; }
+    .step-content p { margin-bottom: 0; }
+
+    /* HERO HOOK */
+    .cs-hook { font-style: italic; color: #4338CA; font-size: 1.05rem; font-weight: 500; border-left: 3px solid #4338CA; padding-left: 1rem; margin: 1.25rem 0 0; line-height: 1.6; }
+
+    /* KEY INSIGHT HIGHLIGHT */
+    .cs-section--highlight { background: #f0edff; border-radius: 12px; padding: 2rem; margin: 0 -2rem; border-bottom: none; }
+    .cs-section--highlight .slabel { color: #4338CA; }
+    .cs-section--highlight .insight { background: #fff; border-left-color: #4338CA; }
+
+    /* BEFORE VS AFTER */
+    .bva-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem; }
+    .bva-col { border-radius: 10px; padding: 1.25rem 1.5rem; }
+    .bva-before { background: #fef2f2; border: 1px solid #fecaca; }
+    .bva-after { background: #f0fdf4; border: 1px solid #bbf7d0; }
+    .bva-head { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.85rem; }
+    .bva-before .bva-head { color: #dc2626; }
+    .bva-after .bva-head { color: #16a34a; }
+    .bva-col ul { padding-left: 1.1rem; color: #444; margin: 0; }
+    .bva-col ul li { margin-bottom: 0.5rem; font-size: 0.9rem; line-height: 1.5; }
+
+    /* SCREEN EXPLANATION LABELS */
+    .cs-section p.screen-what, .cs-section p.screen-how { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.3rem; }
+    .cs-section p.screen-what { color: #888; }
+    .cs-section p.screen-how { color: #4338CA; margin-top: 0.75rem; }
+
+    /* LEARNINGS */
+    .learning-list { list-style: none; padding: 0; }
+    .learning-list li { padding: 0.75rem 1rem; border-left: 2px solid #e5e5e5; margin-bottom: 0.75rem; color: #444; font-size: 0.95rem; transition: border-color 0.2s; }
+    .learning-list li:hover { border-left-color: #4338CA; }
+
+    /* QUICK OVERVIEW */
+    .qo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 2rem 0 0; }
+    .qo-item { border: 1px solid #e5e5e5; border-radius: 10px; padding: 1.25rem 1.25rem 1.1rem; }
+    .qo-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #4338CA; margin-bottom: 0.45rem; }
+    .qo-text { font-size: 0.88rem; color: #444; margin: 0; line-height: 1.6; }
+
+    /* HERO IMAGE */
+    .cs-hero-img { width: 100%; border-radius: 14px; margin: 2rem 0 0; display: block; border: 1px solid #e5e5e5; box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
+
+    /* FOOTER */
+    .cs-footer { padding: 3rem 0; text-align: center; }
+    .btn { display: inline-block; padding: 0.65rem 1.4rem; border: 1.5px solid #4338CA; color: #4338CA; background: #fff; border-radius: 6px; font-size: 0.9rem; font-weight: 500; text-decoration: none; transition: background 0.2s, color 0.2s; }
+    .btn:hover { background: #4338CA; color: #fff; }
+
+    @media (max-width: 640px) {
+      .meta-grid { grid-template-columns: 1fr 1fr; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .proto-cta { flex-direction: column; }
+      .bva-grid { grid-template-columns: 1fr; }
+      .qo-grid { grid-template-columns: 1fr; }
+      .cs-section--highlight { margin: 0 -1rem; padding: 2rem 1rem; }
+    }
+    @media (max-width: 400px) {
+      .meta-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav__inner container">
+      <a href="index.html" class="nav__logo">Vinayak</a>
+      <a href="index.html" class="nav__back">← Back to portfolio</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+
+      <!-- HERO -->
+      <div class="cs-hero">
+        <span class="cs-tag">Case Study · Job Search</span>
+        <h1>Nudge</h1>
+        <p class="outcome">Designed a mobile-first job application tracker that helps freshers stay organised and confident during their job search.</p>
+        <p class="cs-hook">"Freshers don't lose job opportunities because they lack effort — they lose them because the process is invisible and unstructured."</p>
+        <p>A mobile application concept that centralises job applications, follow-up reminders, and progress tracking into one clear, structured system built for first-time job seekers.</p>
+        <!-- IMAGE PLACEHOLDER: Hero image showing Nudge app overview/dashboard mockup -->
+        <!-- <img src="Nudge Hero.png" alt="Nudge — Job Application Tracker" class="cs-hero-img" /> -->
+      </div>
+
+      <!-- META -->
+      <div class="meta-grid">
+        <div class="meta-item"><h4>Role</h4><p>UX Designer</p></div>
+        <div class="meta-item"><h4>Tools</h4><p>Figma</p></div>
+        <div class="meta-item"><h4>Type</h4><p>Concept Project</p></div>
+        <div class="meta-item"><h4>Research</h4><p>5 user interviews</p></div>
+      </div>
+
+      <!-- QUICK OVERVIEW -->
+      <div class="qo-grid">
+        <div class="qo-item">
+          <div class="qo-label">Problem</div>
+          <p class="qo-text">Freshers track job applications across spreadsheets, notes, and memory — with no visibility into deadlines, follow-ups, or overall progress, leading to missed opportunities.</p>
+        </div>
+        <div class="qo-item">
+          <div class="qo-label">Solution</div>
+          <p class="qo-text">A mobile-first tracker that consolidates every application, status update, and follow-up reminder into one structured, glanceable view.</p>
+        </div>
+        <div class="qo-item">
+          <div class="qo-label">Outcome</div>
+          <p class="qo-text">Reduced anxiety around job searching, improved follow-up consistency, and a clear picture of where each application stands at any point in time.</p>
+        </div>
+      </div>
+
+      <!-- PROBLEM -->
+      <div class="cs-section">
+        <span class="slabel">The Problem</span>
+        <h2>Freshers are losing opportunities they never knew they had</h2>
+        <div class="insight">
+          <p>First-time job seekers struggle to manage multiple applications simultaneously — not from lack of effort, but from lack of structure and visibility.</p>
+        </div>
+        <p>Talk to any fresh graduate midway through their job search and the story is the same. Applications are submitted and immediately forgotten. Interview dates are tracked in WhatsApp reminders. Follow-up emails — if sent at all — are composed from memory days after the fact. Some applications exist only in browser history.</p>
+        <p>The problem isn't motivation. Freshers are applying everywhere, often to dozens of companies in a single week. The problem is that the job search process has no structure by default, and no one teaches you how to build one. Without a system, opportunities slip — not because they weren't pursued, but because they became invisible.</p>
+        <div class="insight">
+          <p>The real problem isn't lack of applications — it's that freshers have no way to see where they stand, what needs attention, and what to do next.</p>
+        </div>
+      </div>
+
+      <!-- WHY THIS MATTERS -->
+      <div class="cs-section">
+        <span class="slabel">Why This Matters</span>
+        <h2>The real cost of an unstructured job search</h2>
+        <p>When job applications are tracked loosely or not at all, the consequences go beyond missed deadlines:</p>
+        <ul>
+          <li><strong>Missed follow-ups</strong> — Recruiters expect follow-ups. Freshers who don't send them are often passed over, not because they were unqualified, but because another candidate stayed visible.</li>
+          <li><strong>Duplicate applications</strong> — Without a record, freshers frequently reapply to the same company, creating a poor impression and wasting time.</li>
+          <li><strong>No learning loop</strong> — Without tracking outcomes, there's no way to identify patterns — which roles are responding, which aren't, and why.</li>
+          <li><strong>Heightened anxiety</strong> — An invisible process feels chaotic. Not knowing how many applications are active, pending, or stalled makes the job search feel more overwhelming than it actually is.</li>
+        </ul>
+      </div>
+
+      <!-- MY ROLE -->
+      <div class="cs-section">
+        <span class="slabel">My Role</span>
+        <h2>What I worked on</h2>
+        <p>I worked on this project independently as a <strong>UX Designer</strong>, taking full ownership from understanding the problem to delivering a clickable prototype. My responsibilities spanned the entire design process:</p>
+        <ul>
+          <li><strong>Research</strong> — Conducted 5 user interviews with recent graduates and final-year students to understand how they currently track job applications and where the process breaks down.</li>
+          <li><strong>Wireframing</strong> — Designed low-fidelity wireframes to explore layout, navigation patterns, and information architecture suited to mobile use.</li>
+          <li><strong>UI Design</strong> — Built a high-fidelity mobile interface with a clean visual system, clear status indicators, and a structure that reduces friction at every step of the job search workflow.</li>
+        </ul>
+      </div>
+
+      <!-- RESEARCH & INSIGHTS -->
+      <div class="cs-section">
+        <span class="slabel">Research &amp; Insights</span>
+        <h2>What freshers actually said</h2>
+        <p>Before opening Figma, I conducted 5 user interviews with final-year students and recent graduates. I asked them to walk me through their last week of job searching — not how they thought they tracked applications, but what they actually did. The patterns were consistent and immediate.</p>
+        <ul>
+          <li>Most tracked applications in a combination of spreadsheets, phone notes, and memory — none felt their system was working</li>
+          <li>Follow-up emails were rarely sent because there was no reminder and no easy way to locate the original application details</li>
+          <li>Most participants had accidentally applied to the same company twice</li>
+          <li>No one had a clear picture of how many applications were currently active versus stalled versus rejected</li>
+          <li>The emotional experience of job searching was consistently described as "chaotic," "stressful," and "out of control"</li>
+        </ul>
+
+        <h3>Key Insights</h3>
+
+        <div class="insight">
+          <p><strong>Insight 1 —</strong> Freshers apply broadly but track loosely. The volume of applications means the process quickly becomes impossible to manage mentally — but no one has a tool designed specifically for this stage of their career.</p>
+        </div>
+
+        <div class="insight">
+          <p><strong>Insight 2 —</strong> Follow-ups are understood to matter, but rarely happen. The friction between knowing you should follow up and actually doing it — finding the contact, recalling when you applied, drafting a message — is enough to stop most freshers from following through.</p>
+        </div>
+
+        <div class="insight">
+          <p><strong>Insight 3 —</strong> Progress is invisible. Without a view of their pipeline, freshers can't distinguish between "waiting to hear back" and "this application has gone cold." The emotional weight of ambiguity compounds the stress of searching.</p>
+        </div>
+
+        <div class="insight">
+          <p>Freshers don't need another job board. They need a system that makes their existing applications visible, actionable, and trackable — from a device that's always in their pocket.</p>
+        </div>
+      </div>
+
+      <!-- KEY INSIGHT -->
+      <div class="cs-section cs-section--highlight">
+        <span class="slabel">Key Insight</span>
+        <h2>Core finding: the job search process is broken by default — not by attitude</h2>
+        <p>Every fresher I spoke to was putting in genuine effort. They were applying consistently, checking their emails, and trying to stay organised. The failure wasn't in their motivation — it was in the absence of any structure to support them. The job search process, as most freshers experience it, is a series of one-way actions with no feedback loop, no visibility, and no prompts for what to do next.</p>
+        <div class="insight">
+          <p>The problem was not laziness or disorganisation — it was a complete absence of structure and feedback in the default job search experience.</p>
+        </div>
+        <div class="insight">
+          <p>When there's no system to surface what needs attention, nothing gets attended to consistently. Nudge was designed to be that system — a lightweight structure that freshers can adopt without learning a new tool from scratch.</p>
+        </div>
+        <p>This reframed the design goal entirely. Nudge wasn't about building a sophisticated CRM. It was about creating the minimal, mobile-first structure that makes a chaotic process feel manageable — surfacing the right information at the right moment, with the lightest possible friction.</p>
+      </div>
+
+      <!-- SOLUTION APPROACH -->
+      <div class="cs-section">
+        <span class="slabel">Solution Approach</span>
+        <h2>Why this solution works</h2>
+        <p>The core insight was this: freshers don't need a complex system — they need a simple one that actually gets used. Nudge was designed around three principles that came directly from research:</p>
+        <ul>
+          <li><strong>Mobile-first by necessity.</strong> Job searching happens wherever you are — on the bus, between lectures, during lunch. A solution that only works at a desk will be ignored. Nudge is designed for the phone, because that's where the problem lives.</li>
+          <li><strong>Status at a glance.</strong> Every application has a status. Making that status immediately visible — without tapping into individual records — is what prevents applications from going dark. Nudge surfaces status centrally, so nothing quietly dies unnoticed.</li>
+          <li><strong>Prompts instead of reminders.</strong> Nudge nudges. Rather than sending generic reminders, it surfaces contextual prompts — "You applied to this role 5 days ago. Time to follow up?" — that reduce the cognitive work of knowing when and how to act.</li>
+          <li><strong>Built for the scale of a fresher job search.</strong> Applying to 20–50 companies in a month is normal for freshers. The interface scales to that volume without becoming overwhelming.</li>
+        </ul>
+      </div>
+
+      <!-- DESIGN DECISIONS -->
+      <div class="cs-section">
+        <span class="slabel">Design Decisions</span>
+        <h2>Why I made specific choices</h2>
+
+        <h3>Why mobile-first?</h3>
+        <p>Freshers search for jobs continuously throughout their day — not just when sitting at a laptop. Applications get submitted on mobile. Emails are checked on mobile. The mental energy to open a laptop specifically to update a tracker is often the reason the tracker doesn't get updated at all. Building for mobile reduced the barrier to keeping the system current, which is the only way the system stays useful.</p>
+
+        <h3>Why a pipeline view?</h3>
+        <p>The most immediate question every job seeker has is: "Where do things stand?" A pipeline view — showing applications grouped by status (Applied, Interview Scheduled, Offer, Rejected) — answers that question instantly. Rather than scrolling through a flat list and reading each entry, users get a spatial overview of their entire search at a glance. The visual distribution itself carries meaning: too many items in "Applied" with nothing advancing is a signal, not just data.</p>
+
+        <h3>Why contextual follow-up prompts?</h3>
+        <p>A generic notification — "Don't forget to follow up!" — gets dismissed. A specific prompt — "You applied to Swiggy 7 days ago. No response yet. Follow up?" — gets acted on. The difference is context. Nudge surfaces follow-up prompts tied to specific applications and elapsed time, transforming a vague intention into a clear next action. This design decision directly addresses the insight that freshers know they should follow up but lack the trigger to actually do it.</p>
+
+        <h3>Why a minimal add flow?</h3>
+        <div class="insight">
+          <p>If adding an application takes more than 30 seconds, freshers won't do it consistently — and an inconsistently maintained tracker is worse than no tracker at all.</p>
+        </div>
+        <p>The add-application flow in Nudge was designed to require only three fields: company, role, and date applied. Everything else — notes, contacts, interview details — can be added later. This respects the reality of how freshers apply: quickly, often, and on the move. Capturing the essential record first, with no friction, is what keeps the tracker complete enough to be useful.</p>
+      </div>
+
+      <!-- DESIGN PROCESS -->
+      <div class="cs-section">
+        <span class="slabel">Design Process</span>
+        <h2>How I built it</h2>
+
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h3>Problem Definition</h3>
+            <p>Defined the core problem through 5 user interviews: freshers lack any structured system to track job applications, leading to missed follow-ups, duplicate applications, and an emotionally overwhelming search process.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h3>User Flow Mapping</h3>
+            <p>Mapped the key user flows — adding a new application, viewing the pipeline, triggering a follow-up, and reviewing a specific application — to ensure the app felt connected and purposeful rather than a collection of isolated screens.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h3>Low-Fidelity Wireframes</h3>
+            <p>Built low-fidelity wireframes focused on mobile layout, navigation patterns, and information hierarchy — establishing structure and flow before any visual design decisions.</p>
+          </div>
+        </div>
+
+        <!-- IMAGE PLACEHOLDER: Low-fidelity wireframes for Nudge (mobile screens) -->
+        <!-- <img src="Nudge Low-Fidelity Wireframe.png" alt="Low fidelity wireframes for Nudge" class="cs-img" /> -->
+        <!-- <p class="cs-img-caption">Phase 01 — Low-fidelity wireframes exploring mobile structure and navigation</p> -->
+
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h3>High-Fidelity Design</h3>
+            <p>Designed a clean, high-fidelity mobile interface with deliberate visual hierarchy, status-coded colour indicators, minimal typography, and a consistent design system across all screens.</p>
+          </div>
+        </div>
+
+        <!-- IMAGE PLACEHOLDER: High-fidelity screens for Nudge -->
+        <!-- <img src="Nudge High-Fidelity Design.png" alt="High fidelity screens for Nudge" class="cs-img" /> -->
+        <!-- <p class="cs-img-caption">Phase 02 — High-fidelity mobile design with full design system</p> -->
+
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <h3>Prototyping</h3>
+            <p>Connected all screens into a clickable prototype in Figma to validate key flows — adding an application, updating status, and responding to a follow-up prompt.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- KEY FEATURES -->
+      <div class="cs-section">
+        <span class="slabel">Key Features</span>
+        <h2>The final product</h2>
+        <p>Four key screens designed to reduce the chaos of the fresher job search and replace it with visibility, structure, and timely prompts. Each screen addresses a specific pain point identified in research.</p>
+
+        <h3>Home / Pipeline View</h3>
+        <p class="screen-what">What it does</p>
+        <p>Displays all active applications organised by status — Applied, Interview Scheduled, Offer Received, and Rejected — so users see their entire search landscape at a single glance.</p>
+        <p class="screen-how">How it helps</p>
+        <p>Freshers instantly know how many applications are active, which are progressing, and which have gone cold — without reading a single line of text. The visual distribution of the pipeline itself communicates the health of the job search.</p>
+        <!-- IMAGE PLACEHOLDER: Nudge pipeline/home screen -->
+        <!-- <img src="Nudge Pipeline View.png" alt="Nudge Pipeline View" class="cs-img" /> -->
+
+        <h3>Application Detail</h3>
+        <p class="screen-what">What it does</p>
+        <p>Shows the full record of a single application — company, role, date applied, current status, notes, and any associated contacts — with a clear action button to update the status or log a follow-up.</p>
+        <p class="screen-how">How it helps</p>
+        <p>Everything about one application is in one place. Freshers no longer need to piece together information from separate apps before making a decision about next steps.</p>
+        <!-- IMAGE PLACEHOLDER: Nudge application detail screen -->
+        <!-- <img src="Nudge Application Detail.png" alt="Nudge Application Detail" class="cs-img" /> -->
+
+        <h3>Follow-Up Prompts</h3>
+        <p class="screen-what">What it does</p>
+        <p>Surfaces contextual nudges for applications that have been in the "Applied" state beyond a set threshold — showing which companies haven't responded and suggesting a follow-up action with the right timing.</p>
+        <p class="screen-how">How it helps</p>
+        <p>Removes the guesswork from follow-ups. Instead of trying to remember who to contact and when, freshers are given a specific, contextual prompt that reduces the friction between intention and action.</p>
+        <!-- IMAGE PLACEHOLDER: Nudge follow-up prompts screen -->
+        <!-- <img src="Nudge Follow-Up Prompts.png" alt="Nudge Follow-Up Prompts" class="cs-img" /> -->
+
+        <h3>Add Application</h3>
+        <p class="screen-what">What it does</p>
+        <p>A minimal three-field form — company, role, date applied — with optional fields for notes and contacts available on a secondary screen. Submitting takes under 30 seconds.</p>
+        <p class="screen-how">How it helps</p>
+        <p>Reducing the add flow to the bare minimum means freshers capture every application in real time, keeping the tracker accurate without it becoming a chore. An up-to-date tracker is the foundation everything else depends on.</p>
+        <!-- IMAGE PLACEHOLDER: Nudge add application screen -->
+        <!-- <img src="Nudge Add Application.png" alt="Nudge Add Application" class="cs-img" /> -->
+      </div>
+
+      <!-- BEFORE VS AFTER -->
+      <div class="cs-section">
+        <span class="slabel">Before vs After</span>
+        <h2>What changed for freshers</h2>
+        <p>The shift Nudge creates isn't cosmetic — it's a fundamental change in how freshers experience their job search. Comparing the two states shows exactly what the design addresses.</p>
+        <div class="bva-grid">
+          <div class="bva-col bva-before">
+            <div class="bva-head">Before Nudge</div>
+            <ul>
+              <li>Applications tracked in spreadsheets, notes, or memory — all incomplete and out of date</li>
+              <li>No visibility into which applications are active, stalled, or dead</li>
+              <li>Follow-ups rarely happen — too much friction to find, draft, and send on time</li>
+              <li>Duplicate applications sent to the same company due to poor record-keeping</li>
+              <li>No awareness of patterns — can't tell which roles are responding and which aren't</li>
+              <li>Job searching feels chaotic, stressful, and permanently out of control</li>
+            </ul>
+          </div>
+          <div class="bva-col bva-after">
+            <div class="bva-head">After Nudge</div>
+            <ul>
+              <li>One mobile-first tracker — every application logged, status tracked, and searchable in seconds</li>
+              <li>Pipeline view surfaces which applications need attention without any digging</li>
+              <li>Contextual follow-up prompts trigger at the right time with the right context</li>
+              <li>Duplicate applications eliminated — full application history always visible</li>
+              <li>Patterns become visible — response rates, timelines, and active volume all trackable</li>
+              <li>Job searching feels structured, manageable, and within your control</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- IMPACT -->
+      <div class="cs-section">
+        <span class="slabel">Impact</span>
+        <h2>How this helps freshers</h2>
+        <p>Nudge is a conceptual project, but it was designed with real outcomes in mind. Based on the problems identified through 5 user interviews and the design decisions made, the expected impact is:</p>
+        <ul>
+          <li><strong>More follow-ups, more consistently</strong> — Contextual prompts reduce the gap between knowing you should follow up and actually doing it, directly improving a behaviour that correlates with better outcomes.</li>
+          <li><strong>No more lost applications</strong> — A single source of truth for every application eliminates the common experience of forgetting you applied somewhere until it's too late to follow up or prepare.</li>
+          <li><strong>Reduced job search anxiety</strong> — Visibility reduces uncertainty. When freshers can see exactly where things stand, the process feels less overwhelming — even when the underlying volume is high.</li>
+          <li><strong>A learning loop that didn't exist before</strong> — Over time, a tracked application history surfaces patterns: which job types are generating interviews, which aren't, and how long different stages typically take.</li>
+        </ul>
+        <p>After sharing the concept with the interviewees, the pipeline view and follow-up prompts were consistently highlighted as the most valuable features — not because they're technically impressive, but because they directly address the two biggest failure points of the fresher job search.</p>
+        <div class="insight">
+          <p>The goal was never to build a complex career management tool. It was to give freshers enough structure to feel in control of a process that currently feels entirely out of their hands.</p>
+        </div>
+      </div>
+
+      <!-- LEARNINGS -->
+      <div class="cs-section">
+        <span class="slabel">What I Learned</span>
+        <h2>What I learned</h2>
+        <ul class="learning-list">
+          <li><strong>Context shapes what "simple" means.</strong> Designing for mobile-first forced me to be more deliberate about every element on screen. When space is constrained, every design decision has to earn its place. What felt like a limitation became a useful discipline — one that produced a cleaner result than I would have reached designing for desktop first.</li>
+          <li><strong>Friction is the real UX problem.</strong> Every time I found a reason freshers weren't doing something — following up, logging applications, updating statuses — the answer was friction, not intention. Designing to reduce friction, not add capability, was the most impactful thing I could do. This is a principle I'll carry into every future project.</li>
+          <li><strong>Specificity beats generality in prompts.</strong> The difference between a useful nudge and an ignored notification is context. Generic reminders are dismissed. Specific, timely, situation-aware prompts get acted on. This taught me that designing the trigger matters as much as designing the action it enables.</li>
+          <li><strong>User interviews reveal what assumptions hide.</strong> Before the interviews, I assumed freshers would want a feature-rich tracker with analytics, tagging, and integrations. Every interview contradicted that assumption. What they actually wanted was simple: know where things stand, know what to do next, and be reminded before it's too late. Research consistently humbles assumptions — and produces better designs as a result.</li>
+        </ul>
+        <div class="insight">
+          <p>Good design meets users where they are — not where we imagine them to be. Nudge works because it was built from what freshers actually do, not what we assumed they should do.</p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <div class="cs-footer container">
+    <a href="index.html" class="btn">← Back to portfolio</a>
+  </div>
+
+</body>
+</html>
