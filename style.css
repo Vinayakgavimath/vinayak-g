@@ -316,9 +316,9 @@ img {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #00ff87;
-  background: rgba(0, 255, 135, 0.1);
+  background: rgba(0, 255, 135, 0.08);
   padding: 0.25rem 0.65rem;
-  border-radius: 999px;
+  border-radius: 4px;
   margin-bottom: 1rem;
 }
 
