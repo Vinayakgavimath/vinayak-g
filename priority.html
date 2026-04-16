@@ -41,10 +41,13 @@
     .cs-section ul li { margin-bottom: 0.4rem; }
     .insight { border-left: 3px solid #4338CA; padding: 1rem 1.5rem; background: #f5f5f7; border-radius: 0 8px 8px 0; margin: 1.5rem 0; }
     .insight p { color: #111; font-weight: 500; margin: 0; }
+    .quote-card { border-left: 3px solid #4338CA; padding: 1.25rem 1.5rem; background: #f5f5f7; border-radius: 0 8px 8px 0; margin: 1rem 0; }
+    .quote-card p { color: #111; margin: 0; font-style: italic; font-size: 0.95rem; }
+    .quote-card .attribution { color: #888; font-style: normal; font-weight: 500; margin-top: 0.5rem; font-size: 0.9rem; }
     .cs-img { width: 100%; border-radius: 12px; margin: 1.5rem 0; display: block; border: 1px solid #e5e5e5; }
     .cs-img-caption { font-size: 0.8rem; color: #888; text-align: center; margin-top: -0.75rem; margin-bottom: 1.5rem; }
     .step { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
-    .step-num { flex-shrink: 0; width: 28px; height: 28px; background: #4338CA; color: #fff; border-radius: 50%; font-size: 0.8rem; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+    .step-num { flex-shrink: 0; width: 28px; height: 28px; background: #4338CA; color: #fff; border-radius: 50%; font-size: 0.8rem; font-weight: 700; display: flex; align-items: center; justify-content: center; }
     .step-content h3 { margin-top: 0; font-size: 1rem; }
     .step-content p { margin-bottom: 0; }
     .feature-row { display: flex; gap: 1rem; margin: 1rem 0; flex-wrap: wrap; }
@@ -53,7 +56,7 @@
     .learning-list li { padding: 0.75rem 1rem; border-left: 2px solid #e5e5e5; margin-bottom: 0.75rem; color: #444; font-size: 0.95rem; transition: border-color 0.2s; }
     .learning-list li:hover { border-left-color: #4338CA; }
     .cs-footer { padding: 3rem 0; text-align: center; }
-    .btn { display: inline-block; padding: 0.65rem 1.4rem; border: 1.5px solid #4338CA; color: #4338CA; background: #fff; border-radius: 6px; font-size: 0.9rem; font-weight: 500; text-decoration: none; transition: background 0.2s, color 0.2s; }
+    .btn { display: inline-block; padding: 0.65rem 1.4rem; border: 1.5px solid #4338CA; color: #4338CA; background: #fff; border-radius: 6px; font-size: 0.9rem; font-weight: 500; text-decoration: none; transition: all 0.2s; }
     .btn:hover { background: #4338CA; color: #fff; }
     @media (max-width: 640px) {
       .meta-grid { grid-template-columns: 1fr 1fr; }
@@ -89,7 +92,7 @@
         <div class="meta-item"><h4>Role</h4><p>Product Designer</p></div>
         <div class="meta-item"><h4>Tools</h4><p>Figma</p></div>
         <div class="meta-item"><h4>Type</h4><p>Concept Project</p></div>
-        <div class="meta-item"><h4>Prototype</h4><a href="https://www.figma.com/make/GolIyXf9lhAb2E56jNJN0W/Priority-Productivity-Mobile-app?fullscreen=1" target="_blank" rel="noopener noreferrer">View in Figma →</a></div>
+        <div class="meta-item"><h4>Prototype</h4><a href="https://www.figma.com/make/GolIyXf9lhAb2E56jNJN0W/Priority-Productivity-Mobile-app?fullscreen=1" target="_blank" rel="noopener noreferrer">Open in Figma</a></div>
       </div>
 
       <!-- PROTO CTA -->
@@ -102,44 +105,67 @@
       <div class="cs-section">
         <span class="slabel">The Problem</span>
         <h2>Tasks don't get forgotten. They become invisible.</h2>
-        <p>While managing my own assignments, I noticed something unexpected. I wasn't forgetting tasks because I didn't care about them. I was forgetting them because they weren't visible at the right time.</p>
-        <p>Most task management apps depend on users to actively open the app and check their tasks. This creates a dependency on memory. If the user doesn't remember to check, even important tasks stay hidden.</p>
-        <p>After speaking with students, the same pattern appeared. Most used Notion, Google Tasks, Calendar, or sticky notes — and still faced the same problems:</p>
+        <p>I built this because I kept missing my own deadlines. Not because I forgot — because my tasks were invisible after I added them.</p>
+        <p>I'd add something to my task manager and it would just sit there. I wouldn't see it again unless I actively opened the app and scrolled through my list. That doesn't work. You can't rely on someone to remember to check.</p>
+        <p>I noticed the same thing happening with other students. They used different tools — Notion, Google Tasks, Calendar, sticky notes — but faced the same problem. The apps were there, but out of sight.</p>
         <ul>
-          <li>Forgetting deadlines</li>
-          <li>Tasks getting buried among other items</li>
-          <li>No clear visibility of the most important task</li>
-          <li>Lack of clarity on progress</li>
+          <li>Tasks get buried under other items</li>
+          <li>No clear signal about what matters most</li>
+          <li>Reminders come and go. Then you ignore them</li>
+          <li>You can't see progress until you open the app</li>
         </ul>
-        <p>Interestingly, some students preferred sticky notes over digital tools because sticky notes stayed physically visible and were harder to ignore.</p>
+        <p>Some students actually switched to sticky notes. Sounds weird for a designer to say, but it made sense — sticky notes stayed on your desk. You couldn't ignore them. You didn't have to remember to check.</p>
         <div class="insight">
-          <p>The problem was not task creation. The problem was task visibility.</p>
+          <p>The problem wasn't task creation. The problem was task visibility.</p>
         </div>
+      </div>
+
+      <!-- RESEARCH -->
+      <div class="cs-section">
+        <span class="slabel">Research</span>
+        <h2>What I learned from students</h2>
+        <p>I talked to 6 students. I didn't ask "what app do you use?" — I asked "walk me through your last week." Same pattern every time.</p>
+        
+        <div class="quote-card">
+          <p>"I write it down and then never look at it again."</p>
+          <p class="attribution">— Arjun, engineering student</p>
+        </div>
+
+        <div class="quote-card">
+          <p>"I use sticky notes because at least I can see them."</p>
+          <p class="attribution">— Sneha, BCA student</p>
+        </div>
+
+        <div class="quote-card">
+          <p>"Reminders just become noise after a while. I swipe them away."</p>
+          <p class="attribution">— Rohan, fresher</p>
+        </div>
+
+        <p>The pattern was clear. Digital tools were failing because they hide tasks. Reminders are temporary — you dismiss them and they're gone. Apps require you to remember to open them. But sticky notes? They sit there. Visible. Impossible to miss.</p>
       </div>
 
       <!-- INSIGHT -->
       <div class="cs-section">
         <span class="slabel">Key Insight</span>
-        <h2>Forgetting tasks is a visibility problem, not a motivation problem.</h2>
-        <p>Most digital task tools rely on reminders and notifications. But reminders are temporary — they appear briefly and disappear. Over time, users start ignoring them or dismiss them without action.</p>
-        <p>Physical reminders like sticky notes work because they remain visible in the user's environment. They don't depend on memory or active effort to check.</p>
+        <h2>Make it impossible to ignore</h2>
+        <p>Sticky notes work because they stay visible. You don't have to remember to check them. That's the entire idea behind Priority — make the most important task impossible to ignore, without depending on the user to remember.</p>
+        <p>Most task apps bet on reminders and notifications. But reminders are a temporary jolt. You see them, dismiss them, and they vanish. Over time you stop even looking at them.</p>
         <div class="insight">
-          <p>The goal is not better reminders. It is persistent visibility.</p>
+          <p>The real solution isn't a better reminder. It's persistent visibility in the places where students already live.</p>
         </div>
-        <p>This insight became the foundation for the entire solution.</p>
       </div>
 
       <!-- SOLUTION -->
       <div class="cs-section">
         <span class="slabel">Solution</span>
         <h2>One priority task. Always visible.</h2>
-        <p>Instead of managing multiple tasks equally, the system highlights one priority task at a time. Rather than presenting long task lists, the experience brings the most important task to the forefront and maintains passive visibility through home screen widgets.</p>
+        <p>Instead of managing multiple tasks equally, the system highlights one priority task at a time. Rather than presenting long task lists, the experience brings the most important task to the forefront.</p>
         <div class="feature-row">
           <span class="feature-pill">Single priority task focus</span>
           <span class="feature-pill">Lock screen widget visibility</span>
           <span class="feature-pill">Progress streak tracking</span>
         </div>
-        <p style="margin-top:1rem;">This approach removes dependency on memory and repeated reminders. The system keeps the task visible in the user's daily environment, making action more likely. The goal was a calm, focused experience that helps users complete what truly matters.</p>
+        <p style="margin-top:1rem;">This approach removes dependency on memory. The task stays visible on the lock screen, in the widget, wherever you look. You don't have to remember to check. It's just there.</p>
       </div>
 
       <!-- DESIGN PROCESS -->
@@ -173,7 +199,7 @@
           <div class="step-num">3</div>
           <div class="step-content">
             <h3>Design System</h3>
-            <p>Defined a simple design system including colors, typography, and spacing. The goal was a visual language that supports clarity rather than distraction. 90% neutral, 10% accent — so the blue only draws attention when it matters.</p>
+            <p>Defined a simple design system including colors, typography, and spacing. The goal was a visual language that supports clarity rather than distraction. 90% neutral, 10% accent — intentional and minimal.</p>
           </div>
         </div>
 
@@ -184,7 +210,7 @@
           <div class="step-num">4</div>
           <div class="step-content">
             <h3>High-Fidelity Design</h3>
-            <p>Translated wireframes into final screens focused on strong visual hierarchy, clear priority indication, minimal interface, and consistent interaction patterns across dashboard, task creation, widget, and completion states.</p>
+            <p>Translated wireframes into final screens focused on strong visual hierarchy, clear priority indication, minimal interface, and consistent interaction patterns across dashboard, task creation, widgets, and onboarding.</p>
           </div>
         </div>
 
@@ -196,14 +222,10 @@
       <div class="cs-section">
         <span class="slabel">Validation</span>
         <h2>What students said</h2>
-        <p>After designing the prototype, I shared it with a few students and asked them to explore the flow.</p>
-        <ul>
-          <li>Most participants immediately understood the idea of focusing on one priority task instead of managing long lists</li>
-          <li>Constant visibility through widgets was seen as genuinely useful for reducing forgetting</li>
-          <li>One piece of feedback highlighted that users may occasionally feel overwhelmed by a single task — suggesting the need for a snooze or postpone option</li>
-        </ul>
+        <p>I showed the prototype to a few students and asked them to walk through it.</p>
+        <p>Most immediately got it — one priority task instead of overwhelming lists. The constant visibility through widgets made sense for reducing forgetting. But one student said something that stuck with me: "What if the task itself is stressing me out? I don't want to see it all day." That broke my initial assumption that visibility is always good. It led me to add a snooze option in V2 — not to hide the task, but to let users breathe. You can step back for a bit. The task doesn't disappear. It just gives you space when you need it.</p>
         <div class="insight">
-          <p>The core idea resonated. The next iteration would add flexibility without losing focus.</p>
+          <p>The core idea works. But even good ideas need flexibility.</p>
         </div>
       </div>
 
@@ -224,13 +246,8 @@
       <div class="cs-section">
         <span class="slabel">Learnings</span>
         <h2>What I learned</h2>
-        <ul class="learning-list">
-          <li>Identifying the root cause before designing solutions leads to better outcomes</li>
-          <li>Small shifts in visibility can significantly impact user behavior</li>
-          <li>Using hierarchy to guide attention is more powerful than adding more features</li>
-          <li>Designing systems that support behavior, not just actions, creates lasting value</li>
-          <li>A simple design system enforces consistency and builds trust in the product</li>
-        </ul>
+        <p>The biggest thing I learned: I almost built the wrong product. My first instinct was a smarter reminder system. But talking to students showed the problem wasn't reminders — they were ignoring those already. The real fix was passive visibility. That only came from research, not assumptions.</p>
+        <p>I also learned that a strong design principle acts like a filter. "One priority task, always visible" made every decision easier. If a feature didn't serve that idea, it didn't belong. That's way more useful than a long list of design rules.</p>
       </div>
 
     </div>
