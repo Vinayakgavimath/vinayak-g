@@ -1,23 +1,617 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Priority</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Priority — Case Study by Vinayak</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #ffffff;
+      color: #111827;
+      line-height: 1.7;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 48px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    nav a.logo {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #111827;
+      text-decoration: none;
+    }
+    nav a.back {
+      font-size: 0.875rem;
+      color: #6b7280;
+      text-decoration: none;
+    }
+    nav a.back:hover { color: #111827; }
+
+    /* LAYOUT */
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* HERO */
+    .hero {
+      padding: 72px 24px 48px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .hero .label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #6b7280;
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      color: #111827;
+    }
+    .hero .tagline {
+      font-size: 1.125rem;
+      color: #374151;
+      margin-bottom: 32px;
+      max-width: 600px;
+    }
+
+    /* META GRID */
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      padding: 32px 0;
+      border-top: 1px solid #f0f0f0;
+      border-bottom: 1px solid #f0f0f0;
+      margin-bottom: 40px;
+    }
+    .meta-item .meta-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin-bottom: 4px;
+    }
+    .meta-item .meta-value {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #111827;
+    }
+    .meta-item a {
+      color: #111827;
+      text-decoration: underline;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    /* SUMMARY CARDS */
+    .summary-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 40px 0;
+    }
+    .summary-card {
+      background: #f9fafb;
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .summary-card .sc-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin-bottom: 8px;
+    }
+    .summary-card p {
+      font-size: 0.875rem;
+      color: #374151;
+      line-height: 1.5;
+    }
+
+    /* PROTOTYPE BANNER */
+    .proto-banner {
+      background: #f9fafb;
+      border-radius: 12px;
+      padding: 24px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 32px 0 48px;
+    }
+    .proto-banner p {
+      font-size: 0.9rem;
+      color: #374151;
+      font-weight: 500;
+    }
+    .proto-banner a {
+      background: #111827;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* SECTIONS */
+    .section {
+      padding: 56px 0;
+      border-top: 1px solid #f0f0f0;
+    }
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin-bottom: 12px;
+    }
+    .section h2 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+      color: #111827;
+      line-height: 1.3;
+    }
+    .section h3 {
+      font-size: 1.125rem;
+      font-weight: 700;
+      margin: 28px 0 10px;
+      color: #111827;
+    }
+    .section p {
+      font-size: 0.975rem;
+      color: #374151;
+      margin-bottom: 16px;
+      line-height: 1.75;
+    }
+    .section ul {
+      padding-left: 20px;
+      margin-bottom: 16px;
+    }
+    .section ul li {
+      font-size: 0.975rem;
+      color: #374151;
+      margin-bottom: 8px;
+      line-height: 1.7;
+    }
+
+    /* QUOTE CARDS */
+    .quote-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin: 28px 0;
+    }
+    .quote-card {
+      background: #f9fafb;
+      border-left: 3px solid #111827;
+      border-radius: 0 10px 10px 0;
+      padding: 18px 22px;
+    }
+    .quote-card p {
+      font-style: italic;
+      font-size: 0.975rem;
+      color: #111827;
+      margin-bottom: 8px;
+    }
+    .quote-card .attribution {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #6b7280;
+      margin-bottom: 0;
+      font-style: normal;
+    }
+
+    /* KEY INSIGHT BLOCK */
+    .insight-block {
+      background: #111827;
+      color: #fff;
+      border-radius: 12px;
+      padding: 32px;
+      margin: 32px 0;
+    }
+    .insight-block .insight-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin-bottom: 12px;
+    }
+    .insight-block p {
+      font-size: 1.05rem;
+      color: #f9fafb;
+      line-height: 1.7;
+      margin-bottom: 0;
+    }
+
+    /* SOLUTION PILLS */
+    .solution-pills {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 20px 0 28px;
+    }
+    .pill {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 999px;
+      padding: 8px 18px;
+      font-size: 0.825rem;
+      font-weight: 600;
+      color: #374151;
+    }
+
+    /* PROCESS STEPS */
+    .process-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      margin-top: 32px;
+    }
+    .step {
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+    .step-number {
+      width: 40px;
+      height: 40px;
+      background: #111827;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.875rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .step-content h3 {
+      margin-top: 6px;
+      margin-bottom: 8px;
+    }
+    .step-content p {
+      margin-bottom: 8px;
+    }
+    .step-note {
+      font-size: 0.875rem;
+      color: #6b7280;
+      font-style: italic;
+      margin-top: 4px;
+    }
+
+    /* IMAGES */
+    .case-img {
+      width: 100%;
+      border-radius: 12px;
+      margin: 24px 0;
+      border: 1px solid #f0f0f0;
+    }
+    .img-caption {
+      font-size: 0.8rem;
+      color: #9ca3af;
+      text-align: center;
+      margin-top: -16px;
+      margin-bottom: 24px;
+    }
+
+    /* VALIDATION QUOTE */
+    .validation-highlight {
+      border-left: 3px solid #111827;
+      padding: 16px 22px;
+      margin: 24px 0;
+      background: #f9fafb;
+      border-radius: 0 10px 10px 0;
+    }
+    .validation-highlight p {
+      font-style: italic;
+      font-size: 1rem;
+      color: #111827;
+      margin-bottom: 0;
+    }
+
+    /* DELIVERABLES */
+    .deliverables-block {
+      background: #f9fafb;
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin-top: 24px;
+    }
+    .deliverables-block p {
+      margin-bottom: 0;
+    }
+
+    /* LEARNINGS */
+    .learning-block {
+      margin-bottom: 24px;
+    }
+    .learning-block h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid #f0f0f0;
+      padding: 40px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 80px;
+    }
+    footer a {
+      color: #374151;
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    footer a:hover { color: #111827; }
+    footer span {
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 16px 20px; }
+      .hero { padding: 48px 20px 32px; }
+      .hero h1 { font-size: 1.75rem; }
+      .meta-grid { grid-template-columns: repeat(2, 1fr); }
+      .summary-cards { grid-template-columns: 1fr; }
+      .proto-banner { flex-direction: column; gap: 16px; text-align: center; }
+      .container { padding: 0 20px; }
+      footer { flex-direction: column; gap: 12px; padding: 32px 20px; }
+    }
+  </style>
 </head>
 <body>
-    <h1>Problem</h1>
-    <p>Your problem description with the commas and periods adjusted.</p>
 
-    <h1>What I delivered</h1>
-    <p>I designed a complete mobile task app from scratch. User flow, wireframes, design system, and a clickable Figma prototype. But what I'm more proud of is the thinking behind it. I started with the wrong solution and research corrected me. The final product is simpler than my first draft because I kept removing things that didn't serve the core idea.</p>
+  <!-- NAV -->
+  <nav>
+    <a href="https://vinayakgavimath.github.io/vinayak-g/index.html" class="logo">Vinayak</a>
+    <a href="https://vinayakgavimath.github.io/vinayak-g/index.html" class="back">Back to portfolio</a>
+  </nav>
 
-    <h1>Design Process</h1>
-    <ol>
-        <li>Step 1 - I almost skipped this step. Glad I didn't, it caught two screens I didn't need.</li>
-        <li>Step 2 - First version had too much on screen. I stripped it back until only the priority task was dominant.</li>
-        <li>Step 3 - I kept coming back to this rule: if everything is blue, nothing is blue.</li>
-        <li>Step 4 - Took three attempts to get the widget placement right. The lock screen version clicked only after I actually tried using a widget myself for a week.</li>
-    </ol>
+  <!-- HERO -->
+  <div class="hero">
+    <p class="label">Case Study · Mobile Task App</p>
+    <h1>Priority</h1>
+    <p class="tagline">Designed a mobile task app that solves visibility, not complexity, to help students stay on track.</p>
 
-    <h1>Validation</h1>
-    <p>Using the same students from research.</p>
+    <div class="meta-grid">
+      <div class="meta-item">
+        <div class="meta-label">Role</div>
+        <div class="meta-value">Product Designer</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Tools</div>
+        <div class="meta-value">Figma</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Type</div>
+        <div class="meta-value">Concept Project</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Prototype</div>
+        <a href="https://www.figma.com/proto/your-link" target="_blank">Open in Figma</a>
+      </div>
+    </div>
+
+    <div class="summary-cards">
+      <div class="summary-card">
+        <div class="sc-label">Problem</div>
+        <p>Students forget tasks not because they don't care, but because tasks become invisible after being added.</p>
+      </div>
+      <div class="summary-card">
+        <div class="sc-label">Key Insight</div>
+        <p>The problem is not reminders. It is persistent visibility in the places students already look.</p>
+      </div>
+      <div class="summary-card">
+        <div class="sc-label">Solution</div>
+        <p>One priority task, always visible. On the dashboard, lock screen, and home screen widget.</p>
+      </div>
+    </div>
+
+    <div class="proto-banner">
+      <p>Explore the full interactive prototype</p>
+      <a href="https://www.figma.com/proto/your-link" target="_blank">View Prototype</a>
+    </div>
+  </div>
+
+  <!-- THE PROBLEM -->
+  <div class="container">
+    <div class="section">
+      <p class="section-label">The Problem</p>
+      <h2>Tasks don't get forgotten. They become invisible.</h2>
+      <p>I built this because I kept missing my own deadlines. Not because I forgot. Because my tasks were invisible after I added them.</p>
+      <p>I would add something to my task manager and it would just sit there. I wouldn't see it again unless I actively opened the app and scrolled through my list. That doesn't work. You can't rely on someone to remember to check.</p>
+      <p>I noticed the same thing happening with other students. They used different tools - Notion, Google Tasks, Calendar, sticky notes but faced the same problem. The apps were there, but out of sight.</p>
+      <ul>
+        <li>Tasks get buried under other items</li>
+        <li>No clear signal about what matters most</li>
+        <li>Reminders come and go, then you start ignoring them</li>
+        <li>You can't see progress until you actively open the app</li>
+      </ul>
+      <p>Some students actually switched back to sticky notes. Sounds odd, but it made sense. Sticky notes stayed on your desk. You couldn't ignore them. You didn't have to remember to check.</p>
+      <p>The problem was not task creation. The problem was task visibility.</p>
+    </div>
+
+    <!-- RESEARCH -->
+    <div class="section">
+      <p class="section-label">Research</p>
+      <h2>What I learned from students</h2>
+      <p>I talked to 6 students. I didn't ask "what app do you use?" I asked "walk me through your last week." Same pattern every time.</p>
+
+      <div class="quote-cards">
+        <div class="quote-card">
+          <p>"I write it down and then never look at it again."</p>
+          <p class="attribution">Arjun, engineering student</p>
+        </div>
+        <div class="quote-card">
+          <p>"I use sticky notes because at least I can see them."</p>
+          <p class="attribution">Sneha, BCA student</p>
+        </div>
+        <div class="quote-card">
+          <p>"Reminders just become noise after a while. I swipe them away."</p>
+          <p class="attribution">Rohan, fresher</p>
+        </div>
+      </div>
+
+      <p>The pattern was clear. Digital tools were failing because they hide tasks after you add them. Reminders are temporary — you dismiss them and they're gone. Apps require you to remember to open them. But sticky notes sit there. Visible. Impossible to miss.</p>
+    </div>
+
+    <!-- KEY INSIGHT -->
+    <div class="section">
+      <p class="section-label">Key Insight</p>
+      <h2>Make it impossible to ignore</h2>
+      <p>Sticky notes work because they stay visible. You don't have to remember to check them. That's the entire idea behind Priority — make the most important task impossible to ignore, without depending on the user to remember.</p>
+
+      <div class="insight-block">
+        <p class="insight-label">Core Finding</p>
+        <p>Most task apps bet on reminders. But reminders are a temporary jolt — you see them, dismiss them, and they vanish. The real solution is not a better reminder. It is persistent visibility in the places where students already live.</p>
+      </div>
+
+      <p>This insight became the foundation for everything. Instead of building a smarter notification system, I focused on keeping the task visible passively — without requiring any action from the user.</p>
+    </div>
+
+    <!-- SOLUTION -->
+    <div class="section">
+      <p class="section-label">Solution</p>
+      <h2>One priority task. Always visible.</h2>
+      <p>Instead of managing multiple tasks equally, the system highlights one priority task at a time. The experience brings the most important task to the forefront and keeps it visible through home screen widgets and the lock screen.</p>
+
+      <div class="solution-pills">
+        <span class="pill">Single priority task focus</span>
+        <span class="pill">Lock screen widget visibility</span>
+        <span class="pill">Progress streak tracking</span>
+      </div>
+
+      <p>This removes dependency on memory. The task stays visible wherever you look. You don't have to remember to check. It's just there. The goal was a calm, focused experience that helps users complete what truly matters — not manage a list.</p>
+    </div>
+
+    <!-- DESIGN PROCESS -->
+    <div class="section">
+      <p class="section-label">Design Process</p>
+      <h2>How I built it</h2>
+
+      <div class="process-steps">
+
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Defining the Core Flow</h3>
+            <p>Mapped the core user journey across three key moments: adding a task, staying aware of the task, and completing the task. This ensured visibility and clarity throughout, not just on the dashboard.</p>
+            <p class="step-note">I almost skipped this step. Glad I didn't. It caught two screens I didn't need.</p>
+            <img src="https://vinayakgavimath.github.io/vinayak-g/Priority Productivity Mobile App (Onboarding Screen).png" alt="Core visibility flow" class="case-img" />
+            <p class="img-caption">Core visibility flow — illustrating the behavioral loop from task awareness to completion</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Low-Fidelity Wireframes</h3>
+            <p>Created wireframes to prioritize the most important task, reduce visual clutter, and create a calm focused layout. This allowed quick structural validation before any visual decisions.</p>
+            <p class="step-note">First version had too much on screen. I stripped it back until only the priority task was dominant.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Design System</h3>
+            <p>Defined a simple design system including colors, typography, and spacing. The goal was a visual language that supports clarity rather than distraction. 90% neutral, 10% accent — intentional and minimal.</p>
+            <p class="step-note">I kept coming back to one rule: if everything is blue, nothing is blue.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>High-Fidelity Design</h3>
+            <p>Translated wireframes into final screens focused on strong visual hierarchy, clear priority indication, minimal interface, and consistent interaction patterns across dashboard, task creation, widgets, and onboarding.</p>
+            <p class="step-note">Took three attempts to get the widget placement right. The lock screen version only clicked after I spent a week actually using a widget myself.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- VALIDATION -->
+    <div class="section">
+      <p class="section-label">Validation</p>
+      <h2>What students said</h2>
+      <p>I showed the prototype to the same students from research and asked them to walk through it.</p>
+      <p>Most immediately got it — one priority task instead of overwhelming lists. The constant visibility through widgets made sense for reducing forgetting. But one student said something that stuck with me:</p>
+
+      <div class="validation-highlight">
+        <p>"What if the task itself is stressing me out? I don't want to see it all day."</p>
+      </div>
+
+      <p>That broke my initial assumption that visibility is always good. It led me to add a snooze option in V2 — not to hide the task, but to let users breathe. You can step back for a bit. The task doesn't disappear. It just gives you space when you need it.</p>
+      <p>The core idea works. But even good ideas need flexibility.</p>
+    </div>
+
+    <!-- OUTCOME -->
+    <div class="section">
+      <p class="section-label">Outcome</p>
+      <h2>What I delivered</h2>
+      <div class="deliverables-block">
+        <p>I designed a complete mobile task app from scratch. User flow, wireframes, design system, and a clickable Figma prototype. But what I am more proud of is the thinking behind it. I started with the wrong solution and research corrected me. The final product is simpler than my first draft because I kept removing things that did not serve the core idea.</p>
+      </div>
+    </div>
+
+    <!-- LEARNINGS -->
+    <div class="section">
+      <p class="section-label">Learnings</p>
+      <h2>What I learned</h2>
+
+      <div class="learning-block">
+        <h3>I almost built the wrong product</h3>
+        <p>My first instinct was a smarter reminder system. But talking to students showed the problem was not reminders — they were already ignoring those. The real fix was passive visibility. That only came from research, not assumptions.</p>
+      </div>
+
+      <div class="learning-block">
+        <h3>A strong design principle acts like a filter</h3>
+        <p>"One priority task, always visible" made every decision easier. If a feature didn't serve that idea, it didn't belong. That's more useful than a long list of design rules.</p>
+      </div>
+
+      <div class="learning-block">
+        <h3>Good assumptions break when you test them</h3>
+        <p>I assumed visibility was always positive. One piece of feedback from a real user broke that. The snooze feature exists because I was wrong, and I'm glad I found out before shipping.</p>
+      </div>
+    </div>
+
+  </div><!-- end container -->
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="https://vinayakgavimath.github.io/vinayak-g/index.html">Back to portfolio</a>
+    <span>Vinayak Gavimath, 2026</span>
+  </footer>
+
 </body>
 </html>
