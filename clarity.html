@@ -1,468 +1,780 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Clarity — Case Study by Vinayak</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', sans-serif; background: #fff; color: #111; font-size: 16px; line-height: 1.7; }
-    .container { max-width: 760px; margin: 0 auto; padding: 0 2rem; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clarity: Case Study by Vinayak</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* NAV */
-    .nav { padding: 1.25rem 0; border-bottom: 1px solid #e5e5e5; position: sticky; top: 0; background: #fff; z-index: 100; }
-    .nav__inner { display: flex; align-items: center; justify-content: space-between; }
-    .nav__logo { font-weight: 700; font-size: 1rem; color: #111; text-decoration: none; }
-    .nav__back { font-size: 0.85rem; color: #4338CA; text-decoration: none; }
-    .nav__back:hover { text-decoration: underline; }
+:root {
+  --ink: #1c1a17;
+  --ink-mid: #6b6560;
+  --ink-light: #a09a93;
+  --paper: #ffffff;
+  --paper-warm: #f5f5f5;
+  --accent: #c4410c;
+  --accent-soft: #f5ede8;
+  --border: rgba(28,26,23,0.08);
+  --border-mid: rgba(28,26,23,0.15);
+  --dot-color: rgba(28,26,23,0.1);
+}
 
-    /* HERO */
-    .cs-hero { padding: 5rem 0 3rem; border-bottom: 1px solid #e5e5e5; }
-    .cs-tag { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #4338CA; display: block; margin-bottom: 1rem; }
-    .cs-hero h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 0.75rem; }
-    .cs-hero .outcome { font-size: 1rem; color: #4338CA; font-weight: 500; margin-bottom: 0.75rem; }
-    .cs-hero p { font-size: 1.05rem; color: #555; max-width: 580px; }
+html { scroll-behavior: smooth; }
 
-    /* META */
-    .meta-grid { background: #f5f5f7; border-radius: 12px; padding: 1.75rem; margin: 2.5rem 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
-    .meta-item h4 { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #888; margin-bottom: 0.35rem; }
-    .meta-item p { font-size: 0.9rem; color: #111; }
-    .meta-item a { font-size: 0.9rem; color: #4338CA; text-decoration: none; }
-    .meta-item a:hover { text-decoration: underline; }
+body {
+  font-family: 'Geist', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
 
-    /* PROTO CTA */
-    .proto-cta { background: #4338CA; color: #fff; border-radius: 12px; padding: 1.75rem 2rem; margin-bottom: 3rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
-    .proto-cta p { font-size: 0.95rem; font-weight: 500; }
-    .proto-cta a { background: #fff; color: #4338CA; padding: 0.6rem 1.25rem; border-radius: 6px; font-size: 0.88rem; font-weight: 600; text-decoration: none; white-space: nowrap; }
-    .proto-cta a:hover { background: #f0f0f0; }
+.dot-grid {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, var(--dot-color) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
 
-    /* SECTIONS */
-    .cs-section { padding: 3rem 0; border-bottom: 1px solid #e5e5e5; }
-    .cs-section:last-child { border-bottom: none; }
-    .slabel { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #4338CA; display: block; margin-bottom: 0.85rem; }
-    .cs-section h2 { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 1.1rem; }
-    .cs-section h3 { font-size: 1rem; font-weight: 600; margin: 1.5rem 0 0.5rem; }
-    .cs-section p { color: #444; margin-bottom: 1rem; }
-    .cs-section ul { padding-left: 1.25rem; color: #444; margin-bottom: 1rem; }
-    .cs-section ul li { margin-bottom: 0.4rem; }
+.dot-grid::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(600px circle at var(--mx, 50%) var(--my, 50%), rgba(196,65,12,0.05), transparent 70%);
+}
 
-    /* INSIGHT */
-    .insight { border-left: 3px solid #4338CA; padding: 1rem 1.5rem; background: #f5f5f7; border-radius: 0 8px 8px 0; margin: 1.5rem 0; }
-    .insight p { color: #111; font-weight: 500; margin: 0; }
+nav, main, footer { position: relative; z-index: 1; }
 
-    /* IMAGES */
-    .cs-img { width: 100%; border-radius: 12px; margin: 1.5rem 0; display: block; border: 1px solid #e5e5e5; }
-    .cs-img-caption { font-size: 0.8rem; color: #888; text-align: center; margin-top: -0.75rem; margin-bottom: 1.5rem; }
-    .cs-img-full { width: 100%; border-radius: 12px; margin: 1.5rem 0; display: block; }
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  height: 60px;
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
 
-    /* FEATURE GRID */
-    .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem; }
-    .feature-card { border: 1px solid #e5e5e5; border-radius: 10px; overflow: hidden; }
-    .feature-card img { width: 100%; display: block; }
-    .feature-card-text { padding: 1rem; }
-    .feature-card-text h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.3rem; }
-    .feature-card-text p { font-size: 0.85rem; color: #555; margin: 0; }
+.nav-logo {
+  font-family: 'Instrument Serif', serif;
+  font-size: 20px;
+  color: var(--ink);
+  text-decoration: none;
+}
 
-    /* STEPS */
-    .step { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
-    .step-num { flex-shrink: 0; width: 28px; height: 28px; background: #4338CA; color: #fff; border-radius: 50%; font-size: 0.8rem; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
-    .step-content h3 { margin-top: 0; font-size: 1rem; }
-    .step-content p { margin-bottom: 0; }
+.nav-back {
+  font-size: 13px;
+  color: var(--ink-mid);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s;
+}
+.nav-back:hover { color: var(--ink); }
 
-    /* HERO HOOK */
-    .cs-hook { font-style: italic; color: #4338CA; font-size: 1.05rem; font-weight: 500; border-left: 3px solid #4338CA; padding-left: 1rem; margin: 1.25rem 0 0; line-height: 1.6; }
+main {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 80px 40px 120px;
+}
 
-    /* KEY INSIGHT HIGHLIGHT */
-    .cs-section--highlight { background: #f0edff; border-radius: 12px; padding: 2rem; margin: 0 -2rem; border-bottom: none; }
-    .cs-section--highlight .slabel { color: #4338CA; }
-    .cs-section--highlight .insight { background: #fff; border-left-color: #4338CA; }
+.cs-eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  margin-bottom: 16px;
+}
 
-    /* BEFORE VS AFTER */
-    .bva-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem; }
-    .bva-col { border-radius: 10px; padding: 1.25rem 1.5rem; }
-    .bva-before { background: #fef2f2; border: 1px solid #fecaca; }
-    .bva-after { background: #f0fdf4; border: 1px solid #bbf7d0; }
-    .bva-head { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.85rem; }
-    .bva-before .bva-head { color: #dc2626; }
-    .bva-after .bva-head { color: #16a34a; }
-    .bva-col ul { padding-left: 1.1rem; color: #444; margin: 0; }
-    .bva-col ul li { margin-bottom: 0.5rem; font-size: 0.9rem; line-height: 1.5; }
+.cs-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(44px, 6vw, 64px);
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  color: var(--ink);
+  margin-bottom: 20px;
+}
 
-    /* SCREEN EXPLANATION LABELS */
-    .cs-section p.screen-what, .cs-section p.screen-how { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.3rem; }
-    .cs-section p.screen-what { color: #888; }
-    .cs-section p.screen-how { color: #4338CA; margin-top: 0.75rem; }
+.cs-subtitle {
+  font-size: 18px;
+  color: var(--ink-mid);
+  line-height: 1.65;
+  font-weight: 300;
+  max-width: 580px;
+  margin-bottom: 40px;
+}
 
-    /* LEARNINGS */
-    .learning-list { list-style: none; padding: 0; }
-    .learning-list li { padding: 0.75rem 1rem; border-left: 2px solid #e5e5e5; margin-bottom: 0.75rem; color: #444; font-size: 0.95rem; transition: border-color 0.2s; }
-    .learning-list li:hover { border-left-color: #4338CA; }
+.meta-row {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+  padding: 24px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 64px;
+}
 
-    /* QUICK OVERVIEW */
-    .qo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 2rem 0 0; }
-    .qo-item { border: 1px solid #e5e5e5; border-radius: 10px; padding: 1.25rem 1.25rem 1.1rem; }
-    .qo-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #4338CA; margin-bottom: 0.45rem; }
-    .qo-text { font-size: 0.88rem; color: #444; margin: 0; line-height: 1.6; }
+.meta-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  margin-bottom: 4px;
+}
 
-    /* HERO IMAGE */
-    .cs-hero-img { width: 100%; border-radius: 14px; margin: 2rem 0 0; display: block; border: 1px solid #e5e5e5; box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
+.meta-val {
+  font-size: 14px;
+  color: var(--ink);
+}
 
-    /* FOOTER */
-    .cs-footer { padding: 3rem 0; text-align: center; }
-    .btn { display: inline-block; padding: 0.65rem 1.4rem; border: 1.5px solid #4338CA; color: #4338CA; background: #fff; border-radius: 6px; font-size: 0.9rem; font-weight: 500; text-decoration: none; transition: background 0.2s, color 0.2s; }
-    .btn:hover { background: #4338CA; color: #fff; }
+.meta-val a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(196,65,12,0.3);
+  padding-bottom: 1px;
+}
+.meta-val a:hover { border-color: var(--accent); }
 
-    @media (max-width: 640px) {
-      .meta-grid { grid-template-columns: 1fr 1fr; }
-      .feature-grid { grid-template-columns: 1fr; }
-      .proto-cta { flex-direction: column; }
-      .bva-grid { grid-template-columns: 1fr; }
-      .qo-grid { grid-template-columns: 1fr; }
-      .cs-section--highlight { margin: 0 -1rem; padding: 2rem 1rem; }
-    }
-    @media (max-width: 400px) {
-      .meta-grid { grid-template-columns: 1fr; }
-    }
-  </style>
+.hero-img {
+  width: 100%;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  display: block;
+  margin-bottom: 80px;
+  background: var(--paper-warm);
+}
+
+/* METRICS */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 80px;
+}
+
+.metric-item {
+  background: var(--paper);
+  padding: 28px 24px;
+}
+
+.metric-num {
+  font-family: 'Instrument Serif', serif;
+  font-size: 36px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.metric-num span { font-size: 20px; color: var(--accent); }
+
+.metric-label {
+  font-size: 13px;
+  color: var(--ink-mid);
+  line-height: 1.5;
+  font-weight: 300;
+}
+
+/* SECTIONS */
+.cs-section { margin-bottom: 72px; }
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  margin-bottom: 16px;
+}
+
+.section-tag::before {
+  content: '';
+  width: 20px;
+  height: 1px;
+  background: var(--ink-light);
+}
+
+.cs-section h2 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 32px;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--ink);
+  margin-bottom: 20px;
+}
+
+.cs-section p {
+  font-size: 15px;
+  color: var(--ink-mid);
+  line-height: 1.8;
+  font-weight: 300;
+  margin-bottom: 16px;
+  max-width: 640px;
+}
+
+.callout {
+  background: var(--paper-warm);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 12px 12px 0;
+  padding: 20px 24px;
+  margin: 32px 0;
+}
+
+.callout p {
+  font-family: 'Instrument Serif', serif;
+  font-size: 20px;
+  color: var(--ink);
+  line-height: 1.5;
+  font-style: italic;
+  margin: 0;
+}
+
+/* INSIGHT PILLS */
+.insights-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 32px 0;
+}
+
+.insight-item {
+  display: flex;
+  gap: 20px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+  align-items: flex-start;
+}
+.insight-item:first-child { border-top: 1px solid var(--border); }
+
+.insight-num {
+  font-family: 'Instrument Serif', serif;
+  font-size: 22px;
+  color: var(--ink-light);
+  line-height: 1;
+  flex-shrink: 0;
+  width: 28px;
+  margin-top: 2px;
+}
+
+.insight-content h4 {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+}
+
+.insight-content p {
+  font-size: 13px;
+  color: var(--ink-mid);
+  line-height: 1.6;
+  margin: 0;
+  font-weight: 300;
+}
+
+/* BEFORE / AFTER */
+.before-after {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 32px 0;
+}
+
+.ba-card {
+  border-radius: 12px;
+  padding: 24px;
+  border: 1px solid var(--border);
+}
+
+.ba-card.before { background: var(--paper-warm); }
+.ba-card.after  { background: var(--accent-soft); border-color: rgba(196,65,12,0.15); }
+
+.ba-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.ba-card.before .ba-label { color: var(--ink-light); }
+.ba-card.after  .ba-label { color: var(--accent); }
+
+.ba-item {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: 13px;
+  color: var(--ink-mid);
+  line-height: 1.5;
+  font-weight: 300;
+  align-items: flex-start;
+}
+
+.ba-item:last-child { margin-bottom: 0; }
+
+.ba-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+.ba-card.before .ba-dot { background: var(--ink-light); }
+.ba-card.after  .ba-dot { background: var(--accent); }
+
+/* SCREENS */
+.screens-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 32px 0;
+}
+
+.screen-item {}
+
+.screen-img {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  display: block;
+  margin-bottom: 10px;
+  background: var(--paper-warm);
+}
+
+.screen-label {
+  font-size: 12px;
+  color: var(--ink-mid);
+  font-weight: 400;
+}
+
+.screen-desc {
+  font-size: 12px;
+  color: var(--ink-light);
+  line-height: 1.5;
+  font-weight: 300;
+  margin-top: 3px;
+}
+
+/* PROCESS */
+.process-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 32px;
+}
+
+.step {
+  display: flex;
+  gap: 24px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--border);
+}
+.step:first-child { border-top: 1px solid var(--border); }
+
+.step-num {
+  font-family: 'Instrument Serif', serif;
+  font-size: 32px;
+  color: var(--border-mid);
+  line-height: 1;
+  flex-shrink: 0;
+  width: 36px;
+}
+
+.step-content h4 {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+
+.step-content p {
+  font-size: 13px;
+  color: var(--ink-mid);
+  line-height: 1.65;
+  font-weight: 300;
+  margin: 0;
+}
+
+/* LEARNINGS */
+.learnings-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.learning-card {
+  background: var(--paper-warm);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.learning-card h4 {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.learning-card p {
+  font-size: 13px;
+  color: var(--ink-mid);
+  line-height: 1.65;
+  font-weight: 300;
+  margin: 0;
+}
+
+.next-up {
+  margin-top: 80px;
+  padding-top: 48px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.next-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  margin-bottom: 6px;
+}
+
+.next-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 24px;
+  color: var(--ink);
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--ink);
+  color: white;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 11px 22px;
+  border-radius: 6px;
+  transition: background 0.2s, transform 0.15s;
+  white-space: nowrap;
+}
+.btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 680px) {
+  main { padding: 60px 24px 80px; }
+  nav { padding: 0 24px; }
+  .metrics-grid { grid-template-columns: 1fr; }
+  .before-after { grid-template-columns: 1fr; }
+  .screens-grid { grid-template-columns: 1fr; }
+  .learnings-grid { grid-template-columns: 1fr; }
+  .next-up { flex-direction: column; gap: 20px; align-items: flex-start; }
+}
+</style>
 </head>
 <body>
 
-  <header class="nav">
-    <div class="nav__inner container">
-      <a href="index.html" class="nav__logo">Vinayak</a>
-      <a href="index.html" class="nav__back">← Back to portfolio</a>
-    </div>
-  </header>
+<div class="dot-grid" id="dotgrid"></div>
 
-  <main>
-    <div class="container">
+<nav>
+  <a class="nav-logo" href="index.html">Vinayak G.</a>
+  <a class="nav-back" href="index.html">&larr; Back to work</a>
+</nav>
 
-      <!-- HERO -->
-      <div class="cs-hero">
-        <span class="cs-tag">Case Study · Student Productivity</span>
-        <h1>Clarity</h1>
-        <p class="outcome">Designed a 5-screen SaaS dashboard that reduces academic fragmentation for students.</p>
-        <p class="cs-hook">"Students don't struggle because they lack tools — they struggle because their tasks are scattered across too many places."</p>
-        <p>A web-based academic productivity platform that centralizes assignments, attendance, and progress tracking into a single structured system.</p>
-        <img src="Clarity Dashboard.png" alt="Clarity — Academic Productivity Dashboard" class="cs-hero-img" />
-      </div>
+<main>
 
-      <!-- META -->
-      <div class="meta-grid">
-        <div class="meta-item"><h4>Role</h4><p>UX Designer</p></div>
-        <div class="meta-item"><h4>Tools</h4><p>Figma</p></div>
-        <div class="meta-item"><h4>Type</h4><p>Concept Project</p></div>
-        <div class="meta-item"><h4>Prototype</h4><a href="https://www.figma.com/make/3bfcDJip2qTjDtlXyZksyv/Clarity---Academic-Productivity-SaaS-for-Students?fullscreen=1" target="_blank" rel="noopener noreferrer">View in Figma →</a></div>
-      </div>
-
-      <!-- QUICK OVERVIEW -->
-      <div class="qo-grid">
-        <div class="qo-item">
-          <div class="qo-label">Problem</div>
-          <p class="qo-text">Students juggle assignments across WhatsApp, Google Docs, and portals — with no central view, missed deadlines, and constant mental overload.</p>
-        </div>
-        <div class="qo-item">
-          <div class="qo-label">Solution</div>
-          <p class="qo-text">A unified dashboard that centralizes tasks, attendance, and progress — eliminating the need to switch between tools.</p>
-        </div>
-        <div class="qo-item">
-          <div class="qo-label">Outcome</div>
-          <p class="qo-text">Reduced cognitive load, improved deadline visibility, and a single source of truth for every academic responsibility.</p>
-        </div>
-      </div>
-
-      <!-- PROTO CTA -->
-      <div class="proto-cta" style="margin-top:2rem;">
-        <p>Explore the full interactive prototype</p>
-        <a href="https://www.figma.com/make/3bfcDJip2qTjDtlXyZksyv/Clarity---Academic-Productivity-SaaS-for-Students?fullscreen=1" target="_blank" rel="noopener noreferrer">View Prototype →</a>
-      </div>
-
-      <!-- PROBLEM -->
-      <div class="cs-section">
-        <span class="slabel">The Problem</span>
-        <h2>Students are drowning in tools — and still falling behind</h2>
-        <div class="insight">
-          <p>Students struggle to manage academic work across multiple tools, leading to confusion, missed deadlines, and lack of clarity.</p>
-        </div>
-        <p>Talk to any college student and you'll hear a familiar story. Assignments are shared in WhatsApp groups. Lecture notes live in Google Docs. Personal to-do lists are scribbled in notebooks. Deadlines get announced verbally in class and then promptly forgotten. Attendance is logged somewhere in the university portal — a place most students visit only when it's too late.</p>
-        <p>The result isn't laziness. It's a system that was never designed to work together. Students spend more energy tracking where their information is than actually acting on it. The stress isn't about having too much work — it's about never knowing exactly what the work is, where it stands, or what comes next.</p>
-        <div class="insight">
-          <p>The real problem is not productivity. It is visibility — and the mental cost of living without it.</p>
-        </div>
-      </div>
-
-      <!-- WHY THIS MATTERS -->
-      <div class="cs-section">
-        <span class="slabel">Why This Matters</span>
-        <h2>The real cost of fragmentation</h2>
-        <p>When academic information is scattered, it doesn't just cause inconvenience — it has measurable consequences on students' performance and well-being:</p>
-        <ul>
-          <li><strong>Missed deadlines</strong> — Assignments and due dates spread across portals, group chats, and emails slip through the cracks, directly affecting grades.</li>
-          <li><strong>Increased stress</strong> — Managing multiple disconnected tools demands constant mental overhead, raising anxiety around academic responsibilities.</li>
-          <li><strong>Lack of visibility on progress</strong> — Without a unified view, students cannot accurately assess where they stand, making it hard to prioritize and stay motivated.</li>
-        </ul>
-      </div>
-
-      <!-- MY ROLE -->
-      <div class="cs-section">
-        <span class="slabel">My Role</span>
-        <h2>What I worked on</h2>
-        <p>I worked on this project independently as a <strong>UX Designer</strong>, taking full ownership from understanding the problem to delivering a clickable prototype. My responsibilities spanned the entire design process:</p>
-        <ul>
-          <li><strong>Research</strong> — Spoke with 3–5 students to surface real pain points around fragmentation, missed deadlines, and tool overload.</li>
-          <li><strong>Wireframing</strong> — Designed low-fidelity wireframes to establish layout, structure, and information hierarchy before visual decisions.</li>
-          <li><strong>UI Design</strong> — Built a polished high-fidelity interface with a consistent design system, deliberate visual hierarchy, and purposeful color.</li>
-        </ul>
-      </div>
-
-      <!-- RESEARCH & INSIGHTS -->
-      <div class="cs-section">
-        <span class="slabel">Research &amp; Insights</span>
-        <h2>What students actually said</h2>
-        <p>Before touching Figma, I spoke with 3–5 students to understand how they actually manage their academic work day-to-day. I didn't ask hypothetical questions — I asked them to walk me through their last week. The patterns were immediate and consistent.</p>
-        <ul>
-          <li>Most juggle WhatsApp groups, Google Docs, handwritten notebooks, and a university portal simultaneously</li>
-          <li>There is no single source of truth — every source only shows part of the picture</li>
-          <li>Students miss deadlines not because they ignore them, but because information loses visibility over time</li>
-          <li>Progress is never visualized — students have no real sense of how far they are through a semester</li>
-          <li>Attendance and assignments live in completely separate systems, making it impossible to see the full academic picture</li>
-        </ul>
-
-        <h3>Key Insights</h3>
-
-        <div class="insight">
-          <p><strong>Insight 1 —</strong> Students switch between 3–5 different tools daily just to stay on top of academics. Every context switch adds cognitive load and increases the chance of something slipping through.</p>
-        </div>
-
-        <div class="insight">
-          <p><strong>Insight 2 —</strong> Deadlines aren't forgotten — they lose visibility. A WhatsApp message gets buried. A notebook page gets skipped. A Google Doc isn't opened again. The problem is information architecture, not student effort.</p>
-        </div>
-
-        <div class="insight">
-          <p><strong>Insight 3 —</strong> When students can't see their progress, they either overestimate how on track they are, or feel overwhelmed without knowing why. A clear progress view reduces both false confidence and unnecessary anxiety.</p>
-        </div>
-
-        <div class="insight">
-          <p>Students don't need more tools. They need one place that shows them everything — clearly, instantly, without effort.</p>
-        </div>
-      </div>
-
-      <!-- KEY INSIGHT -->
-      <div class="cs-section cs-section--highlight">
-        <span class="slabel">Key Insight</span>
-        <h2>Core finding: students have enough tools — what's broken is the workflow</h2>
-        <p>Students already have calendars, messaging apps, note-taking tools, and university portals. Adding one more app was never going to help. The real issue is that none of these tools talk to each other, and students are left to be the connective tissue between them — mentally juggling context across every platform, every day.</p>
-        <div class="insight">
-          <p>The real problem wasn't lack of tools — it was fragmented workflows. Students were switching between multiple platforms, increasing mental load and reducing clarity.</p>
-        </div>
-        <div class="insight">
-          <p>Fragmented workflows — not missing features — are what cause missed deadlines and academic stress. When the same assignment appears in a WhatsApp message, a verbal reminder, and a university portal but never in one consolidated place, it will inevitably slip. Fixing the workflow is the only design move that addresses the root cause.</p>
-        </div>
-        <p>This reframed everything. The design goal wasn't to build a smarter to-do list. It was to eliminate workflow fragmentation itself — to create one coherent space where the information students already have becomes immediately visible, prioritized, and actionable without any extra effort on their part.</p>
-      </div>
-
-      <!-- SOLUTION APPROACH -->
-      <div class="cs-section">
-        <span class="slabel">Solution Approach</span>
-        <h2>Why this solution works</h2>
-        <p>The core insight was this: students don't need another tool to learn. They need the information they already have to be in one place, surfaced clearly, without requiring effort to maintain.</p>
-        <p>Clarity consolidates the most critical academic signals — assignments, attendance, and progress — into a single dashboard. But the design choices go beyond grouping features. They address specific behavioral patterns observed in research:</p>
-        <ul>
-          <li><strong>It reduces switching cost.</strong> Every time a student moves between WhatsApp, a Google Doc, and a university portal, they lose context and add friction. Clarity eliminates that switching entirely — less friction means less dropped information.</li>
-          <li><strong>It makes deadlines impossible to ignore.</strong> By surfacing upcoming assignments directly on the dashboard, urgency stays visible at all times. No searching, no digging — the most important information is front and center.</li>
-          <li><strong>It turns invisible progress into a motivator.</strong> Seeing completion percentages and streaks gives students a tangible sense of movement. Research shows that visible progress is one of the strongest drivers of continued engagement.</li>
-          <li><strong>It respects existing behavior.</strong> Clarity wasn't designed to force new habits. It was designed to fit around the way students already think about their day — reducing the learning curve and increasing the chance of adoption.</li>
-        </ul>
-      </div>
-
-      <!-- DESIGN DECISIONS -->
-      <div class="cs-section">
-        <span class="slabel">Design Decisions</span>
-        <h2>Why I made specific choices</h2>
-
-        <h3>Why a dashboard approach?</h3>
-        <p>A dashboard was the right entry point because it directly answers the question every student has the moment they open the app: "What do I need to do right now?" Rather than requiring navigation to gather information, the dashboard surfaces the most critical signals upfront — reducing cognitive load on every visit. The less mental effort it takes to get an overview, the more likely students are to actually use it consistently.</p>
-
-        <h3>Why a simplified layout?</h3>
-        <p>Students already feel overwhelmed. An interface that looks cluttered or requires interpretation becomes another source of stress rather than a solution to it. I chose a simplified layout — limited color, generous whitespace, and focused content areas — specifically to improve scannability. A student should be able to open Clarity and understand their academic situation within seconds, not minutes. Every element that doesn't earn its place on screen was removed.</p>
-
-        <h3>Why clear visual hierarchy?</h3>
-        <p>In a tool like this, visual hierarchy isn't decoration — it's function. When everything is styled equally, nothing communicates urgency. I used size, weight, and color deliberately so that high-priority items (an assignment due tomorrow, low attendance) are immediately distinguishable from background information. This minimizes the user effort required to identify what needs attention and reduces the risk of something important being overlooked.</p>
-
-        <h3>Why prioritize today's tasks?</h3>
-        <div class="insight">
-          <p>Instead of treating all tasks equally, I prioritized "today's tasks" so users can focus on what matters immediately and avoid feeling overwhelmed.</p>
-        </div>
-        <p>Showing everything at once creates overwhelm. Showing only what matters today creates focus. The dashboard surfaces assignments due within 24 hours at the very top — a deliberate decision to reduce cognitive load at the exact moment students need clarity most. Instead of scanning a full semester's worth of tasks and manually filtering by urgency, students immediately see what demands attention right now. This single design choice directly addresses the mental overload of staring at a long, undifferentiated task list and not knowing where to begin.</p>
-      </div>
-
-      <!-- DESIGN PROCESS -->
-      <div class="cs-section">
-        <span class="slabel">Design Process</span>
-        <h2>How I built it</h2>
-
-        <div class="step">
-          <div class="step-num">1</div>
-          <div class="step-content">
-            <h3>Problem Definition</h3>
-            <p>Defined the core problem through student conversations: fragmented academic information and zero visibility into what matters today.</p>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="step-num">2</div>
-          <div class="step-content">
-            <h3>User Flow Mapping</h3>
-            <p>Mapped the main user flows — viewing assignments, creating tasks, tracking progress, and monitoring attendance — to ensure a connected system, not isolated screens.</p>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="step-num">3</div>
-          <div class="step-content">
-            <h3>Low-Fidelity Wireframes</h3>
-            <p>Built low-fidelity wireframes focused on layout, information hierarchy, and usability — establishing structure before any visual decisions.</p>
-          </div>
-        </div>
-
-        <img src="Low-Fedility Wireframe.png" alt="Low fidelity wireframes for Clarity" class="cs-img" />
-        <p class="cs-img-caption">Phase 01 — Low-fidelity wireframes exploring structure across 5 screens</p>
-
-        <div class="step">
-          <div class="step-num">4</div>
-          <div class="step-content">
-            <h3>High-Fidelity Design</h3>
-            <p>Designed a clean, high-fidelity interface with deliberate visual hierarchy, consistent spacing, purposeful color, and simple navigation.</p>
-          </div>
-        </div>
-
-        <img src="High-Fedility Wireframe.png" alt="High fidelity wireframes for Clarity" class="cs-img" />
-        <p class="cs-img-caption">Phase 02 — High-fidelity design across 8 screens with full design system</p>
-
-        <div class="step">
-          <div class="step-num">5</div>
-          <div class="step-content">
-            <h3>Prototyping</h3>
-            <p>Connected all screens into a clickable prototype to validate key flows and interactions. <a href="https://www.figma.com/make/3bfcDJip2qTjDtlXyZksyv/Clarity---Academic-Productivity-SaaS-for-Students?fullscreen=1" target="_blank" rel="noopener noreferrer" style="color:#4338CA;">Explore it here →</a></p>
-          </div>
-        </div>
-      </div>
-
-      <!-- KEY FEATURES -->
-      <div class="cs-section">
-        <span class="slabel">Key Features</span>
-        <h2>The final product</h2>
-        <p>Five key sections designed to reduce mental friction and improve visibility rather than add new features. Each screen serves a deliberate purpose tied directly to a student pain point identified in research.</p>
-
-        <h3>Dashboard</h3>
-        <p class="screen-what">What it does</p>
-        <p>Centralizes assignments due within 24 hours, completion progress, and current academic standing on a single opening screen — with today's urgent tasks always at the top.</p>
-        <p class="screen-how">How it helps</p>
-        <p>Students know exactly what demands attention right now without opening a single other app. The mental overhead of piecing together a daily plan from WhatsApp, Google Docs, and a university portal disappears.</p>
-        <img src="Clarity Dashboard.png" alt="Clarity Dashboard" class="cs-img" />
-
-        <h3>Assignment Management</h3>
-        <p class="screen-what">What it does</p>
-        <p>Brings assignment creation, status tracking, and deadline filtering into one dedicated view — no external apps required.</p>
-        <p class="screen-how">How it helps</p>
-        <p>Students stop cross-referencing WhatsApp, Google Docs, and portals to find out what's due and when. All deadlines are in one place, always current, always visible.</p>
-        <img src="Clarity Assignment Management.png" alt="Clarity Assignment Management" class="cs-img" />
-
-        <h3>Progress Tracking</h3>
-        <p class="screen-what">What it does</p>
-        <p>Tracks completion percentages and learning streaks across all subjects, updating automatically as assignments are marked done.</p>
-        <p class="screen-how">How it helps</p>
-        <p>Students gain a concrete sense of forward movement — something entirely absent when using disconnected tools. Visible progress is one of the strongest drivers of continued engagement, and this screen puts it front and center.</p>
-        <img src="Clarity Progress Tracking.png" alt="Clarity Progress Tracking" class="cs-img" />
-
-        <h3>Attendance Monitoring</h3>
-        <p class="screen-what">What it does</p>
-        <p>Displays attendance percentages per subject alongside assignments in the same interface, pulled out of the separate university portal.</p>
-        <p class="screen-how">How it helps</p>
-        <p>Students spot attendance gaps early enough to act — instead of discovering a problem only at the end of semester when it's too late to recover.</p>
-        <img src="Clarity Attendance Monitoring.png" alt="Clarity Attendance Monitoring" class="cs-img" />
-
-        <h3>Settings and Personalization</h3>
-        <p class="screen-what">What it does</p>
-        <p>Lets students configure notification preferences, subject lists, and how progress is measured — tailoring the tool to their academic context.</p>
-        <p class="screen-how">How it helps</p>
-        <p>A tool that reflects each student's specific situation gets used consistently. Personalization reduces the friction of adoption and increases the chance the tool becomes a daily habit rather than something opened once and forgotten.</p>
-        <img src="Clarity Settings &amp; Personalization.png" alt="Clarity Settings" class="cs-img" />
-      </div>
-
-      <!-- BEFORE VS AFTER -->
-      <div class="cs-section">
-        <span class="slabel">Before vs After</span>
-        <h2>What changed for students</h2>
-        <p>The shift Clarity creates isn't just visual — it's a fundamental change in how students experience their academic day. Comparing the two states makes the design rationale concrete.</p>
-        <div class="bva-grid">
-          <div class="bva-col bva-before">
-            <div class="bva-head">Before Clarity</div>
-            <ul>
-              <li>Check WhatsApp groups for assignments buried in conversation threads</li>
-              <li>Open Google Docs, notebooks, and portals separately to piece together a picture</li>
-              <li>Manually track deadlines — frequently missed when information loses visibility</li>
-              <li>Attendance checked in a separate university portal, usually too late</li>
-              <li>No sense of overall progress — semester feels like a blur</li>
-              <li>High cognitive load: energy spent managing tools, not doing work</li>
-            </ul>
-          </div>
-          <div class="bva-col bva-after">
-            <div class="bva-head">After Clarity</div>
-            <ul>
-              <li>One dashboard — all assignments, deadlines, and priorities visible immediately</li>
-              <li>Today's urgent tasks surfaced upfront; no scanning or searching needed</li>
-              <li>Deadlines always visible with status indicators — nothing slips through</li>
-              <li>Attendance and assignments in the same view — full academic picture at a glance</li>
-              <li>Progress tracked automatically — streaks and completions visible at all times</li>
-              <li>Low cognitive load: less time managing information, more time on actual work</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- IMPACT -->
-      <div class="cs-section">
-        <span class="slabel">Impact</span>
-        <h2>How this helps students</h2>
-        <p>Clarity is a conceptual project, but it was designed with real outcomes in mind. Based on the problems identified in research and the design decisions made, the expected impact is:</p>
-        <ul>
-          <li><strong>Fewer missed deadlines</strong> — A centralized, always-visible assignment list with status indicators removes the "out of sight, out of mind" failure mode that causes students to miss work.</li>
-          <li><strong>Reduced daily cognitive load</strong> — By eliminating the need to context-switch across 3–5 tools, students spend less mental energy on information management and more on the actual work.</li>
-          <li><strong>Better self-awareness</strong> — Progress tracking and attendance monitoring give students an accurate picture of where they stand, enabling more informed decisions about how to prioritize their time.</li>
-          <li><strong>Lower stress around academic responsibilities</strong> — Visibility reduces uncertainty. When students can see their situation clearly, they feel more in control, which research links directly to reduced academic anxiety.</li>
-        </ul>
-        <p>After sharing the concept with students, the centralized dashboard was seen as the most valuable feature — not because it adds new capabilities, but because it eliminates the need to switch between LMS portals, messaging groups, and personal notes just to get a basic overview.</p>
-        <div class="insight">
-          <p>The goal was never to build a feature-rich platform. It was to make students feel less overwhelmed and more in control of their academic lives.</p>
-        </div>
-      </div>
-
-      <!-- LEARNINGS -->
-      <div class="cs-section">
-        <span class="slabel">What I Learned</span>
-        <h2>What I learned</h2>
-        <ul class="learning-list">
-          <li><strong>Start with behavior, not features.</strong> The most useful design decisions came from understanding how students actually behave — not from brainstorming features. Mapping the real tools students use (WhatsApp, Google Docs, notebooks) before designing anything made every subsequent choice more grounded and defensible.</li>
-          <li><strong>Reducing friction is a design feature.</strong> The biggest UX wins in this project weren't about adding things — they were about removing them. Every time I cut a layer of navigation, simplified a layout, or consolidated two separate actions into one, the product became more usable. Less is genuinely more when cognitive load is the enemy.</li>
-          <li><strong>Visual hierarchy is product strategy.</strong> Deciding what to show first, what to make prominent, and what to de-emphasize isn't a visual design choice — it's a product decision. Getting the hierarchy right meant students could act on urgent information instantly, which is the entire point of the product.</li>
-          <li><strong>Simplifying complexity is the hardest design skill.</strong> It's easy to add — a new feature, a new screen, a new option. It's much harder to resist. Every simplification in Clarity required actively choosing what to leave out. The most impactful moment wasn't designing a new feature; it was removing a redundant one. Designing for clarity over completeness is the discipline I'll carry into every future project.</li>
-        </ul>
-        <div class="insight">
-          <p>Good design is not about adding more features, but about reducing complexity and helping users focus on what truly matters.</p>
-        </div>
-      </div>
-
-    </div>
-  </main>
-
-  <div class="cs-footer container">
-    <a href="index.html" class="btn">← Back to portfolio</a>
+  <div class="reveal">
+    <div class="cs-eyebrow">Case study &middot; SaaS Dashboard &middot; Student Productivity</div>
+    <h1 class="cs-title">Clarity</h1>
+    <p class="cs-subtitle">Students don't struggle because they lack tools. They struggle because the tools don't talk to each other. I redesigned the experience into one dashboard that shows everything at once.</p>
   </div>
 
+  <div class="meta-row reveal">
+    <div class="meta-item">
+      <div class="meta-label">Role</div>
+      <div class="meta-val">UX Designer</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Tools</div>
+      <div class="meta-val">Figma</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Type</div>
+      <div class="meta-val">Concept project</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Research</div>
+      <div class="meta-val">3-5 student interviews</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Prototype</div>
+      <div class="meta-val"><a href="https://www.figma.com/make/3bfcDJip2qTjDtlXyZksyv/Clarity---Academic-Productivity-SaaS-for-Students?fullscreen=1" target="_blank">Open in Figma &rarr;</a></div>
+    </div>
+  </div>
+
+  <img class="hero-img reveal"
+    src="https://vinayakgavimath.github.io/vinayak-g/Clarity Dashboard.png"
+    alt="Clarity dashboard">
+
+  <!-- METRICS -->
+  <div class="metrics-grid reveal">
+    <div class="metric-item">
+      <div class="metric-num">5<span>+</span></div>
+      <div class="metric-label">Tools replaced by one dashboard. WhatsApp, Google Docs, portal, notebook, calendar.</div>
+    </div>
+    <div class="metric-item">
+      <div class="metric-num">&lt;30<span>s</span></div>
+      <div class="metric-label">To get a full picture of what's due today, in testing. Previously required opening 3+ apps.</div>
+    </div>
+    <div class="metric-item">
+      <div class="metric-num">8<span>/10</span></div>
+      <div class="metric-label">Users in concept feedback said the dashboard was the most valuable single feature</div>
+    </div>
+  </div>
+
+  <!-- PROBLEM -->
+  <div class="cs-section reveal">
+    <div class="section-tag">The problem</div>
+    <h2>Students are drowning in tools and still falling behind</h2>
+    <p>Talk to any college student and you hear the same story. Assignments land in WhatsApp groups. Notes live in Google Docs. Deadlines get announced in class and forgotten by evening. Attendance tracked somewhere in a university portal nobody visits until it's too late.</p>
+    <p>The result isn't laziness. It's a system that was never designed to work together. Students spend more energy figuring out what the work is than actually doing it.</p>
+
+    <div class="callout">
+      <p>The real problem isn't productivity. It's visibility. And the mental cost of not having it.</p>
+    </div>
+  </div>
+
+  <!-- RESEARCH -->
+  <div class="cs-section reveal">
+    <div class="section-tag">Research insights</div>
+    <h2>What students actually said</h2>
+    <p>Before touching Figma, I spoke to 3-5 students and asked them to walk me through their last week. Not what apps they used. What actually happened. The patterns were consistent across everyone.</p>
+
+    <div class="insights-list">
+      <div class="insight-item">
+        <div class="insight-num">01</div>
+        <div class="insight-content">
+          <h4>3 to 5 tools switched daily just to stay on track</h4>
+          <p>Switching between 3 to 5 tools daily adds up. Every jump costs mental energy. Students weren't disorganized. The system was.</p>
+        </div>
+      </div>
+      <div class="insight-item">
+        <div class="insight-num">02</div>
+        <div class="insight-content">
+          <h4>Deadlines don't get forgotten. They lose visibility.</h4>
+          <p>A WhatsApp message gets buried. A notebook page gets skipped. A Google Doc isn't opened again. The information exists. It just becomes impossible to find at the right moment.</p>
+        </div>
+      </div>
+      <div class="insight-item">
+        <div class="insight-num">03</div>
+        <div class="insight-content">
+          <h4>No one knows where they actually stand</h4>
+          <p>Without a unified view, students can't accurately assess their progress. They either overestimate how on track they are, or feel overwhelmed without knowing why.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEFORE / AFTER -->
+  <div class="cs-section reveal">
+    <div class="section-tag">The shift</div>
+    <h2>Before and after Clarity</h2>
+
+    <div class="before-after">
+      <div class="ba-card before">
+        <div class="ba-label">Before</div>
+        <div class="ba-item"><span class="ba-dot"></span>Check WhatsApp for assignments buried in chat</div>
+        <div class="ba-item"><span class="ba-dot"></span>Open Google Docs, notebooks, and portal separately</div>
+        <div class="ba-item"><span class="ba-dot"></span>Manually track deadlines, frequently missed</div>
+        <div class="ba-item"><span class="ba-dot"></span>Attendance checked too late to act on</div>
+        <div class="ba-item"><span class="ba-dot"></span>No sense of overall progress through the semester</div>
+      </div>
+      <div class="ba-card after">
+        <div class="ba-label">After</div>
+        <div class="ba-item"><span class="ba-dot"></span>One dashboard with all assignments visible the moment you open it</div>
+        <div class="ba-item"><span class="ba-dot"></span>Today's urgent tasks right at the top, no searching needed</div>
+        <div class="ba-item"><span class="ba-dot"></span>Deadlines always visible with status so nothing slips</div>
+        <div class="ba-item"><span class="ba-dot"></span>Attendance and assignments in the same view</div>
+        <div class="ba-item"><span class="ba-dot"></span>Progress tracked automatically, streaks visible at all times</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KEY SCREENS -->
+  <div class="cs-section reveal">
+    <div class="section-tag">Key screens</div>
+    <h2>Five screens, one coherent system</h2>
+
+    <div class="screens-grid">
+      <div class="screen-item">
+        <img class="screen-img"
+          src="https://vinayakgavimath.github.io/vinayak-g/Clarity Dashboard.png"
+          alt="Dashboard">
+        <div class="screen-label">Dashboard</div>
+        <div class="screen-desc">Assignments due within 24h, completion progress, and standing. All on one opening screen.</div>
+      </div>
+      <div class="screen-item">
+        <img class="screen-img"
+          src="https://vinayakgavimath.github.io/vinayak-g/Clarity Assignment Management.png"
+          alt="Assignment management">
+        <div class="screen-label">Assignment management</div>
+        <div class="screen-desc">All deadlines in one place, always current, no cross-referencing required</div>
+      </div>
+      <div class="screen-item">
+        <img class="screen-img"
+          src="https://vinayakgavimath.github.io/vinayak-g/Clarity Progress Tracking.png"
+          alt="Progress tracking">
+        <div class="screen-label">Progress tracking</div>
+        <div class="screen-desc">Completion percentages and streaks across all subjects. Seeing progress actually makes you want to keep going.</div>
+      </div>
+      <div class="screen-item">
+        <img class="screen-img"
+          src="https://vinayakgavimath.github.io/vinayak-g/Clarity Attendance Monitoring.png"
+          alt="Attendance monitoring">
+        <div class="screen-label">Attendance monitoring</div>
+        <div class="screen-desc">Spot attendance gaps early enough to actually do something about them, not at the end of semester when it's too late.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROCESS -->
+  <div class="cs-section reveal">
+    <div class="section-tag">Process</div>
+    <h2>How I built it</h2>
+
+    <div class="process-steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h4>Problem definition through student conversations</h4>
+          <p>Asked students to walk me through their last week, not tell me what apps they use. That one change in framing exposed the real problem: it wasn't missing features, it was a broken workflow.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h4>User flow mapping</h4>
+          <p>Mapped four key flows: viewing assignments, creating tasks, tracking progress, monitoring attendance. Made sure they connected into a single system, not isolated screens.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h4>Low-fidelity wireframes</h4>
+          <p>Built wireframes focused on layout, information hierarchy, and flow. No visual decisions at this stage. Structure first.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <h4>High-fidelity design</h4>
+          <p>Designed 8 screens with a consistent design system. Key visual principle: hierarchy over decoration. High priority items read urgent at a glance, not after scanning.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">05</div>
+        <div class="step-content">
+          <h4>Prototype and concept feedback</h4>
+          <p>Shared the clickable prototype with students from research. The dashboard kept coming up as the most valuable part. Not because it does something new, but because it removes the need to open 4 different things just to figure out what's due today.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEARNINGS -->
+  <div class="cs-section reveal">
+    <div class="section-tag">What I learned</div>
+    <h2>Simplifying complexity is the hardest design skill</h2>
+
+    <div class="learnings-grid">
+      <div class="learning-card">
+        <h4>Start with behavior, not features</h4>
+        <p>The most useful design decisions came from understanding how students actually behave. Mapping real tools they use made every subsequent choice more grounded.</p>
+      </div>
+      <div class="learning-card">
+        <h4>Reducing friction is a feature</h4>
+        <p>The biggest UX wins weren't additions. Every time I cut a layer of navigation or consolidated two actions into one, the product became more usable.</p>
+      </div>
+      <div class="learning-card">
+        <h4>Visual hierarchy is product strategy</h4>
+        <p>Deciding what to show first isn't really a visual choice. It's a product decision. Getting the hierarchy right meant students could spot what needed attention without having to scan the whole screen.</p>
+      </div>
+      <div class="learning-card">
+        <h4>Design for clarity over completeness</h4>
+        <p>It's easy to add features. It's much harder to resist. Every simplification required actively choosing what to leave out. The most impactful moment was removing something redundant, not adding something new.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="next-up reveal">
+    <div>
+      <div class="next-label">Next case study</div>
+      <div class="next-title">Priority &rarr;</div>
+    </div>
+    <a href="priority.html" class="btn-primary">View case study &rarr;</a>
+  </div>
+
+</main>
+
+<footer style="position:relative;z-index:1;border-top:1px solid var(--border);padding:24px 40px;display:flex;justify-content:space-between;font-size:12px;color:var(--ink-light);max-width:780px;margin:0 auto;">
+  <span>Vinayak Gavimath</span>
+  <span>&copy; 2026</span>
+</footer>
+
+<script>
+const dotGrid = document.getElementById('dotgrid');
+document.addEventListener('mousemove', e => {
+  dotGrid.style.setProperty('--mx', e.clientX + 'px');
+  dotGrid.style.setProperty('--my', e.clientY + 'px');
+});
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 60);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
