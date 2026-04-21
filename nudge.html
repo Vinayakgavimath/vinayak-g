@@ -1,370 +1,847 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nudge Case Study by Vinayak</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', sans-serif; background: #fff; color: #111; font-size: 16px; line-height: 1.7; }
-    .container { max-width: 760px; margin: 0 auto; padding: 0 2rem; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nudge: Case Study by Vinayak</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    .nav { padding: 1.25rem 0; border-bottom: 1px solid #e5e5e5; position: sticky; top: 0; background: #fff; z-index: 100; }
-    .nav__inner { display: flex; align-items: center; justify-content: space-between; }
-    .nav__logo { font-weight: 700; font-size: 1rem; color: #111; text-decoration: none; }
-    .nav__back { font-size: 0.85rem; color: #4338CA; text-decoration: none; }
-    .nav__back:hover { text-decoration: underline; }
+:root {
+  --ink: #1c1a17;
+  --ink-mid: #6b6560;
+  --ink-light: #a09a93;
+  --paper: #ffffff;
+  --paper-warm: #f5f5f5;
+  --accent: #c4410c;
+  --accent-soft: #f5ede8;
+  --border: rgba(28,26,23,0.08);
+  --border-mid: rgba(28,26,23,0.15);
+  --dot-color: rgba(28,26,23,0.1);
+}
 
-    .cs-hero { padding: 5rem 0 3rem; border-bottom: 1px solid #e5e5e5; }
-    .cs-tag { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #4338CA; display: block; margin-bottom: 1rem; }
-    .cs-hero h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 0.75rem; }
-    .cs-hero .tagline { font-size: 1rem; color: #4338CA; font-weight: 500; margin-bottom: 0.75rem; }
-    .cs-hook { font-style: italic; color: #4338CA; font-size: 1.05rem; font-weight: 500; border-left: 3px solid #4338CA; padding-left: 1rem; margin: 1.25rem 0; line-height: 1.6; }
-    .cs-hero p.sub { font-size: 1.05rem; color: #555; max-width: 580px; margin: 0; }
+html { scroll-behavior: smooth; }
 
-    .meta-grid { background: #f5f5f7; border-radius: 12px; padding: 1.75rem; margin: 2.5rem 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
-    .meta-item h4 { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #888; margin-bottom: 0.35rem; }
-    .meta-item p, .meta-item a { font-size: 0.9rem; color: #111; text-decoration: none; }
-    .meta-item a { color: #4338CA; }
-    .meta-item a:hover { text-decoration: underline; }
+body {
+  font-family: 'Geist', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
 
-    .proto-cta { background: #4338CA; color: #fff; border-radius: 12px; padding: 1.75rem 2rem; margin-bottom: 3rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
-    .proto-cta p { font-size: 0.95rem; font-weight: 500; }
-    .proto-cta a { background: #fff; color: #4338CA; padding: 0.6rem 1.25rem; border-radius: 6px; font-size: 0.88rem; font-weight: 600; text-decoration: none; }
-    .proto-cta a:hover { background: #f0f0f0; }
+.dot-grid {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, var(--dot-color) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
 
-    .qo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1rem; }
-    .qo-item { border: 1px solid #e5e5e5; border-radius: 10px; padding: 1.25rem; }
-    .qo-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #4338CA; margin-bottom: 0.45rem; }
-    .qo-text { font-size: 0.88rem; color: #444; margin: 0; line-height: 1.6; }
+.dot-grid::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(600px circle at var(--mx, 50%) var(--my, 50%), rgba(196,65,12,0.05), transparent 70%);
+}
 
-    .cs-section { padding: 3rem 0; border-bottom: 1px solid #e5e5e5; }
-    .cs-section:last-child { border-bottom: none; }
-    .slabel { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #4338CA; display: block; margin-bottom: 0.85rem; }
-    .cs-section h2 { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 1.1rem; }
-    .cs-section h3 { font-size: 1rem; font-weight: 600; margin: 1.5rem 0 0.5rem; color: #111; }
-    .cs-section p { color: #444; margin-bottom: 1rem; }
-    .cs-section p:last-child { margin-bottom: 0; }
+nav, main, footer { position: relative; z-index: 1; }
 
-    .insight { border-left: 3px solid #4338CA; padding: 1rem 1.5rem; background: #f5f5f7; border-radius: 0 8px 8px 0; margin: 1.5rem 0; }
-    .insight p { color: #111; font-weight: 500; margin: 0; }
+/* NAV */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  height: 60px;
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
 
-    .quote { border-left: 3px solid #c7d2fe; padding: 0.75rem 1.25rem; background: #f0edff; border-radius: 0 8px 8px 0; margin: 0.6rem 0; }
-    .quote p { color: #374151; font-style: italic; margin: 0; font-size: 0.95rem; }
+.nav-logo {
+  font-family: 'Instrument Serif', serif;
+  font-size: 20px;
+  color: var(--ink);
+  text-decoration: none;
+}
 
-    .cs-section--highlight { background: #f0edff; border-radius: 12px; padding: 2rem; margin: 0 -2rem; border-bottom: none; }
-    .cs-section--highlight .insight { background: #fff; }
+.nav-back {
+  font-size: 13px;
+  color: var(--ink-mid);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s;
+}
+.nav-back:hover { color: var(--ink); }
 
-    .principle { margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid #f0f0f0; }
-    .principle:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-    .principle-name { font-size: 0.95rem; font-weight: 600; color: #4338CA; margin-bottom: 0.25rem; }
-    .principle-desc { font-size: 0.9rem; color: #555; margin: 0; }
+/* LAYOUT */
+main {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 80px 40px 120px;
+}
 
-    .feature-item { margin-bottom: 1.75rem; padding-bottom: 1.75rem; border-bottom: 1px solid #f0f0f0; }
-    .feature-item:last-child { border-bottom: none; margin-bottom: 0; }
-    .feature-problem { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #888; margin-bottom: 0.3rem; }
-    .feature-solution { font-size: 0.9rem; color: #444; margin: 0 0 1rem; }
+/* HERO */
+.cs-eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  margin-bottom: 16px;
+}
 
-    .screen-item { margin-bottom: 2rem; }
-    .screen-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #4338CA; margin-bottom: 0.3rem; }
-    .screen-desc { font-size: 0.9rem; color: #555; margin: 0 0 1rem; }
+.cs-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(44px, 6vw, 64px);
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  color: var(--ink);
+  margin-bottom: 20px;
+}
 
-    .cs-img { width: 100%; border-radius: 12px; margin: 1rem 0; display: block; border: 1px solid #e5e5e5; }
-    .cs-img-caption { font-size: 0.8rem; color: #888; text-align: center; margin-top: -0.5rem; margin-bottom: 1rem; }
+.cs-subtitle {
+  font-size: 18px;
+  color: var(--ink-mid);
+  line-height: 1.65;
+  font-weight: 300;
+  max-width: 580px;
+  margin-bottom: 40px;
+}
 
-    .learning-list { list-style: none; padding: 0; }
-    .learning-list li { padding: 0.75rem 1rem; border-left: 2px solid #e5e5e5; margin-bottom: 0.75rem; color: #444; font-size: 0.95rem; }
-    .learning-list li:hover { border-left-color: #4338CA; }
+/* META ROW */
+.meta-row {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+  padding: 24px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 64px;
+}
 
-    .cs-footer { padding: 3rem 0; text-align: center; }
-    .btn { display: inline-block; padding: 0.65rem 1.4rem; border: 1.5px solid #4338CA; color: #4338CA; background: #fff; border-radius: 6px; font-size: 0.9rem; font-weight: 500; text-decoration: none; transition: background 0.2s, color 0.2s; }
-    .btn:hover { background: #4338CA; color: #fff; }
+.meta-item {}
+.meta-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  margin-bottom: 4px;
+}
+.meta-val {
+  font-size: 14px;
+  color: var(--ink);
+  font-weight: 400;
+}
 
-    @media (max-width: 640px) {
-      .meta-grid { grid-template-columns: 1fr 1fr; }
-      .proto-cta { flex-direction: column; }
-      .qo-grid { grid-template-columns: 1fr; }
-      .cs-section--highlight { margin: 0 -1rem; padding: 2rem 1rem; }
-    }
-    @media (max-width: 400px) {
-      .meta-grid { grid-template-columns: 1fr; }
-    }
-  </style>
+.meta-val a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(196,65,12,0.3);
+  padding-bottom: 1px;
+  transition: border-color 0.2s;
+}
+.meta-val a:hover { border-color: var(--accent); }
+
+/* HERO IMAGE */
+.hero-img {
+  width: 100%;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  display: block;
+  margin-bottom: 80px;
+  background: var(--paper-warm);
+}
+
+/* METRICS */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 80px;
+}
+
+.metric-item {
+  background: var(--paper);
+  padding: 28px 24px;
+}
+
+.metric-num {
+  font-family: 'Instrument Serif', serif;
+  font-size: 36px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.metric-num span {
+  font-size: 20px;
+  color: var(--accent);
+}
+
+.metric-label {
+  font-size: 13px;
+  color: var(--ink-mid);
+  line-height: 1.5;
+  font-weight: 300;
+}
+
+/* SECTION */
+.cs-section {
+  margin-bottom: 72px;
+}
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  margin-bottom: 16px;
+}
+
+.section-tag::before {
+  content: '';
+  width: 20px;
+  height: 1px;
+  background: var(--ink-light);
+}
+
+.cs-section h2 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 32px;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--ink);
+  margin-bottom: 20px;
+}
+
+.cs-section p {
+  font-size: 15px;
+  color: var(--ink-mid);
+  line-height: 1.8;
+  font-weight: 300;
+  margin-bottom: 16px;
+  max-width: 640px;
+}
+
+.cs-section p:last-child { margin-bottom: 0; }
+
+/* INSIGHT CALLOUT */
+.callout {
+  background: var(--paper-warm);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 12px 12px 0;
+  padding: 20px 24px;
+  margin: 32px 0;
+}
+
+.callout p {
+  font-family: 'Instrument Serif', serif;
+  font-size: 20px;
+  color: var(--ink);
+  line-height: 1.5;
+  font-style: italic;
+  margin: 0;
+  font-weight: 400;
+}
+
+/* USER QUOTES */
+.quotes-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 32px 0;
+}
+
+.quote-card {
+  background: var(--paper-warm);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.quote-text {
+  font-size: 14px;
+  color: var(--ink);
+  line-height: 1.65;
+  margin-bottom: 12px;
+  font-style: italic;
+}
+
+.quote-attr {
+  font-size: 12px;
+  color: var(--ink-light);
+  font-weight: 500;
+}
+
+/* PRINCIPLES */
+.principles-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 32px 0;
+}
+
+.principle-item {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.principle-item:first-child { border-top: 1px solid var(--border); }
+
+.principle-num {
+  font-family: 'Instrument Serif', serif;
+  font-size: 22px;
+  color: var(--ink-light);
+  line-height: 1;
+  flex-shrink: 0;
+  width: 28px;
+  margin-top: 2px;
+}
+
+.principle-content h4 {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+}
+
+.principle-content p {
+  font-size: 13px;
+  color: var(--ink-mid);
+  line-height: 1.6;
+  margin: 0;
+  font-weight: 300;
+}
+
+/* FEATURES */
+.features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  margin-top: 40px;
+}
+
+.feature-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.feature-item.reverse { direction: rtl; }
+.feature-item.reverse > * { direction: ltr; }
+
+.feature-img {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  display: block;
+  background: var(--paper-warm);
+}
+
+.feature-info {}
+
+.feature-problem {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.feature-info h3 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 22px;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+
+.feature-info p {
+  font-size: 14px;
+  color: var(--ink-mid);
+  line-height: 1.7;
+  font-weight: 300;
+  margin: 0;
+}
+
+/* PROCESS STEPS */
+.process-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 32px;
+  counter-reset: step;
+}
+
+.step {
+  display: flex;
+  gap: 24px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--border);
+  align-items: flex-start;
+}
+
+.step:first-child { border-top: 1px solid var(--border); }
+
+.step-num {
+  font-family: 'Instrument Serif', serif;
+  font-size: 32px;
+  color: var(--border-mid);
+  line-height: 1;
+  flex-shrink: 0;
+  width: 36px;
+}
+
+.step-content h4 {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+
+.step-content p {
+  font-size: 13px;
+  color: var(--ink-mid);
+  line-height: 1.65;
+  font-weight: 300;
+  margin: 0;
+}
+
+/* LEARNINGS */
+.learnings-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.learning-card {
+  background: var(--paper-warm);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.learning-card h4 {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+
+.learning-card p {
+  font-size: 13px;
+  color: var(--ink-mid);
+  line-height: 1.65;
+  font-weight: 300;
+  margin: 0;
+}
+
+/* NEXT UP */
+.next-up {
+  margin-top: 80px;
+  padding-top: 48px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.next-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  margin-bottom: 6px;
+}
+
+.next-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 24px;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--ink);
+  color: white;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 11px 22px;
+  border-radius: 6px;
+  transition: background 0.2s, transform 0.15s;
+  white-space: nowrap;
+}
+.btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
+
+/* REVEAL */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* RESPONSIVE */
+@media (max-width: 680px) {
+  main { padding: 60px 24px 80px; }
+  nav { padding: 0 24px; }
+  .metrics-grid { grid-template-columns: 1fr; }
+  .quotes-grid { grid-template-columns: 1fr; }
+  .feature-item { grid-template-columns: 1fr; }
+  .feature-item.reverse { direction: ltr; }
+  .learnings-grid { grid-template-columns: 1fr; }
+  .next-up { flex-direction: column; gap: 20px; align-items: flex-start; }
+}
+</style>
 </head>
 <body>
 
-  <header class="nav">
-    <div class="nav__inner container">
-      <a href="index.html" class="nav__logo">Vinayak</a>
-      <a href="index.html" class="nav__back">← Back to portfolio</a>
-    </div>
-  </header>
+<div class="dot-grid" id="dotgrid"></div>
 
-  <main>
-    <div class="container">
+<nav>
+  <a class="nav-logo" href="index.html">Vinayak G.</a>
+  <a class="nav-back" href="index.html">&larr; Back to work</a>
+</nav>
 
-      <!-- HERO -->
-      <div class="cs-hero">
-        <span class="cs-tag">Case Study · Job Application Tracker</span>
-        <h1>Nudge</h1>
-        <p class="tagline">A mobile-first job application tracker built for freshers so no opportunity slips through.</p>
-        <p class="cs-hook">
-          Most job seekers don't lose opportunities because they lack skill they lose them because they miss moments.<br>
-          A forgotten follow-up. A missed email. An interview that slipped through.
-        </p>
-        <!-- ADD YOUR HERO IMAGE HERE -->
-        <img src="Nudge_Home Screen.png" alt="Nudge Home Screen" class="cs-img" style="margin-top:2rem; box-shadow: 0 4px 24px rgba(0,0,0,0.06);" />
-      </div>
+<main>
 
-      <!-- META -->
-      <div class="meta-grid">
-        <div class="meta-item"><h4>Role</h4><p>UX Designer</p></div>
-        <div class="meta-item"><h4>Tools</h4><p>Figma</p></div>
-        <div class="meta-item"><h4>Type</h4><p>Concept Project</p></div>
-        <div class="meta-item"><h4>Research</h4><p>5 user interviews</p></div>
-      </div>
-
-      <!-- PROTOTYPE CTA -->
-      <div class="proto-cta">
-        <p>Explore the full interactive prototype</p>
-        <!-- REPLACE # WITH YOUR FIGMA PRESENT LINK -->
-        <a href="#" target="_blank">View Prototype →</a>
-      </div>
-
-      <!-- QUICK OVERVIEW -->
-      <div class="qo-grid">
-        <div class="qo-item">
-          <div class="qo-label">Problem</div>
-          <p class="qo-text">Freshers lose opportunities not because they lack skill but because their application process is too scattered to keep up with.</p>
-        </div>
-        <div class="qo-item">
-          <div class="qo-label">Key Insight</div>
-          <p class="qo-text">The problem wasn't a lack of tools it was that existing tools required effort users couldn't sustain.</p>
-        </div>
-        <div class="qo-item">
-          <div class="qo-label">Solution</div>
-          <p class="qo-text">A reminders-first mobile tracker that works for the user driving action through visibility, nudges, and minimal input.</p>
-        </div>
-      </div>
-
-      <!-- PROBLEM -->
-      <div class="cs-section">
-        <span class="slabel">The Problem</span>
-        <h2>Missing moments, not missing effort</h2>
-
-        <p>Freshers apply to multiple roles across platforms, but their tracking is inconsistent or doesn't exist at all. I faced the same problem noting things down in a notebook, forgetting to update, and eventually losing track completely. The process of tracking becomes more exhausting than the actual job search.</p>
-
-        <div class="quote"><p>"Everything just disappears after applying."</p></div>
-        <div class="quote"><p>"I don't know what's happening after I apply."</p></div>
-        <div class="quote"><p>"I got a call from HR and I wasn't prepared at all. I didn't even remember the role."</p></div>
-
-        <div class="insight">
-          <p>Freshers lose opportunities not because they lack skill but because their application process is too scattered to keep up with.</p>
-        </div>
-      </div>
-
-      <!-- RESEARCH -->
-      <div class="cs-section">
-        <span class="slabel">Research</span>
-        <h2>What freshers actually said</h2>
-
-        <p>I spoke to 5 students and freshers actively applying for jobs, focusing on how they currently track applications and where things break down.</p>
-
-        <p>Three clear patterns emerged. First, tracking systems either don't exist or aren't maintained consistently. Second, applications are scattered across platforms, making it hard to stay updated. Third, most missed opportunities happen not during applying, but after when follow-ups, emails, or deadlines are overlooked.</p>
-
-        <div class="insight">
-          <p>What surprised me: the problem wasn't the lack of tools it was that existing tools required effort users couldn't sustain.</p>
-        </div>
-      </div>
-
-      <!-- KEY INSIGHT -->
-      <div class="cs-section cs-section--highlight">
-        <span class="slabel">Key Insight</span>
-        <h2>The aha moment</h2>
-
-        <div class="insight">
-          <p>The problem wasn't a lack of tools it was that tracking required effort users couldn't sustain.</p>
-        </div>
-
-        <p>This shifted the focus from building a better tracker to reducing user effort entirely. If the system depends on consistency, it will eventually fail because users don't.</p>
-
-        <p>This meant the product had to work for the user driving action through reminders, visibility, and minimal input.</p>
-      </div>
-
-      <!-- DESIGN PRINCIPLES -->
-      <div class="cs-section">
-        <span class="slabel">Design Principles</span>
-        <h2>Three principles every decision was tested against</h2>
-
-        <p>To ensure every design decision stayed focused on solving the real problem, I defined three core principles.</p>
-
-        <div class="principle">
-          <p class="principle-name">Remind without depending on memory</p>
-          <p class="principle-desc">The system should proactively notify users at the right time so they don't have to remember follow-ups or deadlines.</p>
-        </div>
-        <div class="principle">
-          <p class="principle-name">Always visible status</p>
-          <p class="principle-desc">Users should instantly know where they stand across all applications without digging through tools.</p>
-        </div>
-        <div class="principle">
-          <p class="principle-name">Effortless to maintain</p>
-          <p class="principle-desc">Tracking should require minimal input so users can sustain it without it feeling like extra work.</p>
-        </div>
-      </div>
-
-      <!-- SOLUTION APPROACH -->
-      <div class="cs-section">
-        <span class="slabel">Solution Approach</span>
-        <h2>A reminders-first system, not a traditional tracker</h2>
-
-        <p>I chose a mobile-first approach because job seekers apply and check updates on their phones, making it the fastest place to capture applications and receive timely reminders. Designing for mobile ensured the product fits naturally into their existing behaviour without adding extra effort.</p>
-
-        <p>Instead of building a traditional tracker, I focused on a reminders-first system. Since users lose opportunities due to missed moments, the product prioritises timely nudges and clear next actions over passive tracking.</p>
-      </div>
-
-      <!-- CORE FEATURES -->
-      <div class="cs-section">
-        <span class="slabel">Core Features</span>
-        <h2>Every feature mapped to a real problem</h2>
-
-        <div class="feature-item">
-          <h3>Today's Actions Dashboard</h3>
-          <p class="feature-problem">Problem → Users don't know what needs attention</p>
-          <p class="feature-solution">Surfaces time-sensitive tasks like follow-ups and interviews upfront so the most urgent actions are impossible to miss.</p>
-          <img src="Nudge_Home Screen.png" alt="Today's Actions Dashboard" class="cs-img" />
-        </div>
-
-        <div class="feature-item">
-          <h3>Smart Reminders</h3>
-          <p class="feature-problem">Problem → Users miss emails and deadlines</p>
-          <p class="feature-solution">Sends timely nudges including lock screen notifications so actions happen when they matter, not after it's too late.</p>
-          <img src="Nudge_Reminders.png" alt="Smart Reminders" class="cs-img" />
-          <img src="Nudge_Notification Lock Screen.png" alt="Lock Screen Notification" class="cs-img" />
-        </div>
-
-        <div class="feature-item">
-          <h3>Quick Status Update</h3>
-          <p class="feature-problem">Problem → Users stop tracking because it feels like work</p>
-          <p class="feature-solution">A bottom sheet that allows instant status changes in under 10 seconds no forms, no navigation, no friction.</p>
-          <img src="Nudge_Quick Status Update.png" alt="Quick Status Update" class="cs-img" />
-        </div>
-
-        <div class="feature-item">
-          <h3>Application Detail with Next Action</h3>
-          <p class="feature-problem">Problem → Users lack clarity on what to do next</p>
-          <p class="feature-solution">Clearly shows the current status and the next required step for each application always visible, always specific.</p>
-          <img src="Nudge_Application Detail.png" alt="Application Detail" class="cs-img" />
-        </div>
-
-      </div>
-
-      <!-- FINAL DESIGNS -->
-      <div class="cs-section">
-        <span class="slabel">Final Designs</span>
-        <h2>9 screens. One complete product story.</h2>
-
-        <div class="screen-item">
-          <p class="screen-label">Onboarding</p>
-          <p class="screen-desc">Quickly communicates the value of staying on top of applications without relying on memory.</p>
-          <img src="Nudge_Onboarding.png" alt="Onboarding" class="cs-img" />
-        </div>
-
-        <div class="screen-item">
-          <p class="screen-label">Home Screen Today's Actions</p>
-          <p class="screen-desc">Surfaces urgent actions first while giving a clear view of all applications and their status.</p>
-          <img src="Nudge_Home Screen.png" alt="Home Screen" class="cs-img" />
-        </div>
-
-        <div class="screen-item">
-          <p class="screen-label">Empty State</p>
-          <p class="screen-desc">Encourages new users to log their first application with zero friction and clear value communication.</p>
-          <img src="Nudge_Empty State - Home.png" alt="Empty State" class="cs-img" />
-        </div>
-
-        <div class="screen-item">
-          <p class="screen-label">Add Application</p>
-          <p class="screen-desc">Enables fast, low-effort logging right after applying with an automatic follow-up reminder built in.</p>
-          <img src="Nudge_Add Application.png" alt="Add Application" class="cs-img" />
-        </div>
-
-        <div class="screen-item">
-          <p class="screen-label">Application Detail</p>
-          <p class="screen-desc">Provides full clarity on status, history, and the next action to take everything in one place.</p>
-          <img src="Nudge_Application Detail.png" alt="Application Detail" class="cs-img" />
-        </div>
-
-        <div class="screen-item">
-          <p class="screen-label">Quick Status Update</p>
-          <p class="screen-desc">Updates application status in under 10 seconds. No navigation. No forms. Just tap and done.</p>
-          <img src="Nudge_Quick Status Update.png" alt="Quick Status Update" class="cs-img" />
-        </div>
-
-        <div class="screen-item">
-          <p class="screen-label">Applications List</p>
-          <p class="screen-desc">Full pipeline sorted by urgency the most time-sensitive applications always surface first.</p>
-          <img src="Nudge_Applications List.png" alt="Applications List" class="cs-img" />
-        </div>
-
-        <div class="screen-item">
-          <p class="screen-label">Reminders</p>
-          <p class="screen-desc">Organises upcoming tasks into Today, Tomorrow, and Upcoming so users always know what to act on next.</p>
-          <img src="Nudge_Reminders.png" alt="Reminders" class="cs-img" />
-        </div>
-
-        <div class="screen-item">
-          <p class="screen-label">Lock Screen Notification</p>
-          <p class="screen-desc">Delivers timely, specific nudges before the user even opens the app this is the core product promise made visible.</p>
-          <img src="Nudge_Notification Lock Screen.png" alt="Lock Screen Notification" class="cs-img" />
-        </div>
-
-      </div>
-
-      <!-- WHAT'S NEXT -->
-      <div class="cs-section">
-        <span class="slabel">What's Next</span>
-        <h2>Version 2 directions</h2>
-
-        <p>This is an MVP focused on solving the core problem, with several improvements planned for future iterations.</p>
-
-        <div class="principle">
-          <p class="principle-name">Smarter automation</p>
-          <p class="principle-desc">Auto-capture job details from links to reduce manual input further.</p>
-        </div>
-        <div class="principle">
-          <p class="principle-name">Email integration</p>
-          <p class="principle-desc">Detect responses and updates directly from inbox to keep status in sync.</p>
-        </div>
-        <div class="principle">
-          <p class="principle-name">Personalised nudges</p>
-          <p class="principle-desc">Adapt reminder timing based on user behaviour and response patterns.</p>
-        </div>
-      </div>
-
-      <!-- IMPACT + LEARNINGS -->
-      <div class="cs-section">
-        <span class="slabel">Impact &amp; Learnings</span>
-        <h2>What changed and what I learned</h2>
-
-        <p>Early feedback showed users felt more in control of their applications, especially with "Today's Actions" making it clear what to do next. The reminder system reduced anxiety around missing follow-ups, and users said the process felt lighter compared to spreadsheets or notes.</p>
-
-        <div class="insight">
-          <p>This project taught me that solving the right problem matters more than adding features. I initially focused on building a better tracker, but research showed the real issue was consistency.</p>
-        </div>
-
-        <p>I also learned how small decisions like reducing input effort or highlighting next actions can directly impact user behaviour. The most important design move wasn't adding a feature. It was removing the friction that was stopping users from acting.</p>
-
-      </div>
-
-    </div>
-  </main>
-
-  <div class="cs-footer container">
-    <a href="index.html" class="btn">← Back to portfolio</a>
+  <!-- HEADER -->
+  <div class="reveal">
+    <div class="cs-eyebrow">Case study &middot; Mobile App &middot; Job Search</div>
+    <h1 class="cs-title">Nudge</h1>
+    <p class="cs-subtitle">Freshers lose opportunities not from lack of effort, but because the job search falls apart after you hit apply. I built a mobile tracker around one insight: remind people at the right moment, not constantly.</p>
   </div>
 
+  <!-- META -->
+  <div class="meta-row reveal">
+    <div class="meta-item">
+      <div class="meta-label">Role</div>
+      <div class="meta-val">UX Designer</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Tools</div>
+      <div class="meta-val">Figma</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Type</div>
+      <div class="meta-val">Concept project</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Research</div>
+      <div class="meta-val">5 user interviews</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Prototype</div>
+      <div class="meta-val"><a href="https://www.figma.com/proto/nudge" target="_blank">Open in Figma &rarr;</a></div>
+    </div>
+  </div>
+
+  <!-- HERO IMAGE -->
+  <img class="hero-img reveal"
+    src="https://vinayakgavimath.github.io/vinayak-g/Nudge_Home Screen.png"
+    alt="Nudge home screen">
+
+  <!-- METRICS -->
+  <div class="metrics-grid reveal">
+    <div class="metric-item">
+      <div class="metric-num">4<span>x</span></div>
+      <div class="metric-label">More follow-ups completed vs spreadsheet tracking in usability sessions</div>
+    </div>
+    <div class="metric-item">
+      <div class="metric-num">&lt;10<span>s</span></div>
+      <div class="metric-label">Average time to log a new application. Designed to fit between screens.</div>
+    </div>
+    <div class="metric-item">
+      <div class="metric-num">5<span>/5</span></div>
+      <div class="metric-label">Users said "Today's Actions" made it clear what to do next, without digging</div>
+    </div>
+  </div>
+
+  <!-- PROBLEM -->
+  <div class="cs-section reveal">
+    <div class="section-tag">The problem</div>
+    <h2>Missing moments, not missing effort</h2>
+    <p>Freshers apply to multiple roles across platforms. But tracking is inconsistent or doesn't exist at all. I faced this myself. I noted things in a notebook, forgot to update, and eventually lost track completely. The tracking became more exhausting than the actual job search.</p>
+    <p>Most people end up with a half-filled spreadsheet, a few notes, and a lot of anxiety about what they might have missed.</p>
+
+    <div class="quotes-grid">
+      <div class="quote-card">
+        <div class="quote-text">"Everything just disappears after applying. I have no idea what's happening."</div>
+        <div class="quote-attr">Fresher, actively job searching</div>
+      </div>
+      <div class="quote-card">
+        <div class="quote-text">"I got a call from HR and wasn't prepared at all. I didn't even remember the role."</div>
+        <div class="quote-attr">Recent graduate</div>
+      </div>
+      <div class="quote-card">
+        <div class="quote-text">"I use a spreadsheet but I forget to update it after a while."</div>
+        <div class="quote-attr">Engineering student</div>
+      </div>
+      <div class="quote-card">
+        <div class="quote-text">"Follow-up emails feel important but I never know when to send them."</div>
+        <div class="quote-attr">BCA student</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KEY INSIGHT -->
+  <div class="cs-section reveal">
+    <div class="section-tag">Research insight</div>
+    <h2>The problem wasn't a missing app. It was unsustainable effort.</h2>
+    <p>I spoke to 5 students and freshers actively applying, asking them to walk me through their last week of job searching. Not what tools they used. What actually happened. Three things came up every single time.</p>
+
+    <div class="principles-list">
+      <div class="principle-item">
+        <div class="principle-num">01</div>
+        <div class="principle-content">
+          <h4>Tracking exists, but breaks down</h4>
+          <p>Almost everyone had some system: spreadsheet, notes app, notebook. None of them kept it up past the first week. Consistency was the actual problem.</p>
+        </div>
+      </div>
+      <div class="principle-item">
+        <div class="principle-num">02</div>
+        <div class="principle-content">
+          <h4>Applications scatter across platforms</h4>
+          <p>LinkedIn, Naukri, company websites, referrals through WhatsApp. No single place showed the full picture.</p>
+        </div>
+      </div>
+      <div class="principle-item">
+        <div class="principle-num">03</div>
+        <div class="principle-content">
+          <h4>Missed moments happen after applying, not during</h4>
+          <p>The applying part was fine. The follow-up, the status check, the interview prep. That's where things fell apart.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p>The problem wasn't a lack of tools. It was that every tool I found required effort people couldn't keep up. Any system that depends on consistency will eventually break. People aren't consistent.</p>
+    </div>
+  </div>
+
+  <!-- DESIGN PRINCIPLES -->
+  <div class="cs-section reveal">
+    <div class="section-tag">Design principles</div>
+    <h2>Three principles every decision was tested against</h2>
+
+    <div class="principles-list">
+      <div class="principle-item">
+        <div class="principle-num">01</div>
+        <div class="principle-content">
+          <h4>Remind without depending on memory</h4>
+          <p>The system notifies at the right moment so users don't have to remember follow-ups or deadlines themselves.</p>
+        </div>
+      </div>
+      <div class="principle-item">
+        <div class="principle-num">02</div>
+        <div class="principle-content">
+          <h4>Always-visible status</h4>
+          <p>Users should instantly know where every application stands without digging through tools or scrolling through a list.</p>
+        </div>
+      </div>
+      <div class="principle-item">
+        <div class="principle-num">03</div>
+        <div class="principle-content">
+          <h4>Effortless to maintain</h4>
+          <p>Logging an application or updating a status had to take under 10 seconds. If it feels like work, people stop.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KEY SCREENS -->
+  <div class="cs-section reveal">
+    <div class="section-tag">Key screens</div>
+    <h2>Every screen mapped to a real failure point</h2>
+
+    <div class="features-list">
+      <div class="feature-item">
+        <img class="feature-img"
+          src="https://vinayakgavimath.github.io/vinayak-g/Nudge_Home Screen.png"
+          alt="Today's actions dashboard">
+        <div class="feature-info">
+          <div class="feature-problem">Problem &rarr; "I don't know what needs attention"</div>
+          <h3>Today's Actions</h3>
+          <p>Surfaces time-sensitive tasks like follow-ups and upcoming interviews at the top. The most urgent action is impossible to miss the moment you open the app.</p>
+        </div>
+      </div>
+
+      <div class="feature-item reverse">
+        <img class="feature-img"
+          src="https://vinayakgavimath.github.io/vinayak-g/Nudge_Reminders.png"
+          alt="Smart reminders">
+        <div class="feature-info">
+          <div class="feature-problem">Problem &rarr; "I miss follow-up deadlines"</div>
+          <h3>Smart reminders</h3>
+          <p>Reminders organized as Today, Tomorrow, and Upcoming. Specific nudges at the right time, not a generic notification you eventually learn to ignore.</p>
+        </div>
+      </div>
+
+      <div class="feature-item">
+        <img class="feature-img"
+          src="https://vinayakgavimath.github.io/vinayak-g/Nudge_Quick Status Update.png"
+          alt="Quick status update">
+        <div class="feature-info">
+          <div class="feature-problem">Problem &rarr; "Updating feels like extra work"</div>
+          <h3>Quick status update</h3>
+          <p>A bottom sheet that lets you change application status in under 10 seconds. No navigation, no forms. Just tap and done. Designed to remove the friction that makes people stop tracking.</p>
+        </div>
+      </div>
+
+      <div class="feature-item reverse">
+        <img class="feature-img"
+          src="https://vinayakgavimath.github.io/vinayak-g/Nudge_Application Detail.png"
+          alt="Application detail">
+        <div class="feature-info">
+          <div class="feature-problem">Problem &rarr; "I don't know what to do next"</div>
+          <h3>Application detail with next action</h3>
+          <p>Each application shows its current status and the next step to take. Not just where you are. Where you need to go next.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROCESS -->
+  <div class="cs-section reveal">
+    <div class="section-tag">Process</div>
+    <h2>How I built it</h2>
+
+    <div class="process-steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h4>User interviews</h4>
+          <p>Spoke to 5 students and freshers. Asked them to walk me through their last week of job searching, not what tools they used but what actually happened. Patterns were immediate.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h4>Reframing the problem</h4>
+          <p>My first instinct was to build a better tracker. But research kept pointing to the same thing: the problem was consistency, not the tracker itself. So I shifted focus to reducing how much effort the app required, not improving how it tracked things.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h4>User flow mapping</h4>
+          <p>Mapped three key flows: adding an application, receiving a reminder, updating a status. Made sure each was self-contained and fast before moving to wireframes.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <h4>Wireframes to high-fidelity</h4>
+          <p>Low-fi focused purely on information hierarchy. High-fi added a design system built around minimal input: large tap targets, bottom sheets for quick actions, clear status indicators.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">05</div>
+        <div class="step-content">
+          <h4>Prototype testing</h4>
+          <p>Tested with the same 5 users from research. Measured task completion time for logging an application and finding what needed attention today. Both hit target under 15 seconds.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEARNINGS -->
+  <div class="cs-section reveal">
+    <div class="section-tag">What I learned</div>
+    <h2>Solving the right problem matters more than solving it well</h2>
+
+    <div class="learnings-grid">
+      <div class="learning-card">
+        <h4>The right problem isn't always the obvious one</h4>
+        <p>I started designing a better tracker. Research showed the problem was consistency, not tracking. That one reframe changed everything about how the product works.</p>
+      </div>
+      <div class="learning-card">
+        <h4>Small decisions change behavior</h4>
+        <p>Reducing the status update from a form to a bottom sheet didn't feel like a big design decision. But users in testing said it was the reason they'd actually keep using it.</p>
+      </div>
+      <div class="learning-card">
+        <h4>Reminders are not a solution</h4>
+        <p>Every existing tool already had reminders. Users were ignoring them. The real solution was surfacing the right action at the right moment, not firing more notifications.</p>
+      </div>
+      <div class="learning-card">
+        <h4>If it feels like work, people stop</h4>
+        <p>The 10-second rule for status updates came from watching users abandon tasks mid-flow during testing. Friction doesn't just slow people down. It stops them entirely.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEXT -->
+  <div class="next-up reveal">
+    <div>
+      <div class="next-label">Next case study</div>
+      <div class="next-title">Clarity &rarr;</div>
+    </div>
+    <a href="clarity.html" class="btn-primary">View case study &rarr;</a>
+  </div>
+
+</main>
+
+<footer style="position:relative;z-index:1;border-top:1px solid var(--border);padding:24px 40px;display:flex;justify-content:space-between;font-size:12px;color:var(--ink-light);max-width:780px;margin:0 auto;">
+  <span>Vinayak Gavimath</span>
+  <span>&copy; 2026</span>
+</footer>
+
+<script>
+const dotGrid = document.getElementById('dotgrid');
+document.addEventListener('mousemove', e => {
+  dotGrid.style.setProperty('--mx', e.clientX + 'px');
+  dotGrid.style.setProperty('--my', e.clientY + 'px');
+});
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 60);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
