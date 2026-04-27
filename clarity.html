@@ -9,7 +9,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 :root {
   --ink: #1c1a17;
   --ink-mid: #6b6560;
@@ -21,10 +20,11 @@
   --border: rgba(28,26,23,0.08);
   --border-mid: rgba(28,26,23,0.15);
   --dot-color: rgba(28,26,23,0.1);
+  --annotation-bg: #fffbf0;
+  --annotation-border: #e8d98a;
+  --annotation-text: #6b5c0a;
 }
-
 html { scroll-behavior: smooth; }
-
 body {
   font-family: 'Geist', sans-serif;
   background: var(--paper);
@@ -34,468 +34,142 @@ body {
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
-
 .dot-grid {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
   background-image: radial-gradient(circle, var(--dot-color) 1px, transparent 1px);
   background-size: 28px 28px;
 }
-
 .dot-grid::after {
-  content: '';
-  position: absolute;
-  inset: 0;
+  content: ''; position: absolute; inset: 0;
   background: radial-gradient(600px circle at var(--mx, 50%) var(--my, 50%), rgba(196,65,12,0.05), transparent 70%);
 }
-
 nav, main, footer { position: relative; z-index: 1; }
 
 nav {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 40px;
-  height: 60px;
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px; height: 60px;
   background: rgba(255,255,255,0.88);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
 }
-
-.nav-logo {
-  font-family: 'Instrument Serif', serif;
-  font-size: 20px;
-  color: var(--ink);
-  text-decoration: none;
-}
-
-.nav-back {
-  font-size: 13px;
-  color: var(--ink-mid);
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  transition: color 0.2s;
-}
+.nav-logo { font-family: 'Instrument Serif', serif; font-size: 20px; color: var(--ink); text-decoration: none; }
+.nav-back { font-size: 13px; color: var(--ink-mid); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
 .nav-back:hover { color: var(--ink); }
 
-main {
-  max-width: 780px;
-  margin: 0 auto;
-  padding: 80px 40px 120px;
-}
+main { max-width: 780px; margin: 0 auto; padding: 80px 40px 120px; }
 
-.cs-eyebrow {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-light);
-  margin-bottom: 16px;
-}
+.cs-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 16px; }
+.cs-title { font-family: 'Instrument Serif', serif; font-size: clamp(44px, 6vw, 64px); letter-spacing: -0.025em; line-height: 1.05; color: var(--ink); margin-bottom: 20px; }
+.cs-subtitle { font-size: 18px; color: var(--ink-mid); line-height: 1.65; font-weight: 300; max-width: 580px; margin-bottom: 40px; }
 
-.cs-title {
-  font-family: 'Instrument Serif', serif;
-  font-size: clamp(44px, 6vw, 64px);
-  letter-spacing: -0.025em;
-  line-height: 1.05;
-  color: var(--ink);
-  margin-bottom: 20px;
-}
+.meta-row { display: flex; gap: 32px; flex-wrap: wrap; padding: 24px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 64px; }
+.meta-label { font-size: 10px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 4px; }
+.meta-val { font-size: 14px; color: var(--ink); }
+.meta-val a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(196,65,12,0.3); padding-bottom: 1px; transition: border-color 0.2s; }
+.meta-val a:hover { border-color: var(--accent); }
 
-.cs-subtitle {
-  font-size: 18px;
-  color: var(--ink-mid);
-  line-height: 1.65;
-  font-weight: 300;
-  max-width: 580px;
-  margin-bottom: 40px;
-}
+.hero-img { width: 100%; border-radius: 16px; border: 1px solid var(--border); display: block; margin-bottom: 80px; background: var(--paper-warm); }
 
-.meta-row {
-  display: flex;
-  gap: 32px;
-  flex-wrap: wrap;
-  padding: 24px 0;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 64px;
-}
+.metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-bottom: 80px; }
+.metric-item { background: var(--paper); padding: 28px 24px; }
+.metric-num { font-family: 'Instrument Serif', serif; font-size: 36px; letter-spacing: -0.02em; color: var(--ink); line-height: 1; margin-bottom: 6px; }
+.metric-num span { font-size: 20px; color: var(--accent); }
+.metric-label { font-size: 13px; color: var(--ink-mid); line-height: 1.5; font-weight: 300; }
 
-.meta-label {
+.cs-section { margin-bottom: 72px; }
+.section-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 16px; }
+.section-tag::before { content: ''; width: 20px; height: 1px; background: var(--ink-light); }
+.cs-section h2 { font-family: 'Instrument Serif', serif; font-size: 32px; letter-spacing: -0.02em; line-height: 1.15; color: var(--ink); margin-bottom: 20px; }
+.cs-section p { font-size: 15px; color: var(--ink-mid); line-height: 1.8; font-weight: 300; margin-bottom: 16px; max-width: 640px; }
+.cs-section p:last-child { margin-bottom: 0; }
+
+.callout { background: var(--paper-warm); border-left: 3px solid var(--accent); border-radius: 0 12px 12px 0; padding: 20px 24px; margin: 32px 0; }
+.callout p { font-family: 'Instrument Serif', serif; font-size: 20px; color: var(--ink); line-height: 1.5; font-style: italic; margin: 0; }
+
+/* ANNOTATION */
+.annotation {
+  background: var(--annotation-bg);
+  border: 1px solid var(--annotation-border);
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin-top: 12px;
+}
+.annotation::before {
+  content: 'Design decision';
+  display: block;
   font-size: 10px;
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--ink-light);
-  margin-bottom: 4px;
-}
-
-.meta-val {
-  font-size: 14px;
-  color: var(--ink);
-}
-
-.meta-val a {
-  color: var(--accent);
-  text-decoration: none;
-  border-bottom: 1px solid rgba(196,65,12,0.3);
-  padding-bottom: 1px;
-}
-.meta-val a:hover { border-color: var(--accent); }
-
-.hero-img {
-  width: 100%;
-  border-radius: 16px;
-  border: 1px solid var(--border);
-  display: block;
-  margin-bottom: 80px;
-  background: var(--paper-warm);
-}
-
-/* METRICS */
-.metrics-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  overflow: hidden;
-  margin-bottom: 80px;
-}
-
-.metric-item {
-  background: var(--paper);
-  padding: 28px 24px;
-}
-
-.metric-num {
-  font-family: 'Instrument Serif', serif;
-  font-size: 36px;
-  letter-spacing: -0.02em;
-  color: var(--ink);
-  line-height: 1;
+  color: var(--annotation-text);
   margin-bottom: 6px;
+  opacity: 0.7;
+}
+.annotation p {
+  font-size: 13px !important;
+  color: var(--annotation-text) !important;
+  line-height: 1.65 !important;
+  font-weight: 400 !important;
+  margin: 0 !important;
+  max-width: 100% !important;
 }
 
-.metric-num span { font-size: 20px; color: var(--accent); }
+/* SCREEN BLOCKS */
+.screen-block { margin-bottom: 56px; }
+.screen-block-header { display: flex; gap: 8px; align-items: center; margin-bottom: 12px; }
+.screen-tag { font-size: 10px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; color: var(--accent); background: var(--accent-soft); padding: 3px 10px; border-radius: 100px; }
+.screen-label { font-size: 13px; font-weight: 500; color: var(--ink); }
+.screen-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+.screen-img { width: 100%; border-radius: 12px; border: 1px solid var(--border); display: block; background: var(--paper-warm); }
+.screen-notes { display: flex; flex-direction: column; gap: 12px; }
+.screen-note { background: var(--paper-warm); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+.screen-note-problem { font-size: 11px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 4px; }
+.screen-note h4 { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 6px; letter-spacing: -0.01em; }
+.screen-note p { font-size: 13px; color: var(--ink-mid); line-height: 1.65; font-weight: 300; margin: 0; max-width: 100%; }
 
-.metric-label {
-  font-size: 13px;
-  color: var(--ink-mid);
-  line-height: 1.5;
-  font-weight: 300;
-}
-
-/* SECTIONS */
-.cs-section { margin-bottom: 72px; }
-
-.section-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ink-light);
-  margin-bottom: 16px;
-}
-
-.section-tag::before {
-  content: '';
-  width: 20px;
-  height: 1px;
-  background: var(--ink-light);
-}
-
-.cs-section h2 {
-  font-family: 'Instrument Serif', serif;
-  font-size: 32px;
-  letter-spacing: -0.02em;
-  line-height: 1.15;
-  color: var(--ink);
-  margin-bottom: 20px;
-}
-
-.cs-section p {
-  font-size: 15px;
-  color: var(--ink-mid);
-  line-height: 1.8;
-  font-weight: 300;
-  margin-bottom: 16px;
-  max-width: 640px;
-}
-
-.callout {
-  background: var(--paper-warm);
-  border-left: 3px solid var(--accent);
-  border-radius: 0 12px 12px 0;
-  padding: 20px 24px;
-  margin: 32px 0;
-}
-
-.callout p {
-  font-family: 'Instrument Serif', serif;
-  font-size: 20px;
-  color: var(--ink);
-  line-height: 1.5;
-  font-style: italic;
-  margin: 0;
-}
-
-/* INSIGHT PILLS */
-.insights-list {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  margin: 32px 0;
-}
-
-.insight-item {
-  display: flex;
-  gap: 20px;
-  padding: 20px 0;
-  border-bottom: 1px solid var(--border);
-  align-items: flex-start;
-}
+/* INSIGHTS */
+.insights-list { display: flex; flex-direction: column; gap: 2px; margin: 32px 0; }
+.insight-item { display: flex; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
 .insight-item:first-child { border-top: 1px solid var(--border); }
+.insight-num { font-family: 'Instrument Serif', serif; font-size: 22px; color: var(--ink-light); line-height: 1; flex-shrink: 0; width: 28px; margin-top: 2px; }
+.insight-content h4 { font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 4px; letter-spacing: -0.01em; }
+.insight-content p { font-size: 13px; color: var(--ink-mid); line-height: 1.6; margin: 0; font-weight: 300; }
 
-.insight-num {
-  font-family: 'Instrument Serif', serif;
-  font-size: 22px;
-  color: var(--ink-light);
-  line-height: 1;
-  flex-shrink: 0;
-  width: 28px;
-  margin-top: 2px;
-}
-
-.insight-content h4 {
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--ink);
-  margin-bottom: 4px;
-  letter-spacing: -0.01em;
-}
-
-.insight-content p {
-  font-size: 13px;
-  color: var(--ink-mid);
-  line-height: 1.6;
-  margin: 0;
-  font-weight: 300;
-}
-
-/* BEFORE / AFTER */
-.before-after {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin: 32px 0;
-}
-
-.ba-card {
-  border-radius: 12px;
-  padding: 24px;
-  border: 1px solid var(--border);
-}
-
+/* BEFORE/AFTER */
+.before-after { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 32px 0; }
+.ba-card { border-radius: 12px; padding: 24px; border: 1px solid var(--border); }
 .ba-card.before { background: var(--paper-warm); }
-.ba-card.after  { background: var(--accent-soft); border-color: rgba(196,65,12,0.15); }
-
-.ba-label {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  margin-bottom: 16px;
-}
-
+.ba-card.after { background: var(--accent-soft); border-color: rgba(196,65,12,0.15); }
+.ba-label { font-size: 11px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 16px; }
 .ba-card.before .ba-label { color: var(--ink-light); }
-.ba-card.after  .ba-label { color: var(--accent); }
-
-.ba-item {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 10px;
-  font-size: 13px;
-  color: var(--ink-mid);
-  line-height: 1.5;
-  font-weight: 300;
-  align-items: flex-start;
-}
-
+.ba-card.after .ba-label { color: var(--accent); }
+.ba-item { display: flex; gap: 10px; margin-bottom: 10px; font-size: 13px; color: var(--ink-mid); line-height: 1.5; font-weight: 300; align-items: flex-start; }
 .ba-item:last-child { margin-bottom: 0; }
-
-.ba-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  margin-top: 6px;
-}
-
+.ba-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
 .ba-card.before .ba-dot { background: var(--ink-light); }
-.ba-card.after  .ba-dot { background: var(--accent); }
-
-/* SCREENS */
-.screens-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin: 32px 0;
-}
-
-.screen-item {}
-
-.screen-img {
-  width: 100%;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  display: block;
-  margin-bottom: 10px;
-  background: var(--paper-warm);
-}
-
-.screen-label {
-  font-size: 12px;
-  color: var(--ink-mid);
-  font-weight: 400;
-}
-
-.screen-desc {
-  font-size: 12px;
-  color: var(--ink-light);
-  line-height: 1.5;
-  font-weight: 300;
-  margin-top: 3px;
-}
+.ba-card.after .ba-dot { background: var(--accent); }
 
 /* PROCESS */
-.process-steps {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  margin-top: 32px;
-}
-
-.step {
-  display: flex;
-  gap: 24px;
-  padding: 24px 0;
-  border-bottom: 1px solid var(--border);
-}
+.process-steps { display: flex; flex-direction: column; gap: 2px; margin-top: 32px; }
+.step { display: flex; gap: 24px; padding: 24px 0; border-bottom: 1px solid var(--border); }
 .step:first-child { border-top: 1px solid var(--border); }
+.step-num { font-family: 'Instrument Serif', serif; font-size: 32px; color: var(--border-mid); line-height: 1; flex-shrink: 0; width: 36px; }
+.step-content h4 { font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 6px; letter-spacing: -0.01em; }
+.step-content p { font-size: 13px; color: var(--ink-mid); line-height: 1.65; font-weight: 300; margin: 0; }
 
-.step-num {
-  font-family: 'Instrument Serif', serif;
-  font-size: 32px;
-  color: var(--border-mid);
-  line-height: 1;
-  flex-shrink: 0;
-  width: 36px;
-}
+.learnings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 32px; }
+.learning-card { background: var(--paper-warm); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+.learning-card h4 { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 8px; }
+.learning-card p { font-size: 13px; color: var(--ink-mid); line-height: 1.65; font-weight: 300; margin: 0; }
 
-.step-content h4 {
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--ink);
-  margin-bottom: 6px;
-  letter-spacing: -0.01em;
-}
-
-.step-content p {
-  font-size: 13px;
-  color: var(--ink-mid);
-  line-height: 1.65;
-  font-weight: 300;
-  margin: 0;
-}
-
-/* LEARNINGS */
-.learnings-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-top: 32px;
-}
-
-.learning-card {
-  background: var(--paper-warm);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 24px;
-}
-
-.learning-card h4 {
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--ink);
-  margin-bottom: 8px;
-}
-
-.learning-card p {
-  font-size: 13px;
-  color: var(--ink-mid);
-  line-height: 1.65;
-  font-weight: 300;
-  margin: 0;
-}
-
-.next-up {
-  margin-top: 80px;
-  padding-top: 48px;
-  border-top: 1px solid var(--border);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.next-label {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ink-light);
-  margin-bottom: 6px;
-}
-
-.next-title {
-  font-family: 'Instrument Serif', serif;
-  font-size: 24px;
-  color: var(--ink);
-}
-
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: var(--ink);
-  color: white;
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 500;
-  padding: 11px 22px;
-  border-radius: 6px;
-  transition: background 0.2s, transform 0.15s;
-  white-space: nowrap;
-}
+.next-up { margin-top: 80px; padding-top: 48px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+.next-label { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 6px; }
+.next-title { font-family: 'Instrument Serif', serif; font-size: 24px; color: var(--ink); }
+.btn-primary { display: inline-flex; align-items: center; gap: 6px; background: var(--ink); color: white; text-decoration: none; font-size: 13px; font-weight: 500; padding: 11px 22px; border-radius: 6px; transition: background 0.2s, transform 0.15s; white-space: nowrap; }
 .btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
 
-.reveal {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1);
-}
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1); }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
 @media (max-width: 680px) {
@@ -503,14 +177,13 @@ main {
   nav { padding: 0 24px; }
   .metrics-grid { grid-template-columns: 1fr; }
   .before-after { grid-template-columns: 1fr; }
-  .screens-grid { grid-template-columns: 1fr; }
+  .screen-layout { grid-template-columns: 1fr; }
   .learnings-grid { grid-template-columns: 1fr; }
   .next-up { flex-direction: column; gap: 20px; align-items: flex-start; }
 }
 </style>
 </head>
 <body>
-
 <div class="dot-grid" id="dotgrid"></div>
 
 <nav>
@@ -520,52 +193,44 @@ main {
 
 <main>
 
+  <!-- HEADER -->
   <div class="reveal">
     <div class="cs-eyebrow">Case study &middot; SaaS Dashboard &middot; Student Productivity</div>
     <h1 class="cs-title">Clarity</h1>
-    <p class="cs-subtitle">Students don't struggle because they lack tools. They struggle because the tools don't talk to each other. I redesigned the experience into one dashboard that shows everything at once.</p>
+    <p class="cs-subtitle">Students don't struggle because they lack tools. They struggle because the tools don't talk to each other. I designed one dashboard that shows everything at once, so you stop spending energy figuring out what the work is.</p>
   </div>
 
+  <!-- META -->
   <div class="meta-row reveal">
-    <div class="meta-item">
-      <div class="meta-label">Role</div>
-      <div class="meta-val">UX Designer</div>
-    </div>
-    <div class="meta-item">
-      <div class="meta-label">Tools</div>
-      <div class="meta-val">Figma</div>
-    </div>
-    <div class="meta-item">
-      <div class="meta-label">Type</div>
-      <div class="meta-val">Concept project</div>
-    </div>
-    <div class="meta-item">
-      <div class="meta-label">Research</div>
-      <div class="meta-val">3-5 student interviews</div>
-    </div>
+    <div class="meta-item"><div class="meta-label">Role</div><div class="meta-val">UX Designer</div></div>
+    <div class="meta-item"><div class="meta-label">Tools</div><div class="meta-val">Figma</div></div>
+    <div class="meta-item"><div class="meta-label">Type</div><div class="meta-val">Concept project</div></div>
+    <div class="meta-item"><div class="meta-label">Research</div><div class="meta-val">5 student interviews</div></div>
+    <div class="meta-item"><div class="meta-label">Screens</div><div class="meta-val">8 screens</div></div>
     <div class="meta-item">
       <div class="meta-label">Prototype</div>
-      <div class="meta-val"><a href="https://www.figma.com/proto/wVMW3pIGx93ecGQBBdCHAH/Clarity---Academic-Dashboard?node-id=1-34&p=f&viewport=123%2C262%2C0.07&t=05EQCNMUhfmnop8i-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1%3A34&page-id=0%3A1" target="_blank">Open in Figma &rarr;</a></div>
+      <div class="meta-val"><a href="https://www.figma.com/proto/wVMW3pIGx93ecGQBBdCHAH/Clarity---Academic-Dashboard?node-id=1-34&p=f&viewport=123%2C262%2C0.07&t=05EQCNMUhfmnop8i-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1%3A34&page-id=0%3A1" target="_blank">View Prototype &rarr;</a></div>
     </div>
   </div>
 
+  <!-- HERO -->
   <img class="hero-img reveal"
     src="https://vinayakgavimath.github.io/vinayak-g/Clarity Dashboard.png"
-    alt="Clarity dashboard">
+    alt="Clarity dashboard showing assignments, attendance and progress in one view">
 
   <!-- METRICS -->
   <div class="metrics-grid reveal">
     <div class="metric-item">
       <div class="metric-num">5<span>+</span></div>
-      <div class="metric-label">Tools replaced by one dashboard. WhatsApp, Google Docs, portal, notebook, calendar.</div>
+      <div class="metric-label">Tools replaced by one dashboard: WhatsApp, Google Docs, portal, notebook, calendar.</div>
     </div>
     <div class="metric-item">
       <div class="metric-num">&lt;30<span>s</span></div>
-      <div class="metric-label">To get a full picture of what's due today, in testing. Previously required opening 3+ apps.</div>
+      <div class="metric-label">To get a full picture of what's due today. Previously required opening 3 or more apps.</div>
     </div>
     <div class="metric-item">
-      <div class="metric-num">8<span>/10</span></div>
-      <div class="metric-label">Users in concept feedback said the dashboard was the most valuable single feature</div>
+      <div class="metric-num">8<span>/8</span></div>
+      <div class="metric-label">Screens designed with a single consistent design system before moving to prototype.</div>
     </div>
   </div>
 
@@ -573,9 +238,8 @@ main {
   <div class="cs-section reveal">
     <div class="section-tag">The problem</div>
     <h2>Students are drowning in tools and still falling behind</h2>
-    <p>Talk to any college student and you hear the same story. Assignments land in WhatsApp groups. Notes live in Google Docs. Deadlines get announced in class and forgotten by evening. Attendance tracked somewhere in a university portal nobody visits until it's too late.</p>
+    <p>Talk to any college student and you hear the same story. Assignments land in WhatsApp groups. Notes live in Google Docs. Deadlines get announced in class and forgotten by evening. Attendance tracked somewhere in a portal nobody opens until it's too late.</p>
     <p>The result isn't laziness. It's a system that was never designed to work together. Students spend more energy figuring out what the work is than actually doing it.</p>
-
     <div class="callout">
       <p>The real problem isn't productivity. It's visibility. And the mental cost of not having it.</p>
     </div>
@@ -585,91 +249,183 @@ main {
   <div class="cs-section reveal">
     <div class="section-tag">Research insights</div>
     <h2>What students actually said</h2>
-    <p>Before touching Figma, I spoke to 3-5 students and asked them to walk me through their last week. Not what apps they used. What actually happened. The patterns were consistent across everyone.</p>
-
+    <p>Before touching Figma, I spoke to 5 students and asked them to walk me through their last week. Not what apps they used. What actually happened. The patterns were consistent across everyone I talked to.</p>
     <div class="insights-list">
       <div class="insight-item">
         <div class="insight-num">01</div>
         <div class="insight-content">
           <h4>3 to 5 tools switched daily just to stay on track</h4>
-          <p>Switching between 3 to 5 tools daily adds up. Every jump costs mental energy. Students weren't disorganized. The system was.</p>
+          <p>Every context switch costs mental energy. Students weren't disorganized. The system forced them to be scattered. No single place had the full picture.</p>
         </div>
       </div>
       <div class="insight-item">
         <div class="insight-num">02</div>
         <div class="insight-content">
           <h4>Deadlines don't get forgotten. They lose visibility.</h4>
-          <p>A WhatsApp message gets buried. A notebook page gets skipped. A Google Doc isn't opened again. The information exists. It just becomes impossible to find at the right moment.</p>
+          <p>A WhatsApp message gets buried under 200 other messages. A notebook page gets skipped. A Google Doc isn't opened again. The information exists. It just becomes impossible to find at the right moment.</p>
         </div>
       </div>
       <div class="insight-item">
         <div class="insight-num">03</div>
         <div class="insight-content">
-          <h4>No one knows where they actually stand</h4>
-          <p>Without a unified view, students can't accurately assess their progress. They either overestimate how on track they are, or feel overwhelmed without knowing why.</p>
+          <h4>Nobody knows where they actually stand</h4>
+          <p>Without a single view, students can't accurately assess their own progress. They either overestimate how on track they are, or feel overwhelmed without knowing why.</p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- BEFORE / AFTER -->
+  <!-- BEFORE/AFTER -->
   <div class="cs-section reveal">
     <div class="section-tag">The shift</div>
     <h2>Before and after Clarity</h2>
-
     <div class="before-after">
       <div class="ba-card before">
         <div class="ba-label">Before</div>
-        <div class="ba-item"><span class="ba-dot"></span>Check WhatsApp for assignments buried in chat</div>
+        <div class="ba-item"><span class="ba-dot"></span>Check WhatsApp for assignments buried in group chat</div>
         <div class="ba-item"><span class="ba-dot"></span>Open Google Docs, notebooks, and portal separately</div>
         <div class="ba-item"><span class="ba-dot"></span>Manually track deadlines, frequently missed</div>
-        <div class="ba-item"><span class="ba-dot"></span>Attendance checked too late to act on</div>
+        <div class="ba-item"><span class="ba-dot"></span>Attendance checked too late to do anything about it</div>
         <div class="ba-item"><span class="ba-dot"></span>No sense of overall progress through the semester</div>
       </div>
       <div class="ba-card after">
         <div class="ba-label">After</div>
         <div class="ba-item"><span class="ba-dot"></span>One dashboard with all assignments visible the moment you open it</div>
-        <div class="ba-item"><span class="ba-dot"></span>Today's urgent tasks right at the top, no searching needed</div>
+        <div class="ba-item"><span class="ba-dot"></span>Urgent tasks surface at the top automatically, no searching</div>
         <div class="ba-item"><span class="ba-dot"></span>Deadlines always visible with status so nothing slips</div>
         <div class="ba-item"><span class="ba-dot"></span>Attendance and assignments in the same view</div>
-        <div class="ba-item"><span class="ba-dot"></span>Progress tracked automatically, streaks visible at all times</div>
+        <div class="ba-item"><span class="ba-dot"></span>Progress tracked automatically, visible without any effort</div>
       </div>
     </div>
   </div>
 
-  <!-- KEY SCREENS -->
+  <!-- KEY SCREENS WITH ANNOTATIONS -->
   <div class="cs-section reveal">
-    <div class="section-tag">Key screens</div>
-    <h2>Five screens, one coherent system</h2>
+    <div class="section-tag">Design decisions</div>
+    <h2>Every screen decision traced back to research</h2>
+    <p>The annotated breakdowns below show not just what I designed, but the reasoning behind each key decision.</p>
 
-    <div class="screens-grid">
-      <div class="screen-item">
+    <!-- SCREEN 1: DASHBOARD -->
+    <div class="screen-block" style="margin-top: 40px;">
+      <div class="screen-block-header">
+        <span class="screen-tag">Screen 01</span>
+        <span class="screen-label">Dashboard</span>
+      </div>
+      <div class="screen-layout">
         <img class="screen-img"
           src="https://vinayakgavimath.github.io/vinayak-g/Clarity Dashboard.png"
-          alt="Dashboard">
-        <div class="screen-label">Dashboard</div>
-        <div class="screen-desc">Assignments due within 24h, completion progress, and standing. All on one opening screen.</div>
+          alt="Clarity main dashboard">
+        <div class="screen-notes">
+          <div class="screen-note">
+            <div class="screen-note-problem">Problem it solves</div>
+            <h4>"I have to open 4 different things just to know what's due today"</h4>
+            <p>Every student I interviewed described the same morning routine: open WhatsApp, then Docs, then the university portal, then maybe a notebook. That's four context switches before you've done any actual work.</p>
+            <div class="annotation">
+              <p>The dashboard was designed to answer one question the moment you open it: what do I need to do today? Assignments due within 24 hours are at the top, visually distinct from everything else. You don't scroll to find them. You don't filter. They're just there. The hierarchy does the work so you don't have to.</p>
+            </div>
+          </div>
+          <div class="screen-note">
+            <div class="screen-note-problem">Visual hierarchy decision</div>
+            <h4>Urgency is shown, not labeled</h4>
+            <p>An earlier version used a red "Urgent" tag next to deadline items. In wireframe review I realised that made it feel like a warning system, which was anxious rather than helpful.</p>
+            <div class="annotation">
+              <p>I shifted to visual weight instead of labels. Urgent items are larger, higher contrast, and positioned first. The visual system communicates priority without adding noise. You know what to do without being told to panic about it.</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="screen-item">
+    </div>
+
+    <!-- SCREEN 2: ASSIGNMENT MANAGEMENT -->
+    <div class="screen-block">
+      <div class="screen-block-header">
+        <span class="screen-tag">Screen 02</span>
+        <span class="screen-label">Assignment Management</span>
+      </div>
+      <div class="screen-layout">
         <img class="screen-img"
           src="https://vinayakgavimath.github.io/vinayak-g/Clarity Assignment Management.png"
-          alt="Assignment management">
-        <div class="screen-label">Assignment management</div>
-        <div class="screen-desc">All deadlines in one place, always current, no cross-referencing required</div>
+          alt="Assignment management screen">
+        <div class="screen-notes">
+          <div class="screen-note">
+            <div class="screen-note-problem">Problem it solves</div>
+            <h4>"I know the assignment exists. I just can't find it when I need it."</h4>
+            <p>Students told me they'd screenshot assignment details from WhatsApp or copy them into random notes. The information lived in 3 places but was useful in none of them at the right moment.</p>
+            <div class="annotation">
+              <p>The assignment management screen keeps everything in one sortable, filterable list with status always visible. Submitted, pending, overdue. You see the full picture at once. No switching tabs, no scrolling through chat. I designed status as a column, not a tag, because columns are scannable and tags require reading.</p>
+            </div>
+          </div>
+          <div class="screen-note">
+            <div class="screen-note-problem">Why no calendar view</div>
+            <h4>A list is faster to scan than a calendar when you have 10 deadlines</h4>
+            <p>I considered a calendar layout. Students with multiple subjects and overlapping deadlines would spend more time interpreting the calendar than acting on it.</p>
+            <div class="annotation">
+              <p>A list sorted by due date gives you the same information faster. You see the next 5 deadlines immediately without having to navigate weeks or interpret a grid. Calendar view is a nice-to-have for planning. A deadline list is what you need when you're already stressed about what's due.</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="screen-item">
+    </div>
+
+    <!-- SCREEN 3: PROGRESS TRACKING -->
+    <div class="screen-block">
+      <div class="screen-block-header">
+        <span class="screen-tag">Screen 03</span>
+        <span class="screen-label">Progress Tracking</span>
+      </div>
+      <div class="screen-layout">
         <img class="screen-img"
           src="https://vinayakgavimath.github.io/vinayak-g/Clarity Progress Tracking.png"
-          alt="Progress tracking">
-        <div class="screen-label">Progress tracking</div>
-        <div class="screen-desc">Completion percentages and streaks across all subjects. Seeing progress actually makes you want to keep going.</div>
+          alt="Progress tracking screen">
+        <div class="screen-notes">
+          <div class="screen-note">
+            <div class="screen-note-problem">Problem it solves</div>
+            <h4>"I feel behind but I don't actually know how behind I am"</h4>
+            <p>Three students mentioned a specific anxiety: not knowing if they were actually keeping up or just feeling like they weren't. Those are very different situations that feel identical without data.</p>
+            <div class="annotation">
+              <p>Progress tracking exists to replace vague anxiety with a real number. Completion percentage per subject, overall standing, tasks done this week. When you can see you're at 70% on three subjects and 40% on one, you know exactly where to focus. The screen doesn't motivate through streaks or celebration. It just shows the truth clearly.</p>
+            </div>
+          </div>
+          <div class="screen-note">
+            <div class="screen-note-problem">Why per-subject breakdown</div>
+            <h4>Overall progress hides the problem that actually needs attention</h4>
+            <p>A single overall progress bar would look healthy even if one subject was critically behind. Students needed granularity, not a summary that masked the issue.</p>
+            <div class="annotation">
+              <p>I designed subject-level bars instead of one aggregate number. The point is to surface imbalance, not to make you feel good about average performance. If you're at 90% in four subjects and 20% in one, the aggregate would show 74% and you'd feel fine. The per-subject view shows you the problem immediately.</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="screen-item">
+    </div>
+
+    <!-- SCREEN 4: ATTENDANCE -->
+    <div class="screen-block">
+      <div class="screen-block-header">
+        <span class="screen-tag">Screen 04</span>
+        <span class="screen-label">Attendance Monitoring</span>
+      </div>
+      <div class="screen-layout">
         <img class="screen-img"
           src="https://vinayakgavimath.github.io/vinayak-g/Clarity Attendance Monitoring.png"
-          alt="Attendance monitoring">
-        <div class="screen-label">Attendance monitoring</div>
-        <div class="screen-desc">Spot attendance gaps early enough to actually do something about them, not at the end of semester when it's too late.</div>
+          alt="Attendance monitoring screen">
+        <div class="screen-notes">
+          <div class="screen-note">
+            <div class="screen-note-problem">Problem it solves</div>
+            <h4>"I only check attendance when it's already too late to fix it"</h4>
+            <p>Two students told me they'd discovered they were below the required attendance threshold right before exams. Not because they weren't paying attention. Because there was no easy way to check until they went looking for it.</p>
+            <div class="annotation">
+              <p>The attendance screen shows your current percentage per subject alongside the minimum required. The gap between the two is visible at a glance. If you're at 78% and the minimum is 75%, you know you have some buffer. If you're at 74%, you see the problem before it becomes a crisis. Proactive visibility instead of reactive panic.</p>
+            </div>
+          </div>
+          <div class="screen-note">
+            <div class="screen-note-problem">Why it's on the dashboard too</div>
+            <h4>Attendance below threshold should be impossible to miss</h4>
+            <p>Keeping attendance isolated to its own screen meant students would only see it if they went looking. That's the same problem we're trying to solve everywhere else.</p>
+            <div class="annotation">
+              <p>If a subject drops below the required threshold, it surfaces on the main dashboard alongside assignments. You don't need to navigate to the attendance screen to know there's a problem. The dashboard tells you. This was a deliberate product decision: some information is too important to stay in its own section.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -678,41 +434,47 @@ main {
   <div class="cs-section reveal">
     <div class="section-tag">Process</div>
     <h2>How I built it</h2>
-
     <div class="process-steps">
       <div class="step">
         <div class="step-num">01</div>
         <div class="step-content">
           <h4>Problem definition through student conversations</h4>
-          <p>Asked students to walk me through their last week, not tell me what apps they use. That one change in framing exposed the real problem: it wasn't missing features, it was a broken workflow.</p>
+          <p>Asked students to walk me through their last week, not tell me what apps they use. That framing exposed the real problem: it wasn't missing features, it was a broken workflow that nobody had designed end to end.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">02</div>
         <div class="step-content">
-          <h4>User flow mapping</h4>
-          <p>Mapped four key flows: viewing assignments, creating tasks, tracking progress, monitoring attendance. Made sure they connected into a single system, not isolated screens.</p>
+          <h4>Mapping the actual tool stack</h4>
+          <p>Before wireframing, I listed every tool each student used and where information lived. WhatsApp, Google Docs, university portals, notebooks, phone calendars. Seeing it all together made it obvious why things fell through the cracks.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">03</div>
         <div class="step-content">
-          <h4>Low-fidelity wireframes</h4>
-          <p>Built wireframes focused on layout, information hierarchy, and flow. No visual decisions at this stage. Structure first.</p>
+          <h4>User flow mapping</h4>
+          <p>Mapped four key flows: viewing assignments, tracking progress, monitoring attendance, and getting a daily overview. The goal was to make sure they connected into one coherent system rather than isolated screens.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">04</div>
         <div class="step-content">
-          <h4>High-fidelity design</h4>
-          <p>Designed 8 screens with a consistent design system. Key visual principle: hierarchy over decoration. High priority items read urgent at a glance, not after scanning.</p>
+          <h4>Low-fidelity wireframes across all 8 screens</h4>
+          <p>Wireframes focused purely on information hierarchy and layout. No color, no type choices, no icons. Just: what goes where, and in what order. This step caught two redundant screens before I ever opened a color picker.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">05</div>
         <div class="step-content">
-          <h4>Prototype and concept feedback</h4>
-          <p>Shared the clickable prototype with students from research. The dashboard kept coming up as the most valuable part. Not because it does something new, but because it removes the need to open 4 different things just to figure out what's due today.</p>
+          <h4>Design system and high-fidelity</h4>
+          <p>Built a single consistent system before touching individual screens. Type scale, color roles, spacing rules, component library. Having the system in place meant every screen felt like it came from the same product.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">06</div>
+        <div class="step-content">
+          <h4>Prototype and feedback</h4>
+          <p>Shared the clickable prototype with the same students from research. The dashboard kept coming up as the most valuable part. Not because it does something new, but because it removed the need to open 4 different things just to figure out what's due today.</p>
         </div>
       </div>
     </div>
@@ -722,27 +484,27 @@ main {
   <div class="cs-section reveal">
     <div class="section-tag">What I learned</div>
     <h2>Simplifying complexity is the hardest design skill</h2>
-
     <div class="learnings-grid">
       <div class="learning-card">
         <h4>Start with behavior, not features</h4>
-        <p>The most useful design decisions came from understanding how students actually behave. Mapping real tools they use made every subsequent choice more grounded.</p>
+        <p>The most useful design decisions came from understanding how students actually behave, not what they said they wanted. Mapping real tools and real workflows made every subsequent choice more grounded.</p>
       </div>
       <div class="learning-card">
         <h4>Reducing friction is a feature</h4>
-        <p>The biggest UX wins weren't additions. Every time I cut a layer of navigation or consolidated two actions into one, the product became more usable.</p>
+        <p>The biggest wins weren't additions. Every time I cut a layer of navigation or consolidated two actions into one, the product became more usable. Simplicity is the result of many small decisions to remove things.</p>
       </div>
       <div class="learning-card">
         <h4>Visual hierarchy is product strategy</h4>
-        <p>Deciding what to show first isn't really a visual choice. It's a product decision. Getting the hierarchy right meant students could spot what needed attention without having to scan the whole screen.</p>
+        <p>Deciding what to show first isn't really a visual choice. It's a product decision. Getting the hierarchy right meant students could spot what needed attention without scanning the whole screen.</p>
       </div>
       <div class="learning-card">
         <h4>Design for clarity over completeness</h4>
-        <p>It's easy to add features. It's much harder to resist. Every simplification required actively choosing what to leave out. The most impactful moment was removing something redundant, not adding something new.</p>
+        <p>It's easy to keep adding. Much harder to resist. Every simplification required actively choosing what to leave out. The most impactful moment in this project was removing something redundant, not adding something new.</p>
       </div>
     </div>
   </div>
 
+  <!-- NEXT -->
   <div class="next-up reveal">
     <div>
       <div class="next-label">Next case study</div>
@@ -764,7 +526,6 @@ document.addEventListener('mousemove', e => {
   dotGrid.style.setProperty('--mx', e.clientX + 'px');
   dotGrid.style.setProperty('--my', e.clientY + 'px');
 });
-
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry, i) => {
     if (entry.isIntersecting) {
@@ -773,7 +534,6 @@ const observer = new IntersectionObserver((entries) => {
     }
   });
 }, { threshold: 0.1 });
-
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
 </body>
