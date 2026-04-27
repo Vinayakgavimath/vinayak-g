@@ -9,7 +9,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 :root {
   --ink: #1c1a17;
   --ink-mid: #6b6560;
@@ -21,10 +20,11 @@
   --border: rgba(28,26,23,0.08);
   --border-mid: rgba(28,26,23,0.15);
   --dot-color: rgba(28,26,23,0.1);
+  --annotation-bg: #fffbf0;
+  --annotation-border: #e8d98a;
+  --annotation-text: #6b5c0a;
 }
-
 html { scroll-behavior: smooth; }
-
 body {
   font-family: 'Geist', sans-serif;
   background: var(--paper);
@@ -34,555 +34,144 @@ body {
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
-
 .dot-grid {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
   background-image: radial-gradient(circle, var(--dot-color) 1px, transparent 1px);
   background-size: 28px 28px;
 }
-
 .dot-grid::after {
-  content: '';
-  position: absolute;
-  inset: 0;
+  content: ''; position: absolute; inset: 0;
   background: radial-gradient(600px circle at var(--mx, 50%) var(--my, 50%), rgba(196,65,12,0.05), transparent 70%);
 }
-
 nav, main, footer { position: relative; z-index: 1; }
 
 nav {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 40px;
-  height: 60px;
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px; height: 60px;
   background: rgba(255,255,255,0.88);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
 }
-
-.nav-logo {
-  font-family: 'Instrument Serif', serif;
-  font-size: 20px;
-  color: var(--ink);
-  text-decoration: none;
-}
-
-.nav-back {
-  font-size: 13px;
-  color: var(--ink-mid);
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  transition: color 0.2s;
-}
+.nav-logo { font-family: 'Instrument Serif', serif; font-size: 20px; color: var(--ink); text-decoration: none; }
+.nav-back { font-size: 13px; color: var(--ink-mid); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
 .nav-back:hover { color: var(--ink); }
 
-main {
-  max-width: 780px;
-  margin: 0 auto;
-  padding: 80px 40px 120px;
-}
+main { max-width: 780px; margin: 0 auto; padding: 80px 40px 120px; }
 
-.cs-eyebrow {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-light);
-  margin-bottom: 16px;
-}
+.cs-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 16px; }
+.cs-title { font-family: 'Instrument Serif', serif; font-size: clamp(44px, 6vw, 64px); letter-spacing: -0.025em; line-height: 1.05; color: var(--ink); margin-bottom: 20px; }
+.cs-subtitle { font-size: 18px; color: var(--ink-mid); line-height: 1.65; font-weight: 300; max-width: 580px; margin-bottom: 40px; }
 
-.cs-title {
-  font-family: 'Instrument Serif', serif;
-  font-size: clamp(44px, 6vw, 64px);
-  letter-spacing: -0.025em;
-  line-height: 1.05;
-  color: var(--ink);
-  margin-bottom: 20px;
-}
+.meta-row { display: flex; gap: 32px; flex-wrap: wrap; padding: 24px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 64px; }
+.meta-label { font-size: 10px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 4px; }
+.meta-val { font-size: 14px; color: var(--ink); }
+.meta-val a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(196,65,12,0.3); padding-bottom: 1px; transition: border-color 0.2s; }
+.meta-val a:hover { border-color: var(--accent); }
 
-.cs-subtitle {
-  font-size: 18px;
-  color: var(--ink-mid);
-  line-height: 1.65;
-  font-weight: 300;
-  max-width: 580px;
-  margin-bottom: 40px;
-}
+.hero-img { width: 100%; border-radius: 16px; border: 1px solid var(--border); display: block; margin-bottom: 80px; background: var(--paper-warm); }
 
-.meta-row {
-  display: flex;
-  gap: 32px;
-  flex-wrap: wrap;
-  padding: 24px 0;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 64px;
-}
+.metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-bottom: 80px; }
+.metric-item { background: var(--paper); padding: 28px 24px; }
+.metric-num { font-family: 'Instrument Serif', serif; font-size: 36px; letter-spacing: -0.02em; color: var(--ink); line-height: 1; margin-bottom: 6px; }
+.metric-num span { font-size: 20px; color: var(--accent); }
+.metric-label { font-size: 13px; color: var(--ink-mid); line-height: 1.5; font-weight: 300; }
 
-.meta-label {
+.cs-section { margin-bottom: 72px; }
+.section-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 16px; }
+.section-tag::before { content: ''; width: 20px; height: 1px; background: var(--ink-light); }
+.cs-section h2 { font-family: 'Instrument Serif', serif; font-size: 32px; letter-spacing: -0.02em; line-height: 1.15; color: var(--ink); margin-bottom: 20px; }
+.cs-section p { font-size: 15px; color: var(--ink-mid); line-height: 1.8; font-weight: 300; margin-bottom: 16px; max-width: 640px; }
+.cs-section p:last-child { margin-bottom: 0; }
+
+.callout { background: var(--paper-warm); border-left: 3px solid var(--accent); border-radius: 0 12px 12px 0; padding: 20px 24px; margin: 32px 0; }
+.callout p { font-family: 'Instrument Serif', serif; font-size: 20px; color: var(--ink); line-height: 1.5; font-style: italic; margin: 0; }
+
+/* ANNOTATION */
+.annotation {
+  background: var(--annotation-bg);
+  border: 1px solid var(--annotation-border);
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin-top: 12px;
+}
+.annotation::before {
+  content: 'Design decision';
+  display: block;
   font-size: 10px;
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--ink-light);
-  margin-bottom: 4px;
-}
-
-.meta-val {
-  font-size: 14px;
-  color: var(--ink);
-}
-
-.meta-val a {
-  color: var(--accent);
-  text-decoration: none;
-  border-bottom: 1px solid rgba(196,65,12,0.3);
-  padding-bottom: 1px;
-  transition: border-color 0.2s;
-}
-.meta-val a:hover { border-color: var(--accent); }
-
-.hero-img {
-  width: 100%;
-  border-radius: 16px;
-  border: 1px solid var(--border);
-  display: block;
-  margin-bottom: 80px;
-  background: var(--paper-warm);
-}
-
-.metrics-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  overflow: hidden;
-  margin-bottom: 80px;
-}
-
-.metric-item {
-  background: var(--paper);
-  padding: 28px 24px;
-}
-
-.metric-num {
-  font-family: 'Instrument Serif', serif;
-  font-size: 36px;
-  letter-spacing: -0.02em;
-  color: var(--ink);
-  line-height: 1;
+  color: var(--annotation-text);
   margin-bottom: 6px;
+  opacity: 0.7;
+}
+.annotation p {
+  font-size: 13px !important;
+  color: var(--annotation-text) !important;
+  line-height: 1.65 !important;
+  font-weight: 400 !important;
+  margin: 0 !important;
+  max-width: 100% !important;
 }
 
-.metric-num span { font-size: 20px; color: var(--accent); }
-
-.metric-label {
-  font-size: 13px;
-  color: var(--ink-mid);
-  line-height: 1.5;
-  font-weight: 300;
+/* SCREEN BLOCKS */
+.screen-block { margin-bottom: 56px; }
+.screen-block-header { display: flex; gap: 8px; align-items: center; margin-bottom: 12px; }
+.screen-tag {
+  font-size: 10px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase;
+  color: var(--accent); background: var(--accent-soft); padding: 3px 10px; border-radius: 100px;
 }
+.screen-label { font-size: 13px; font-weight: 500; color: var(--ink); }
+.screen-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+.screen-img { width: 100%; border-radius: 12px; border: 1px solid var(--border); display: block; background: var(--paper-warm); }
+.screen-notes { display: flex; flex-direction: column; gap: 12px; }
+.screen-note { background: var(--paper-warm); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+.screen-note-problem { font-size: 11px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 4px; }
+.screen-note h4 { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 6px; letter-spacing: -0.01em; }
+.screen-note p { font-size: 13px; color: var(--ink-mid); line-height: 1.65; font-weight: 300; margin: 0; max-width: 100%; }
 
-.cs-section { margin-bottom: 72px; }
+.quotes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 32px 0; }
+.quote-card { background: var(--paper-warm); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+.quote-text { font-size: 14px; color: var(--ink); line-height: 1.65; margin-bottom: 12px; font-style: italic; }
+.quote-attr { font-size: 12px; color: var(--ink-light); font-weight: 500; }
 
-.section-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ink-light);
-  margin-bottom: 16px;
-}
-
-.section-tag::before {
-  content: '';
-  width: 20px;
-  height: 1px;
-  background: var(--ink-light);
-}
-
-.cs-section h2 {
-  font-family: 'Instrument Serif', serif;
-  font-size: 32px;
-  letter-spacing: -0.02em;
-  line-height: 1.15;
-  color: var(--ink);
-  margin-bottom: 20px;
-}
-
-.cs-section p {
-  font-size: 15px;
-  color: var(--ink-mid);
-  line-height: 1.8;
-  font-weight: 300;
-  margin-bottom: 16px;
-  max-width: 640px;
-}
-
-.cs-section p:last-child { margin-bottom: 0; }
-
-.callout {
-  background: var(--paper-warm);
-  border-left: 3px solid var(--accent);
-  border-radius: 0 12px 12px 0;
-  padding: 20px 24px;
-  margin: 32px 0;
-}
-
-.callout p {
-  font-family: 'Instrument Serif', serif;
-  font-size: 20px;
-  color: var(--ink);
-  line-height: 1.5;
-  font-style: italic;
-  margin: 0;
-}
-
-.quotes-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin: 32px 0;
-}
-
-.quote-card {
-  background: var(--paper-warm);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 20px;
-}
-
-.quote-text {
-  font-size: 14px;
-  color: var(--ink);
-  line-height: 1.65;
-  margin-bottom: 12px;
-  font-style: italic;
-}
-
-.quote-attr {
-  font-size: 12px;
-  color: var(--ink-light);
-  font-weight: 500;
-}
-
-.insights-list {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  margin: 32px 0;
-}
-
-.insight-item {
-  display: flex;
-  gap: 20px;
-  padding: 20px 0;
-  border-bottom: 1px solid var(--border);
-  align-items: flex-start;
-}
+.insights-list { display: flex; flex-direction: column; gap: 2px; margin: 32px 0; }
+.insight-item { display: flex; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
 .insight-item:first-child { border-top: 1px solid var(--border); }
+.insight-num { font-family: 'Instrument Serif', serif; font-size: 22px; color: var(--ink-light); line-height: 1; flex-shrink: 0; width: 28px; margin-top: 2px; }
+.insight-content h4 { font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 4px; letter-spacing: -0.01em; }
+.insight-content p { font-size: 13px; color: var(--ink-mid); line-height: 1.6; margin: 0; font-weight: 300; }
 
-.insight-num {
-  font-family: 'Instrument Serif', serif;
-  font-size: 22px;
-  color: var(--ink-light);
-  line-height: 1;
-  flex-shrink: 0;
-  width: 28px;
-  margin-top: 2px;
-}
-
-.insight-content h4 {
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--ink);
-  margin-bottom: 4px;
-  letter-spacing: -0.01em;
-}
-
-.insight-content p {
-  font-size: 13px;
-  color: var(--ink-mid);
-  line-height: 1.6;
-  margin: 0;
-  font-weight: 300;
-}
-
-/* FEATURE SCREENS */
-.features-list {
-  display: flex;
-  flex-direction: column;
-  gap: 48px;
-  margin-top: 40px;
-}
-
-.feature-item {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
-  align-items: center;
-}
-
-.feature-item.reverse { direction: rtl; }
-.feature-item.reverse > * { direction: ltr; }
-
-.feature-img {
-  width: 100%;
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  display: block;
-  background: var(--paper-warm);
-}
-
-.feature-problem {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 8px;
-}
-
-.feature-info h3 {
-  font-family: 'Instrument Serif', serif;
-  font-size: 22px;
-  letter-spacing: -0.015em;
-  color: var(--ink);
-  margin-bottom: 10px;
-  line-height: 1.2;
-}
-
-.feature-info p {
-  font-size: 14px;
-  color: var(--ink-mid);
-  line-height: 1.7;
-  font-weight: 300;
-  margin: 0;
-}
-
-/* SCREENS GRID */
-.screens-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-  margin: 32px 0;
-}
-
-.screen-item {}
-
-.screen-img {
-  width: 100%;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  display: block;
-  margin-bottom: 8px;
-  background: var(--paper-warm);
-}
-
-.screen-label {
-  font-size: 12px;
-  color: var(--ink-mid);
-  font-weight: 400;
-}
-
-.screen-desc {
-  font-size: 12px;
-  color: var(--ink-light);
-  line-height: 1.5;
-  font-weight: 300;
-  margin-top: 3px;
-}
-
-/* V2 CALLOUT */
-.v2-card {
-  background: var(--ink);
-  border-radius: 16px;
-  padding: 32px;
-  margin: 32px 0;
-}
-
-.v2-label {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(247,244,239,0.4);
-  margin-bottom: 12px;
-}
-
-.v2-card h3 {
-  font-family: 'Instrument Serif', serif;
-  font-size: 24px;
-  color: var(--paper);
-  letter-spacing: -0.015em;
-  margin-bottom: 12px;
-  line-height: 1.2;
-}
-
-.v2-card p {
-  font-size: 14px;
-  color: rgba(247,244,239,0.55);
-  line-height: 1.7;
-  font-weight: 300;
-  margin-bottom: 20px;
-}
-
-.v2-feature-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.v2-feature {
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-  font-size: 13px;
-  color: rgba(247,244,239,0.7);
-  font-weight: 300;
-  line-height: 1.5;
-}
-
-.v2-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--accent);
-  flex-shrink: 0;
-  margin-top: 6px;
-}
+/* V2 CARD */
+.v2-card { background: var(--ink); border-radius: 16px; padding: 32px; margin: 32px 0; }
+.v2-label { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(247,244,239,0.4); margin-bottom: 12px; }
+.v2-card h3 { font-family: 'Instrument Serif', serif; font-size: 24px; color: var(--paper); letter-spacing: -0.015em; margin-bottom: 12px; line-height: 1.2; }
+.v2-card p { font-size: 14px; color: rgba(247,244,239,0.55); line-height: 1.7; font-weight: 300; margin-bottom: 20px; }
+.v2-feature-list { display: flex; flex-direction: column; gap: 10px; }
+.v2-feature { display: flex; gap: 12px; align-items: flex-start; font-size: 13px; color: rgba(247,244,239,0.7); font-weight: 300; line-height: 1.5; }
+.v2-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 6px; }
 
 /* PROCESS */
-.process-steps {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  margin-top: 32px;
-}
-
-.step {
-  display: flex;
-  gap: 24px;
-  padding: 24px 0;
-  border-bottom: 1px solid var(--border);
-}
+.process-steps { display: flex; flex-direction: column; gap: 2px; margin-top: 32px; }
+.step { display: flex; gap: 24px; padding: 24px 0; border-bottom: 1px solid var(--border); }
 .step:first-child { border-top: 1px solid var(--border); }
+.step-num { font-family: 'Instrument Serif', serif; font-size: 32px; color: var(--border-mid); line-height: 1; flex-shrink: 0; width: 36px; }
+.step-content h4 { font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 6px; letter-spacing: -0.01em; }
+.step-content p { font-size: 13px; color: var(--ink-mid); line-height: 1.65; font-weight: 300; margin: 0; }
 
-.step-num {
-  font-family: 'Instrument Serif', serif;
-  font-size: 32px;
-  color: var(--border-mid);
-  line-height: 1;
-  flex-shrink: 0;
-  width: 36px;
-}
+.learnings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 32px; }
+.learning-card { background: var(--paper-warm); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+.learning-card h4 { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 8px; }
+.learning-card p { font-size: 13px; color: var(--ink-mid); line-height: 1.65; font-weight: 300; margin: 0; }
 
-.step-content h4 {
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--ink);
-  margin-bottom: 6px;
-  letter-spacing: -0.01em;
-}
-
-.step-content p {
-  font-size: 13px;
-  color: var(--ink-mid);
-  line-height: 1.65;
-  font-weight: 300;
-  margin: 0;
-}
-
-/* LEARNINGS */
-.learnings-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-top: 32px;
-}
-
-.learning-card {
-  background: var(--paper-warm);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 24px;
-}
-
-.learning-card h4 {
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--ink);
-  margin-bottom: 8px;
-}
-
-.learning-card p {
-  font-size: 13px;
-  color: var(--ink-mid);
-  line-height: 1.65;
-  font-weight: 300;
-  margin: 0;
-}
-
-.next-up {
-  margin-top: 80px;
-  padding-top: 48px;
-  border-top: 1px solid var(--border);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.next-label {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ink-light);
-  margin-bottom: 6px;
-}
-
-.next-title {
-  font-family: 'Instrument Serif', serif;
-  font-size: 24px;
-  color: var(--ink);
-}
-
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: var(--ink);
-  color: white;
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 500;
-  padding: 11px 22px;
-  border-radius: 6px;
-  transition: background 0.2s, transform 0.15s;
-  white-space: nowrap;
-}
+.next-up { margin-top: 80px; padding-top: 48px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+.next-label { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 6px; }
+.next-title { font-family: 'Instrument Serif', serif; font-size: 24px; color: var(--ink); }
+.btn-primary { display: inline-flex; align-items: center; gap: 6px; background: var(--ink); color: white; text-decoration: none; font-size: 13px; font-weight: 500; padding: 11px 22px; border-radius: 6px; transition: background 0.2s, transform 0.15s; white-space: nowrap; }
 .btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
 
-.reveal {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1);
-}
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1); }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
 @media (max-width: 680px) {
@@ -590,16 +179,13 @@ main {
   nav { padding: 0 24px; }
   .metrics-grid { grid-template-columns: 1fr; }
   .quotes-grid { grid-template-columns: 1fr; }
-  .feature-item { grid-template-columns: 1fr; }
-  .feature-item.reverse { direction: ltr; }
-  .screens-grid { grid-template-columns: 1fr 1fr; }
+  .screen-layout { grid-template-columns: 1fr; }
   .learnings-grid { grid-template-columns: 1fr; }
   .next-up { flex-direction: column; gap: 20px; align-items: flex-start; }
 }
 </style>
 </head>
 <body>
-
 <div class="dot-grid" id="dotgrid"></div>
 
 <nav>
@@ -618,36 +204,19 @@ main {
 
   <!-- META -->
   <div class="meta-row reveal">
-    <div class="meta-item">
-      <div class="meta-label">Role</div>
-      <div class="meta-val">UX Designer</div>
-    </div>
-    <div class="meta-item">
-      <div class="meta-label">Tools</div>
-      <div class="meta-val">Figma</div>
-    </div>
-    <div class="meta-item">
-      <div class="meta-label">Type</div>
-      <div class="meta-val">Concept project</div>
-    </div>
-    <div class="meta-item">
-      <div class="meta-label">Research</div>
-      <div class="meta-val">6 student interviews</div>
-    </div>
-    <div class="meta-item">
-      <div class="meta-label">Screens</div>
-      <div class="meta-val">10+ screens</div>
-    </div>
+    <div class="meta-item"><div class="meta-label">Role</div><div class="meta-val">UX Designer</div></div>
+    <div class="meta-item"><div class="meta-label">Tools</div><div class="meta-val">Figma &middot; ProtoPie</div></div>
+    <div class="meta-item"><div class="meta-label">Type</div><div class="meta-val">Concept project</div></div>
+    <div class="meta-item"><div class="meta-label">Research</div><div class="meta-val">6 student interviews</div></div>
+    <div class="meta-item"><div class="meta-label">Screens</div><div class="meta-val">11 screens</div></div>
     <div class="meta-item">
       <div class="meta-label">Prototype</div>
-      <div class="meta-val"><a href="https://www.figma.com/proto/nIjEhSXphoCn4h6spc8yly/Priority---Task-App-Redesign?node-id=2-2&p=f&viewport=226%2C442%2C0.13&t=wiDqQc037K3Io8YB-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=2%3A2&show-proto-sidebar=1&page-id=1%3A2" target="_blank">Open in Figma &rarr;</a></div>
+      <div class="meta-val"><a href="https://www.figma.com/proto/nIjEhSXphoCn4h6spc8yly/Priority---Task-App-Redesign?node-id=2-2&p=f&t=wiDqQc037K3Io8YB-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=2%3A2" target="_blank">View Prototype &rarr;</a></div>
     </div>
   </div>
 
-  <!-- HERO IMAGE -->
-  <img class="hero-img reveal"
-    src="Screen 4 - Dashboard Active.png"
-    alt="Priority dashboard active state">
+  <!-- HERO -->
+  <img class="hero-img reveal" src="Screen 4 - Dashboard Active.png" alt="Priority dashboard showing one priority task front and center">
 
   <!-- METRICS -->
   <div class="metrics-grid reveal">
@@ -660,7 +229,7 @@ main {
       <div class="metric-label">Shown at a time. The whole product is built around not overwhelming you with your own list.</div>
     </div>
     <div class="metric-item">
-      <div class="metric-num">10<span>+</span></div>
+      <div class="metric-num">11<span>+</span></div>
       <div class="metric-label">Screens designed including onboarding, dashboard, widget states, and V2 snooze flow.</div>
     </div>
   </div>
@@ -672,7 +241,6 @@ main {
     <p>I built this because I kept missing my own deadlines. Not because I forgot. Because I'd add a task, close the app, and never see it again unless I deliberately went looking for it.</p>
     <p>I noticed the same thing with other students. Didn't matter which app they used: Notion, Google Tasks, a calendar, sticky notes. The problem kept showing up. You add the task. Then it disappears into a list. Then you miss it.</p>
     <p>The apps weren't broken. The visibility was.</p>
-
     <div class="quotes-grid">
       <div class="quote-card">
         <div class="quote-text">"I write it down and then never look at it again."</div>
@@ -698,26 +266,23 @@ main {
     <div class="section-tag">Research insight</div>
     <h2>The answer was hiding in sticky notes</h2>
     <p>A few students I talked to had gone back to physical sticky notes. That surprised me at first. But once I sat with it, it made complete sense.</p>
-    <p>A sticky note on your desk doesn't go anywhere. You can't swipe it away or close the tab. You don't need to remember to open it. It just sits there until the task is actually done.</p>
-    <p>That's when I stopped thinking about better notifications and started thinking about presence. The task needs to live somewhere you already look, not somewhere you have to go.</p>
-
+    <p>A sticky note on your desk doesn't go anywhere. You can't swipe it away or close the tab. It just sits there until the task is actually done. That's when I stopped thinking about better notifications and started thinking about presence.</p>
     <div class="callout">
       <p>The fix wasn't a smarter reminder. It was just keeping the task somewhere you'd see it anyway, without having to do anything.</p>
     </div>
-
     <div class="insights-list">
       <div class="insight-item">
         <div class="insight-num">01</div>
         <div class="insight-content">
           <h4>Reminders don't stick</h4>
-          <p>You see them, tap dismiss, and they're gone. If I'd built a smarter notification system, I'd have solved the wrong problem. Students weren't missing reminders. They were ignoring them.</p>
+          <p>You see them, tap dismiss, and they're gone. Students weren't missing reminders. They were ignoring them. Building a smarter notification system would have solved the wrong problem entirely.</p>
         </div>
       </div>
       <div class="insight-item">
         <div class="insight-num">02</div>
         <div class="insight-content">
           <h4>A long task list doesn't help you decide</h4>
-          <p>Students with full Notion pages and long to-do lists weren't getting more done. If anything, seeing everything at once made it harder to start. Too much choice, not enough direction.</p>
+          <p>Students with full Notion pages weren't getting more done. Seeing everything at once made it harder to start. Too much choice, not enough direction.</p>
         </div>
       </div>
       <div class="insight-item">
@@ -730,98 +295,196 @@ main {
     </div>
   </div>
 
-  <!-- KEY SCREENS -->
+  <!-- KEY SCREENS WITH ANNOTATIONS -->
   <div class="cs-section reveal">
-    <div class="section-tag">Key screens</div>
-    <h2>One priority task. Always in front of you.</h2>
-    <p>Everything in the product connects back to one thing: the task needs to be somewhere you already look. The dashboard, the lock screen, the home screen widget. Wherever your eyes go during the day, the task is there.</p>
+    <div class="section-tag">Design decisions</div>
+    <h2>Every screen decision traced back to research</h2>
+    <p>The annotated breakdowns below show not just what I designed, but why each decision was made and what it was trying to solve.</p>
 
-    <div class="features-list">
-      <div class="feature-item">
-        <img class="feature-img"
-          src="Screen 4 - Dashboard Active.png"
-          alt="Dashboard active state">
-        <div class="feature-info">
-          <div class="feature-problem">Core screen</div>
-          <h3>One task, front and center</h3>
-          <p>Instead of a full task list, the dashboard shows one thing: your priority for today. Everything else is still there, but it doesn't compete for attention. I spent a lot of time on this screen getting the hierarchy right. If it shows too much, it becomes another list to ignore.</p>
-        </div>
+    <!-- SCREEN 1: DASHBOARD -->
+    <div class="screen-block" style="margin-top: 40px;">
+      <div class="screen-block-header">
+        <span class="screen-tag">Screen 01</span>
+        <span class="screen-label">Dashboard: One task, front and center</span>
       </div>
-
-      <div class="feature-item reverse">
-        <img class="feature-img"
-          src="Screen 9 - Widget Preview.png"
-          alt="Lock screen and home screen widget">
-        <div class="feature-info">
-          <div class="feature-problem">Always visible</div>
-          <h3>Lock screen and home screen widget</h3>
-          <p>The priority task shows up on the lock screen and as a home screen widget. You see it without opening the app. That's the whole point. It has to be there whether you look for it or not.</p>
-        </div>
-      </div>
-
-      <div class="feature-item">
-        <img class="feature-img"
-          src="Screen 11 - Progress.png"
-          alt="Progress and streak tracking">
-        <div class="feature-info">
-          <div class="feature-problem">Motivation layer</div>
-          <h3>Streak and progress tracking</h3>
-          <p>Completing your priority task builds a streak. A few students in testing said the streak was the main reason they kept opening the app. It gave them a small sense of momentum that a flat task list never did. I almost cut it as unnecessary. Glad I didn't.</p>
+      <div class="screen-layout">
+        <img class="screen-img" src="Screen 4 - Dashboard Active.png" alt="Priority dashboard active state">
+        <div class="screen-notes">
+          <div class="screen-note">
+            <div class="screen-note-problem">Problem it solves</div>
+            <h4>"I open the app and don't know where to start"</h4>
+            <p>Every student I talked to had too many tasks competing for attention. The result was decision paralysis. They'd open the app, look at the list, and close it without doing anything.</p>
+            <div class="annotation">
+              <p>I spent the most time on this screen. The principle was simple: show one thing. Your priority for today. Everything else is still there but hidden unless you ask for it. If two tasks compete for the top spot, the screen breaks down. So I designed it so you pick one task each day, deliberately, and that's what you see. No negotiation once it's set.</p>
+            </div>
+          </div>
+          <div class="screen-note">
+            <div class="screen-note-problem">Visual hierarchy</div>
+            <h4>If everything is highlighted, nothing is</h4>
+            <p>Earlier versions had the task name, due date, category, priority level, and a progress bar all visible at once. It looked complete. It was overwhelming.</p>
+            <div class="annotation">
+              <p>I stripped the dashboard back to three things: the task name, a single action button, and the streak. That's it. Every element I removed made the task itself more visible. The rule I kept coming back to: if adding something doesn't make the priority clearer, cut it.</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    <div style="margin-top: 56px;">
-      <div class="section-tag" style="margin-bottom: 24px;">All screens</div>
-      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
-        <div><img style="width:100%;border-radius:10px;border:1px solid var(--border);display:block;margin-bottom:6px;" src="Screen 1 - Onboarding Splash.png" alt="Onboarding splash"><div style="font-size:12px;color:var(--ink-mid);">Onboarding splash</div></div>
-        <div><img style="width:100%;border-radius:10px;border:1px solid var(--border);display:block;margin-bottom:6px;" src="Screen 2 - Onboarding Value Prop.png" alt="Value prop"><div style="font-size:12px;color:var(--ink-mid);">Value proposition</div></div>
-        <div><img style="width:100%;border-radius:10px;border:1px solid var(--border);display:block;margin-bottom:6px;" src="Screen 3 - Onboarding Set First Task.png" alt="Set first task"><div style="font-size:12px;color:var(--ink-mid);">Set first task</div></div>
-        <div><img style="width:100%;border-radius:10px;border:1px solid var(--border);display:block;margin-bottom:6px;" src="Screen 4 - Dashboard Active.png" alt="Dashboard"><div style="font-size:12px;color:var(--ink-mid);">Dashboard</div></div>
-        <div><img style="width:100%;border-radius:10px;border:1px solid var(--border);display:block;margin-bottom:6px;" src="Screen 5 - Dashboard Empty State.png" alt="Empty state"><div style="font-size:12px;color:var(--ink-mid);">Empty state</div></div>
-        <div><img style="width:100%;border-radius:10px;border:1px solid var(--border);display:block;margin-bottom:6px;" src="Screen 6 - Add Task.png" alt="Add task"><div style="font-size:12px;color:var(--ink-mid);">Add task</div></div>
-        <div><img style="width:100%;border-radius:10px;border:1px solid var(--border);display:block;margin-bottom:6px;" src="Screen 7 - Task Detail %26 Snooze.png" alt="Task detail and snooze"><div style="font-size:12px;color:var(--ink-mid);">Task detail + snooze</div></div>
-        <div><img style="width:100%;border-radius:10px;border:1px solid var(--border);display:block;margin-bottom:6px;" src="Screen 8 - Task Completed.png" alt="Task completed"><div style="font-size:12px;color:var(--ink-mid);">Task completed</div></div>
-        <div><img style="width:100%;border-radius:10px;border:1px solid var(--border);display:block;margin-bottom:6px;" src="Screen 9 - Widget Preview.png" alt="Widget preview"><div style="font-size:12px;color:var(--ink-mid);">Widget preview</div></div>
-        <div><img style="width:100%;border-radius:10px;border:1px solid var(--border);display:block;margin-bottom:6px;" src="Screen 10 - All Tasks.png" alt="All tasks"><div style="font-size:12px;color:var(--ink-mid);">All tasks</div></div>
-        <div><img style="width:100%;border-radius:10px;border:1px solid var(--border);display:block;margin-bottom:6px;" src="Screen 11 - Progress.png" alt="Progress"><div style="font-size:12px;color:var(--ink-mid);">Progress</div></div>
+    <!-- SCREEN 2: WIDGET -->
+    <div class="screen-block">
+      <div class="screen-block-header">
+        <span class="screen-tag">Screen 02</span>
+        <span class="screen-label">Lock Screen and Home Screen Widget</span>
+      </div>
+      <div class="screen-layout">
+        <img class="screen-img" src="Screen 9 - Widget Preview.png" alt="Lock screen and widget preview">
+        <div class="screen-notes">
+          <div class="screen-note">
+            <div class="screen-note-problem">Problem it solves</div>
+            <h4>"I have to remember to open the app"</h4>
+            <p>The core insight from sticky notes was that you don't go looking for them. They're just there. That's exactly what the lock screen and widget were designed to replicate.</p>
+            <div class="annotation">
+              <p>The widget and lock screen integration aren't extra features. They're the whole point. The task has to exist somewhere you already look, not somewhere you have to go. Your phone lock screen is something you see 50 to 100 times a day without trying. Putting the task there removes any dependency on memory or habit.</p>
+            </div>
+          </div>
+          <div class="screen-note">
+            <div class="screen-note-problem">Why not just notifications</div>
+            <h4>Notifications get dismissed. Widgets don't.</h4>
+            <p>Three of the 6 users I interviewed had push notifications turned off for most apps. They'd trained themselves to ignore pings. A widget is persistent. It doesn't go away when you swipe it.</p>
+            <div class="annotation">
+              <p>This was the key distinction I kept coming back to. Notifications are interruptive and dismissible. Widgets are ambient and persistent. One asks for your attention. The other just exists in your peripheral vision until the task is done. That's a completely different relationship with the user.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 3: STREAK -->
+    <div class="screen-block">
+      <div class="screen-block-header">
+        <span class="screen-tag">Screen 03</span>
+        <span class="screen-label">Streak and Progress Tracking</span>
+      </div>
+      <div class="screen-layout">
+        <img class="screen-img" src="Screen 11 - Progress.png" alt="Progress and streak screen">
+        <div class="screen-notes">
+          <div class="screen-note">
+            <div class="screen-note-problem">Problem it solves</div>
+            <h4>Completing one task doesn't feel like progress</h4>
+            <p>A few students mentioned that task apps gave them no sense of momentum. You complete something, it disappears, and the list just gets shorter. There's no feeling of moving forward.</p>
+            <div class="annotation">
+              <p>I almost cut the streak entirely. It felt like a gimmick. But in testing, 4 out of 6 users said it was the main reason they kept coming back. Not the task itself, the streak. It turns a single daily action into a chain you don't want to break. That's behavioral design that actually works, not just decoration.</p>
+            </div>
+          </div>
+          <div class="screen-note">
+            <div class="screen-note-problem">Why it sits on its own screen</div>
+            <h4>Kept separate from the task on purpose</h4>
+            <p>I didn't put the streak counter on the main dashboard because I didn't want users thinking about the streak while they were trying to focus on the task.</p>
+            <div class="annotation">
+              <p>Progress is a reward, not a distraction. You go to the progress screen after completing your task, not before. That order matters. If the streak is always in your face, it shifts the motivation from doing the work to protecting the number. Those are different things.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 4: ADD TASK -->
+    <div class="screen-block">
+      <div class="screen-block-header">
+        <span class="screen-tag">Screen 04</span>
+        <span class="screen-label">Add Task</span>
+      </div>
+      <div class="screen-layout">
+        <img class="screen-img" src="Screen 6 - Add Task.png" alt="Add task screen">
+        <div class="screen-notes">
+          <div class="screen-note">
+            <div class="screen-note-problem">Problem it solves</div>
+            <h4>Adding a task should take less thought than doing it</h4>
+            <p>If capturing a task takes more effort than it feels worth, people just don't do it. They keep it in their head instead, which is worse.</p>
+            <div class="annotation">
+              <p>The add task screen has one required field: what is the task. Everything else, time, category, notes, is optional and collapsed. The assumption I designed around was that most tasks don't need metadata. They just need to be captured before the thought disappears. You can always add more detail later.</p>
+            </div>
+          </div>
+          <div class="screen-note">
+            <div class="screen-note-problem">Why only one task at a time</div>
+            <h4>You can add more. Only one shows on the dashboard.</h4>
+            <p>Some users worried they couldn't add a backlog of tasks. They can. But only the one they mark as today's priority appears on the dashboard and widget.</p>
+            <div class="annotation">
+              <p>This was the question that came up most in testing: "What if I have more than one task?" You can see all of them in the all tasks view. But the dashboard forces a choice. Which one matters most today? That question is the product. Making users answer it once a day is the whole behavioral design.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 5: SNOOZE -->
+    <div class="screen-block">
+      <div class="screen-block-header">
+        <span class="screen-tag">Screen 05</span>
+        <span class="screen-label">Task Detail and Snooze (V2)</span>
+      </div>
+      <div class="screen-layout">
+        <img class="screen-img" src="Screen 7 - Task Detail %26 Snooze.png" alt="Task detail with snooze options">
+        <div class="screen-notes">
+          <div class="screen-note">
+            <div class="screen-note-problem">What broke my assumption</div>
+            <h4>"What if the task itself is stressing me out?"</h4>
+            <p>One student in testing said something I hadn't prepared for. She didn't want to see the task all day because it was making her anxious, not motivated. I'd assumed more visibility was always better. That was wrong.</p>
+            <div class="annotation">
+              <p>That single comment sent me back to redesign. I added a snooze option: hide the task for a set time without deleting it or breaking your streak. The streak pauses, not resets. You're not punished for needing a break, just gently nudged when you're ready. That one user saved this feature from never existing.</p>
+            </div>
+          </div>
+          <div class="screen-note">
+            <div class="screen-note-problem">Why snooze and not delete</div>
+            <h4>Deleting a task is admitting defeat. Snoozing isn't.</h4>
+            <p>Psychologically those are very different actions. Deleting a task removes it permanently. Snoozing just moves it forward. Users are much more willing to snooze than delete something they actually want to do.</p>
+            <div class="annotation">
+              <p>I designed three snooze options: 1 hour, tomorrow morning, and this weekend. These aren't arbitrary. They map to real mental states. "1 hour" means I need a break. "Tomorrow" means today isn't the day. "Weekend" means this is a project task, not a daily one. Each option respects a different relationship with the task.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- V2 SNOOZE -->
+  <!-- ALL SCREENS GRID -->
+  <div class="cs-section reveal">
+    <div class="section-tag">All screens</div>
+    <h2>The full flow</h2>
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 24px;">
+      <div><img style="width:100%;border-radius:10px;border:1px solid var(--border);display:block;margin-bottom:6px;" src="Screen 1 - Onboarding Splash.png" alt="Onboarding splash"><div style="font-size:12px;color:var(--ink-mid);">Onboarding splash</div></div>
+      <div><img style="width:100%;border-radius:10px;border:1px solid var(--border);display:block;margin-bottom:6px;" src="Screen 2 - Onboarding Value Prop.png" alt="Value prop"><div style="font-size:12px;color:var(--ink-mid);">Value proposition</div></div>
+      <div><img style="width:100%;border-radius:10px;border:1px solid var(--border);display:block;margin-bottom:6px;" src="Screen 3 - Onboarding Set First Task.png" alt="Set first task"><div style="font-size:12px;color:var(--ink-mid);">Set first task</div></div>
+      <div><img style="width:100%;border-radius:10px;border:1px solid var(--border);display:block;margin-bottom:6px;" src="Screen 4 - Dashboard Active.png" alt="Dashboard"><div style="font-size:12px;color:var(--ink-mid);">Dashboard</div></div>
+      <div><img style="width:100%;border-radius:10px;border:1px solid var(--border);display:block;margin-bottom:6px;" src="Screen 5 - Dashboard Empty State.png" alt="Empty state"><div style="font-size:12px;color:var(--ink-mid);">Empty state</div></div>
+      <div><img style="width:100%;border-radius:10px;border:1px solid var(--border);display:block;margin-bottom:6px;" src="Screen 6 - Add Task.png" alt="Add task"><div style="font-size:12px;color:var(--ink-mid);">Add task</div></div>
+      <div><img style="width:100%;border-radius:10px;border:1px solid var(--border);display:block;margin-bottom:6px;" src="Screen 7 - Task Detail %26 Snooze.png" alt="Task detail"><div style="font-size:12px;color:var(--ink-mid);">Task detail + snooze</div></div>
+      <div><img style="width:100%;border-radius:10px;border:1px solid var(--border);display:block;margin-bottom:6px;" src="Screen 8 - Task Completed.png" alt="Completed"><div style="font-size:12px;color:var(--ink-mid);">Task completed</div></div>
+      <div><img style="width:100%;border-radius:10px;border:1px solid var(--border);display:block;margin-bottom:6px;" src="Screen 9 - Widget Preview.png" alt="Widget"><div style="font-size:12px;color:var(--ink-mid);">Widget preview</div></div>
+      <div><img style="width:100%;border-radius:10px;border:1px solid var(--border);display:block;margin-bottom:6px;" src="Screen 10 - All Tasks.png" alt="All tasks"><div style="font-size:12px;color:var(--ink-mid);">All tasks</div></div>
+      <div><img style="width:100%;border-radius:10px;border:1px solid var(--border);display:block;margin-bottom:6px;" src="Screen 11 - Progress.png" alt="Progress"><div style="font-size:12px;color:var(--ink-mid);">Progress</div></div>
+    </div>
+  </div>
+
+  <!-- V2 SECTION -->
   <div class="cs-section reveal">
     <div class="section-tag">Version 2</div>
     <h2>When testing broke my assumption</h2>
-    <p>I showed the prototype to the same 6 students from earlier. Most of it landed well. The single task focus made sense to them. The widget idea made sense.</p>
+    <p>I showed the prototype to the same 6 students from earlier. Most of it landed well. The single task focus made sense. The widget idea made sense.</p>
     <p>But one student said something I wasn't ready for:</p>
-
     <div class="callout">
       <p>"What if the task itself is stressing me out? I don't want to see it all day."</p>
     </div>
-
-    <p>That broke something I hadn't even thought to question. I'd assumed that more visibility was always better. This showed me it isn't. Sometimes the task is the source of the anxiety, and staring at it all day makes things worse, not better.</p>
-    <p>So I went back and designed a snooze feature for V2. Not to hide the task permanently, just to give some breathing room. You step back for a bit. It comes back when you're ready. That one comment was probably the most valuable thing that came out of testing the whole project.</p>
-
-    <img style="width:100%;max-width:280px;display:block;margin:24px auto;border-radius:12px;border:1px solid var(--border);" src="Screen 7 - Task Detail %26 Snooze.png" alt="Task detail with snooze options">
-
+    <p>That broke something I hadn't thought to question. I'd assumed more visibility was always better. This showed me it isn't. Sometimes the task is the source of the anxiety, and staring at it all day makes things worse.</p>
+    <p>So I went back and designed a snooze feature. Not to hide the task permanently, just to give some breathing room. That one comment was probably the most valuable thing that came out of testing the whole project.</p>
     <div class="v2-card">
       <div class="v2-label">V2 additions</div>
       <h3>What changed after testing</h3>
-      <p>Three things I designed for the next version based on what I heard from real users.</p>
+      <p>Three things I designed for the next version based on real user feedback.</p>
       <div class="v2-feature-list">
-        <div class="v2-feature">
-          <span class="v2-dot"></span>
-          Snooze option that hides the task temporarily without deleting it or losing your streak
-        </div>
-        <div class="v2-feature">
-          <span class="v2-dot"></span>
-          Breathing mode: a 5-minute focus break that pauses visibility without breaking the flow
-        </div>
-        <div class="v2-feature">
-          <span class="v2-dot"></span>
-          Customizable widget intensity: choose how prominent the task appears on your lock screen
-        </div>
+        <div class="v2-feature"><span class="v2-dot"></span>Snooze option that hides the task temporarily without deleting it or resetting your streak</div>
+        <div class="v2-feature"><span class="v2-dot"></span>Breathing mode: a short focus break that pauses visibility without breaking the flow</div>
+        <div class="v2-feature"><span class="v2-dot"></span>Customisable widget intensity: choose how prominent the task appears on your lock screen</div>
       </div>
     </div>
   </div>
@@ -830,13 +493,12 @@ main {
   <div class="cs-section reveal">
     <div class="section-tag">Process</div>
     <h2>How I built it</h2>
-
     <div class="process-steps">
       <div class="step">
         <div class="step-num">01</div>
         <div class="step-content">
           <h4>Started with my own frustration</h4>
-          <p>I kept missing deadlines despite having a task app. That was the starting point. I wanted to understand if other students had the same problem before assuming it was just me.</p>
+          <p>I kept missing deadlines despite having a task app. I wanted to know if other students had the same problem before assuming it was just me.</p>
         </div>
       </div>
       <div class="step">
@@ -850,7 +512,7 @@ main {
         <div class="step-num">03</div>
         <div class="step-content">
           <h4>Mapping the core behavioral loop</h4>
-          <p>Mapped three moments: adding a task, staying aware of it, completing it. Almost scrapped this step. Glad I didn't. It caught two screens I didn't need and simplified the whole flow.</p>
+          <p>Mapped three moments: adding a task, staying aware of it, completing it. Almost skipped this step. Glad I didn't. It caught two screens I didn't need and simplified the whole flow.</p>
         </div>
       </div>
       <div class="step">
@@ -881,15 +543,14 @@ main {
   <div class="cs-section reveal">
     <div class="section-tag">What I learned</div>
     <h2>I almost built the wrong product</h2>
-
     <div class="learnings-grid">
       <div class="learning-card">
         <h4>Research corrected my first instinct</h4>
-        <p>I went into this thinking I'd build a smarter reminder system. But students were already tuning reminders out. I would have shipped something that looked good and solved nothing. Talking to people first saved me from that.</p>
+        <p>I went in thinking I'd build a smarter reminder system. But students were already tuning reminders out. I would have shipped something that looked good and solved nothing. Talking to people first saved me from that.</p>
       </div>
       <div class="learning-card">
         <h4>One clear principle makes every decision easier</h4>
-        <p>"The task should be there without you looking for it." That one sentence filtered every feature decision. If it didn't support that, it didn't go in. Having a principle like that is genuinely useful, not just something you write in a case study.</p>
+        <p>"The task should be there without you looking for it." That sentence filtered every feature decision. If it didn't support that, it didn't go in. Having a real principle like that is useful beyond case studies.</p>
       </div>
       <div class="learning-card">
         <h4>Your best assumptions will still be wrong</h4>
@@ -897,7 +558,7 @@ main {
       </div>
       <div class="learning-card">
         <h4>Simple products require more thinking, not less</h4>
-        <p>One task on screen sounds like the easy option. But it took the most work to get right. Which task? What if the user ignores it? What happens after it's done? Simple to use doesn't mean simple to design.</p>
+        <p>One task on screen sounds easy. But it took the most work to get right. Which task? What if the user ignores it? What happens after it's done? Simple to use doesn't mean simple to design.</p>
       </div>
     </div>
   </div>
@@ -905,10 +566,10 @@ main {
   <!-- NEXT -->
   <div class="next-up reveal">
     <div>
-      <div class="next-label">Back to work</div>
-      <div class="next-title">See all projects</div>
+      <div class="next-label">Next case study</div>
+      <div class="next-title">Clarity &rarr;</div>
     </div>
-    <a href="index.html#work" class="btn-primary">View all case studies &rarr;</a>
+    <a href="clarity.html" class="btn-primary">View case study &rarr;</a>
   </div>
 
 </main>
@@ -924,7 +585,6 @@ document.addEventListener('mousemove', e => {
   dotGrid.style.setProperty('--mx', e.clientX + 'px');
   dotGrid.style.setProperty('--my', e.clientY + 'px');
 });
-
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry, i) => {
     if (entry.isIntersecting) {
@@ -933,7 +593,6 @@ const observer = new IntersectionObserver((entries) => {
     }
   });
 }, { threshold: 0.1 });
-
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
 </body>
